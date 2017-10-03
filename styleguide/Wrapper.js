@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import reducer from '../src/app/components/reducers';
+import { Provider } from 'react-redux';
+import {createStore, applyMiddleware } from 'redux';
+import reducer from '../src/app/redux/reducers';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import { createLogger } from 'redux-logger';
@@ -9,14 +9,14 @@ import i18n from '../src/app/utils/i18n';
 import { I18nextProvider } from 'react-i18next';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/styles/colors';
+import { deepOrange500 } from 'material-ui/styles/colors';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
   },
-})
+});
 const logger = createLogger();
 const configureStore = createStore(
     reducer,
