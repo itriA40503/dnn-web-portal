@@ -34,13 +34,15 @@ export const ApiSIGNIN = ApiURL + '/user/signin';
 export const ApiCreateSchedule = ApiURL + '/user/schedule/';
 export const ApiCheckInstance = ApiURL + '/machine/remain';
 export const ApiGetCalendar = ApiURL + '/machine/calendar/';
-export const ApiGetInfo = ApiURL + '/user/schedule';
+export const ApiGetInfo = ApiURL + '/user/schedules';
 export const ApiDeleteSchedule = ApiURL + '/user/schedule/';
 export const ApiGetExtDate = ApiURL + '/user/schedule/';
 export const ApiPutExtDate = ApiURL + '/user/schedule/';
+export const ApiGetHistory = ApiURL + '/user/schedules/history';
 export const ApiGetImage = ApiURL + '/image/';
 export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machine/';
+
 // FTP
 export const FTPHost = ftp.host;
 export const FTPPort = ftp.port;
@@ -275,11 +277,20 @@ function readFile(OrgProject) {
   });
   return all;
 }
-export const getInfo = async (token, mode) => {
+export const getInfo = async (token) => {
   const result = await axios
   .get(ApiGetInfo, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
-    params: { mode },
+  })
+  .then(res => res)
+  .catch(err => err);
+  return result;
+};
+
+export const getHistory = async (token) => {
+  const result = await axios
+  .get(ApiGetHistory, {
+    headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
   .then(res => res)
   .catch(err => err);
