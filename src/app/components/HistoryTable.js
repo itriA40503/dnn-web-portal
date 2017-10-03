@@ -21,7 +21,7 @@ import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 import DetailModal from './DetailModal';
 // API call
-import { getInfo } from '../resource';
+import { getHistory } from '../resource';
 
 import { errorNotify } from './Notify/actionNotify';
 
@@ -91,7 +91,7 @@ class HistoryTable extends Component {
   getData = async () => {
     try {
       this.setState({ loading: true });
-      const api = await getInfo(this.props.token, 'history');
+      const api = await getHistory(this.props.token);
       // console.log(api)
       // this.dummyAsync(()=>
 

@@ -92,7 +92,7 @@ class ReviewTable extends Component {
   getData = async () => {
     try {
       this.setState({ loading: true });
-      const api = await getInfo(this.props.token, 'booked');
+      const api = await getInfo(this.props.token);
       console.log(api);
       if (api.data.schedules) {
         this.dummyAsync(() => {
