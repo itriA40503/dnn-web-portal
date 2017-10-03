@@ -1,15 +1,15 @@
 # DNN webportal #
 
 ## What is this repository for? ##
-------
+
 * This webportal for creating instance to run DNN.
 * Version 0.4.0
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
 ## Outline ##
------
-* [What is this repository for-?](#what-is-this-repository-for-?)
+
+* [What is this repository for ?](#what-is-this-repository-for-?)
 * [Features](#features)
 * [Docker Image](#docker-image)
     * [Naming of Image](#naming-of-image)
@@ -35,6 +35,7 @@
     * [report.app.html](#report.app.html)
     * [report.dll.html](#report.dll.html)
     * [Other Analysis tools](#other-analysis-tools)
+* [Directory Layout](#directory-layout)
 * [Google analytics Event data](#google-analytics-event-data)
     * [Anatomy of Events](#anatomy-of-Events)
     * [Webportal events](#webportal-events)
@@ -46,7 +47,7 @@
 * [Change log](#change-log)
 
 ## Features ##
-------
+
 * SignIn & SignOut
 * Dynamic generate PDF
 * Material style
@@ -64,7 +65,6 @@
 * Docker image
 
 ## Docker Image ##
-------
 
 ### naming of Image ###
 
@@ -169,16 +169,16 @@ docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ```
 
 ## Webportal Requirement ##
-------
+
 * NOT support IE
 
 ## Develop Requirement ##
-------
+
 * npm > 5.0.4
 * nodejs > 6.10.0
 
 ## Code Style ##
-------
+
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
 On `.eslintrc` will ignore some rule.
@@ -191,7 +191,6 @@ npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugi
 ```
 
 ## How do I get set up from this porject ##
-------
 
 Ask for developer to get access privileges, then you can clone or fork.
 ```
@@ -246,7 +245,7 @@ npm run build
 * the files will generate in build folder
 
 ## Built With
-------
+
 * [Reactjs](https://facebook.github.io/react/)
 * [Babel](https://babeljs.io/)
 * [Redux](https://github.com/reactjs/redux)
@@ -256,7 +255,7 @@ npm run build
 * [react-ga](https://github.com/react-ga/react-ga)
 
 ## Package With
-------
+
 * [Webpack](https://github.com/webpack/webpack) - module bundler
 	* [UglifyJS](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) - minify JavaScript
 	* [Compression](https://github.com/webpack-contrib/compression-webpack-plugin) - compressed static assets
@@ -264,7 +263,6 @@ npm run build
 	* [DllPlugin](https://webpack.js.org/plugins/dll-plugin/) - split bundles
 
 ## Package Analysis ##
-------
 
 **Different cpu have different result**
 
@@ -300,8 +298,94 @@ npm run build
 	* webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
 	* webpack-chart - https://alexkuz.github.io/webpack-chart/
 
+## Directory Layout ##
+
+```bash
+├─build/                        # Build files
+│          
+├─ca/                           # Certificate Authority
+│      
+├─docker/                       # Dockerfiles
+│      
+├─node_modules/                 # 3rd-party libraries and utilities
+│          
+├─src                           # Application source code
+│  ├─app
+│  │  │  app.js                 # Aplication shell component
+│  │  │  Main.js                # Layout component
+│  │  │  
+│  │  ├─components              # Aplication Components
+│  │  │  │  DeleteModal.js      # Delete Modal component
+│  │  │  │  DetailModal.js      # Detail Modal component
+│  │  │  │  EditModal.js        # Edit Modal component
+│  │  │  │  Footer.js           # Footer component
+│  │  │  │  FtpInfoModal.js     # Ftp Information Modal component
+│  │  │  │  GpuHandler.js       # Gpu chip component
+│  │  │  │  HistoryTable.js     # HistoryTable component
+│  │  │  │  HoverDiv.js         # Hover Div component
+│  │  │  │  LanguageBtn.js      # Language Button component
+│  │  │  │  MainContainer.js    # Main Container component
+│  │  │  │  ReviewTable.js      # Review Table component
+│  │  │  │  SigninFrom.js       # Signin page component
+│  │  │  │  SshWebBtn.js        # SshWeb Button component
+│  │  │  │  StatusHandler.js    # Status chip component
+│  │  │  │  TutorialBtn.js      # Tutorial Button component
+│  │  │  │  
+│  │  │  ├─Admin/               # Admin control with redux
+│  │  │  │      
+│  │  │  ├─Charts/              # Chart components
+│  │  │  │      
+│  │  │  ├─CreatePage/          # Create Page components
+│  │  │  │      
+│  │  │  ├─Notify/              # Notify control with redux
+│  │  │  │      
+│  │  │  ├─reducers/            # redux reducers
+│  │  │  │      
+│  │  │  └─ReviewCalendar/      # ReviewCalendar components
+│  │  │
+│  │  ├─image/                  # images
+│  │  │          
+│  │  ├─myTheme/                # Theme
+│  │  │      
+│  │  ├─plugin/                 # Plugins (font)
+│  │  │          
+│  │  ├─resource                # Datas
+│  │  │      api.json           # API's IP & Port
+│  │  │      ftp.json           # FTP's IP & Port
+│  │  │      index.js           # API methods
+│  │  │      sshweb.json        # SSH Web's IP & Port
+│  │  │      
+│  │  ├─style/                  # Style
+│  │  │      
+│  │  ├─utils/                  # Utilities (i18n, TutorialFiles...)
+│  │  │      
+│  │  ├─__mocks__/              # For test
+│  │  │      
+│  │  └─__test__/               # For test
+│  │          
+│  └─www/                       # Public assets (Static files)
+│              
+├─styleguide/                   # Styleguide's wrapper
+│      
+├─test/                         # For test
+│
+├─.babelrc                      # Setting babel
+├─.eslintrc                     # Setting eslint
+├─.gitignore                    # Setting git ignore
+├─changeAPI                     # For changing API's IP & Port shell script
+├─changeFTP                     # For changing FTP's IP & Port shell script
+├─changeSSH                     # For changing SSH web's IP & Port shell script
+├─package.json                  # The list of project dependencies + NPM scripts
+├─README.md                     # Readme file
+├─styleguide.config.js          # Configure file of styleguige
+├─updateWeb                     # For auto updating web shell script
+├─webpack-dev-server.config.js  # Develop's configure file of webpack
+├─webpack-production.config.js  # Production's configure file of webpack
+└─webpack.dll.config.js         # Bundle's configure file of webpack
+```
+
 ## Google analytics Event data ##
-------
+
 ### Anatomy of Events
 
 Category -> Action -> Label -> Value
@@ -372,7 +456,6 @@ https://support.google.com/analytics/answer/1033068?hl=en
 ```
 
 ## Contribution guidelines ##
-------
 
 ### Develop ###
 * A40503
@@ -392,11 +475,11 @@ https://support.google.com/analytics/answer/1033068?hl=en
 * Kevin Huang
 
 ## Who do I talk to? ##
-------
+
 * Me or my boss, perhaps.
 
 ## Change log ##
-------
+
 last update 2017-10-03
 
 * `0.4.0` change new API
