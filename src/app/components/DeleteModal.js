@@ -20,7 +20,7 @@ import Divider from 'material-ui/Divider';
 import CircularProgress from 'material-ui/CircularProgress';
 import { List, ListItem } from 'material-ui/List';
 
-import { errorNotify } from './Notify/actionNotify';
+import { errorNotify } from '../redux/Notify/actionNotify';
 // style
 import { muiStyle } from '../myTheme';
 

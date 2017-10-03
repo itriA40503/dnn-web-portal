@@ -30,7 +30,7 @@ import { lightBlue900 } from 'material-ui/styles/colors';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { closeNotify } from './Notify/actionNotify';
+import { closeNotify } from '../redux/Notify/actionNotify';
 
 import ReviewTable from './ReviewTable';
 import HistoryTable from './HistoryTable';

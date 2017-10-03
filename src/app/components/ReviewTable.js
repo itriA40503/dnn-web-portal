@@ -18,7 +18,7 @@ import ReactGA from 'react-ga';
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { errorNotify, copyNotify } from './Notify/actionNotify';
+import { errorNotify, copyNotify } from '../redux/Notify/actionNotify';
 
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';

@@ -23,7 +23,7 @@ import DetailModal from './DetailModal';
 // API call
 import { getHistory } from '../resource';
 
-import { errorNotify } from './Notify/actionNotify';
+import { errorNotify } from '../redux/Notify/actionNotify';
 
 const styles = {
   root: {

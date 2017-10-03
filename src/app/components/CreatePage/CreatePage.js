@@ -13,7 +13,7 @@ import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage, gpuTyp
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { errorNotify, copyNotify } from '../Notify/actionNotify';
+import { errorNotify, copyNotify } from '../../redux/Notify/actionNotify';
 // ICON
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy';
 import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail';
@@ -619,7 +619,6 @@ class CreatePage extends React.Component {
     );
   }
   renderSelectGpu = () => {
-    const { t } = this.props;
     return (
       <div style={{ margin: '0px auto' }}>
         <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
@@ -706,22 +705,22 @@ class CreatePage extends React.Component {
             </Animated>
           </div>
           <div style={{ display: 'inline-block' }}>
-          <SelectField
-            key={instance.instance}
-            floatingLabelText={
-              'Instance ' + index + ' ' + t('common:instanceMachine')
-            }
-            onChange={this.machineSelect.bind(null, index)}
-            value={instance.machine}
-          >
-            {this.state.availableMachines.map((machine, index) => (
-              <MenuItem
-                key={machine.id}
-                value={index}
-                primaryText={machine.name}
-              />
-            ))}
-          </SelectField>
+            <SelectField
+              key={instance.instance}
+              floatingLabelText={
+                'Instance ' + index + ' ' + t('common:instanceMachine')
+              }
+              onChange={this.machineSelect.bind(null, index)}
+              value={instance.machine}
+            >
+              {this.state.availableMachines.map((machine, index) => (
+                <MenuItem
+                  key={machine.id}
+                  value={index}
+                  primaryText={machine.name}
+                />
+              ))}
+            </SelectField>
           </div>
         </div>
         <br />
@@ -782,7 +781,7 @@ class CreatePage extends React.Component {
               </Table>
             </CardText>
           </Card>
-        </div>        
+        </div>
       </div>
     );
   };
