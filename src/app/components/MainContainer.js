@@ -177,7 +177,6 @@ class MainContainer extends Component {
           'X-Access-Token': this.props.token,
           Accept: 'application/json',
         },
-        params: { mode: 'booked' },
       })
       .then((result) => {
         console.log(result.data.schedules);
