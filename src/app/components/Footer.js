@@ -11,7 +11,7 @@ import ReactGA from 'react-ga';
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AdminAdd } from './Admin/actionAdmin';
+import { AdminAdd } from '../redux/Admin/actionAdmin';
 
 import { lineCode2, DnnLogo } from '../image';
 import pjson from '../../../package.json';

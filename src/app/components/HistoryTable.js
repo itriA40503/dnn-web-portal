@@ -77,6 +77,7 @@ class HistoryTable extends Component {
       tableExpanded: {},
       resized: [],
       filtered: [],
+      click: false,
     };
   }
   componentDidMount() {
@@ -109,7 +110,7 @@ class HistoryTable extends Component {
   refresh = (event) => {
     event.preventDefault();
   };
-  SwitchPage = () => this.setState({ switchPage: true });
+  // SwitchPage = () => this.setState({ switchPage: true });
   switchPage = () => {
     this.setState({ switchPage: !this.state.switchPage });
     if (!this.state.switchPage) {
@@ -215,6 +216,10 @@ class HistoryTable extends Component {
     // const date = moment.utc(data.startedAt).format('YYYY-MM-DD')
     // console.log(data.startedAt,date)
     // })
+    // if (this.state.click) {
+    //   this.getData();
+    //   this.setState({ click: false });
+    // }
     return (
       <div>
         <FlatButton
@@ -222,6 +227,12 @@ class HistoryTable extends Component {
           icon={<ActionHistory color={grey500} />}
           onTouchTap={this.switchPage}
           label={!switchPage && t('common:history.title')}
+        />
+        <FlatButton
+          style={{ color: grey500 }}
+          icon={<ActionHistory color={grey500} />}
+          onTouchTap={this.setState({ click: true })}
+          label={'click'}
         />
         {switchPage && (
           <Card>
