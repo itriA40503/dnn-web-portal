@@ -130,44 +130,43 @@ class SshWebBtn extends Component {
       <div>
         {this.props.data !== undefined ? (
           <div>
-            {this.props.data !== undefined &&
-              this.props.data.statusId === 3 && (
-                <div data-tip data-for="openSSH">
-                  <ReactGA.OutboundLink
-                    eventLabel="SSHweb"
-                    to={SshWebURL +
-                      this.props.data.username +
-                      '@' +
-                      this.props.data.container.podIp +
-                      ':' +
-                      this.props.data.container.sshPort +
-                      '&ssh_once=true' +
-                      '&location=' +
-                      this.props.data.id
-                    }
-                    target="_blank"
+            {this.props.data !== undefined && this.props.data.statusId === 3 && (
+              <div data-tip data-for="openSSH">
+                <ReactGA.OutboundLink
+                  eventLabel="SSHweb"
+                  to={SshWebURL +
+                    this.props.data.username +
+                    '@' +
+                    this.props.data.container.podIp +
+                    ':' +
+                    this.props.data.container.sshPort +
+                    '&ssh_once=true' +
+                    '&location=' +
+                    this.props.data.id
+                  }
+                  target="_blank"
+                >
+                  <CopyToClipboard
+                    text={this.props.data.password}
+                    onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'password')}
                   >
-                    <CopyToClipboard
-                      text={this.props.data.password}
-                      onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'password')}
-                    >
-                      <FlatButton
-                        icon={<Terminal size={28} color="black" />}
-                        label={
-                          <span>
-                            <font color={indigo900}>
-                              <b>{'ssh Web'}</b>
-                            </font>
-                          </span>
-                        }
-                      />
-                    </CopyToClipboard>
-                  </ReactGA.OutboundLink>
-                  <ReactTooltip id="openSSH" place="bottom" effect="solid">
-                    <span>{t('common:openSsh')}</span>
-                  </ReactTooltip>
-                </div>
-              )}
+                    <FlatButton
+                      icon={<Terminal size={28} color="black" />}
+                      label={
+                        <span>
+                          <font color={indigo900}>
+                            <b>{'ssh Web'}</b>
+                          </font>
+                        </span>
+                      }
+                    />
+                  </CopyToClipboard>
+                </ReactGA.OutboundLink>
+                <ReactTooltip id="openSSH" place="bottom" effect="solid">
+                  <span>{t('common:openSsh')}</span>
+                </ReactTooltip>
+              </div>
+            )}
             {(this.props.data.statusId === 2 || this.props.data.statusId === 8)
               && seconds < 10 && seconds > 0 && (
               <div
