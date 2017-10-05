@@ -10,6 +10,11 @@ import ReactGA from 'react-ga';
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { errorNotify } from '../redux/Notify/actionNotify';
+import { getHistoryData } from '../redux/HistoryData/actionHistoryData';
+// Animation
+import 'animate.css/animate.min.css';
+import { Animated } from 'react-animated-css';
 // ICON
 import ActionHistory from 'material-ui/svg-icons/action/history';
 // COLOR
@@ -22,8 +27,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import DetailModal from './DetailModal';
 // API call
 import { getHistory } from '../resource';
-
-import { errorNotify } from '../redux/Notify/actionNotify';
 
 const styles = {
   root: {
@@ -66,7 +69,6 @@ class HistoryTable extends Component {
 
     this.state = {
       loading: true,
-      data: [],
       switchCreatePage: false,
       singleInfo: {},
       expanded: false,
@@ -89,24 +91,6 @@ class HistoryTable extends Component {
   //       this.asyncTimer = setTimeout(cb, 500);
   //    })
   // }
-  getData = async () => {
-    try {
-      this.setState({ loading: true });
-      const api = await getHistory(this.props.token);
-      // console.log(api)
-      // this.dummyAsync(()=>
-
-      if (api.data.historySchedules.length === 0) {
-        this.setState({ switchPage: false });
-      }
-      this.setState({ data: api.data.historySchedules });
-      // )
-    } catch (err) {
-      // console.log(err);
-      this.props.errorNotify('ERROR : HistoryTable');
-      this.setState({ data: [] });
-    }
-  };
   refresh = (event) => {
     event.preventDefault();
   };
@@ -114,15 +98,16 @@ class HistoryTable extends Component {
   switchPage = () => {
     this.setState({ switchPage: !this.state.switchPage });
     if (!this.state.switchPage) {
-      this.getData();
+      // this.getData();
+      getHistory(this.props.dispatch, this.props.token);
       setTimeout(() => this.setState({ loading: false }), 300);
+      if (this.props.historyData.length === 0) this.setState({ switchPage: false });
       // GA
       ReactGA.event({
         category: 'HistoryTable',
         action: 'open',
       });
     } else {
-      this.setState({ data: [] });
       // GA
       ReactGA.event({
         category: 'HistoryTable',
@@ -132,7 +117,8 @@ class HistoryTable extends Component {
   };
   renderTable = () => {
     const { t } = this.props;
-    const orgData = this.state.data;
+    // const orgData = this.state.data;
+    const orgData = this.props.historyData;
     const tableData = [];
     orgData.map((obj) => {
       let data = obj;
@@ -216,10 +202,6 @@ class HistoryTable extends Component {
     // const date = moment.utc(data.startedAt).format('YYYY-MM-DD')
     // console.log(data.startedAt,date)
     // })
-    // if (this.state.click) {
-    //   this.getData();
-    //   this.setState({ click: false });
-    // }
     return (
       <div>
         <FlatButton
@@ -227,12 +209,6 @@ class HistoryTable extends Component {
           icon={<ActionHistory color={grey500} />}
           onTouchTap={this.switchPage}
           label={!switchPage && t('common:history.title')}
-        />
-        <FlatButton
-          style={{ color: grey500 }}
-          icon={<ActionHistory color={grey500} />}
-          onTouchTap={this.setState({ click: true })}
-          label={'click'}
         />
         {switchPage && (
           <Card>
@@ -248,7 +224,7 @@ class HistoryTable extends Component {
                   </div>
                 )}
                 <div style={{ margin: 'auto', textAlign: 'center' }}>
-                  {this.state.data.length !== 0 && this.renderTable()}
+                  {this.props.historyData.length !== 0 && <Animated animationIn="slideInDown" isVisible={true}>{this.renderTable()}</Animated>}
                 </div>
               </Paper>
             </ExpandTransition>
@@ -258,7 +234,13 @@ class HistoryTable extends Component {
     );
   }
 }
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ errorNotify }, dispatch);
+function mapStateToProps(state) {
+  return {
+    historyData: state.historyData,
+  };
 }
-export default connect(null, matchDispatchToProps)(translate('')(HistoryTable));
+function matchDispatchToProps(dispatch) {
+  // add 'dispatch' for passing action to API
+  return { dispatch, someActions: bindActionCreators({ errorNotify, getHistoryData }, dispatch) };
+}
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(HistoryTable));

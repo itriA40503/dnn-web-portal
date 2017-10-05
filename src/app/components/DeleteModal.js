@@ -24,7 +24,7 @@ import { errorNotify } from '../redux/Notify/actionNotify';
 // style
 import { muiStyle } from '../myTheme';
 
-import { ApiDeleteSchedule } from '../resource';
+import { ApiDeleteSchedule, getHistory } from '../resource';
 
 
 /**
@@ -166,6 +166,7 @@ class DeleteModal extends React.Component {
       console.log('refresh');
       this.setState({ open: false, comfirm: false });
       this.props.refresh();
+      getHistory(this.props.dispatch, this.props.token);
       // GA
       ReactGA.event({
         category: 'DeleteModal',
@@ -295,6 +296,6 @@ class DeleteModal extends React.Component {
   }
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ errorNotify }, dispatch);
+  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
 }
 export default connect(null, matchDispatchToProps)(translate('')(DeleteModal));
