@@ -1,5 +1,1 @@
-export const AdminAdd = () => {	
-	return {
-		type: 'ADD_COUNT'
-	}
-}
+export const AdminAdd = () => ({ type: 'ADD_COUNT' });
