@@ -127,6 +127,7 @@
     "copySshCmd":"點擊複製ssh指令",
     "openSsh":"複製SSH密碼 & 開啟SSH Web",
     "tutorial":"教學文件",
+    "tutorialVideo":"教學影片",
     "contactUs":"聯絡我們",
     "pdfLang":"tc"
 }

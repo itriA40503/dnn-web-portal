@@ -127,6 +127,7 @@
     "copySshCmd":"Click to Copy SSH command",
     "openSsh":"Copy SSH password & Open SSH web",
     "tutorial":"Tutorial",
+    "tutorialVideo":"Video Tutorial",
     "contactUs":"Contact",
     "pdfLang":"eng"
 }
