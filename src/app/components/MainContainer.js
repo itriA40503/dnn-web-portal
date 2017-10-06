@@ -41,6 +41,7 @@ import CreatePage from './CreatePage/CreatePage';
 import Machines from './Charts/Machines';
 import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
+import TutorialVideoBtn from './TutorialVideoBtn';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
@@ -274,6 +275,13 @@ class MainContainer extends Component {
               iconStyleRight={{ margin: 'auto' }}
               iconElementRight={
                 <div>
+                  <span
+                    style={{ display: 'inline-block', verticalAlign: 'super' }}
+                  >
+                    <div>
+                      <TutorialVideoBtn />
+                    </div>
+                  </span>
                   <span
                     style={{ display: 'inline-block', verticalAlign: 'super' }}
                   >
