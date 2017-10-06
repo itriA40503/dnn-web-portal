@@ -30,7 +30,7 @@ import { lightBlue900 } from 'material-ui/styles/colors';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { closeNotify } from './Notify/actionNotify';
+import { closeNotify } from '../redux/Notify/actionNotify';
 
 import ReviewTable from './ReviewTable';
 import HistoryTable from './HistoryTable';
@@ -41,8 +41,9 @@ import CreatePage from './CreatePage/CreatePage';
 import Machines from './Charts/Machines';
 import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
+import TutorialVideoBtn from './TutorialVideoBtn';
 
-import { DnnLogoYellow } from '../image/imageBase64';
+import { DnnLogoYellow, serval } from '../image/imageBase64';
 
 import { ApiGetInfo } from '../resource';
 
@@ -253,7 +254,6 @@ class MainContainer extends Component {
 
   render() {
     const { t } = this.props;
-
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={prefixedStyles.wrapper}>
@@ -269,12 +269,19 @@ class MainContainer extends Component {
                   <b> DNN Web portal</b>
                 </span>
               }
-              iconElementLeft={<div />}
+              iconElementLeft={this.props.admin > 6 ? <img height={60} alt={'serval'} src={serval} /> : <div />}
               style={{ backgroundColor: lightBlue900 }}
               onLeftIconButtonTouchTap={this.handleToggle}
               iconStyleRight={{ margin: 'auto' }}
               iconElementRight={
                 <div>
+                  <span
+                    style={{ display: 'inline-block', verticalAlign: 'super' }}
+                  >
+                    <div>
+                      <TutorialVideoBtn />
+                    </div>
+                  </span>
                   <span
                     style={{ display: 'inline-block', verticalAlign: 'super' }}
                   >

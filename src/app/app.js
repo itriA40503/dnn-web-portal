@@ -10,7 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './utils/i18n';
 import Main from './Main'; // Our custom react component
-import reducer from './components/reducers';
+import reducer from './redux/reducers';
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
