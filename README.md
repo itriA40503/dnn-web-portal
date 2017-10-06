@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.0
+* Version 0.4.3
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -42,8 +42,10 @@
 * [Contribution guidelines](#contribution-guidelines)
     * [Develop](#develop)
     * [Translation](#translation)
-    * [UI&UX Design](#uiux-design)
-* [Who do I talk to?](#who-do-I-talk-to?)
+    * [UI&UX Design](#uiampux-design)
+    * [PDF Toutorial Edit](#pdf-toutorial-edit)
+    * [Video Toutorial](#video-toutorial)
+* [Who do I talk to?](#who-do-i-talk-to)
 * [Change log](#change-log)
 
 ## Features ##
@@ -183,7 +185,7 @@ docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 
 On `.eslintrc` will ignore some rule.
 
-You can using plugin on editor (like Sublime, VS code, Atom, WeBstorm ...)
+You can using plugin on editor (like Sublime, VS code, Atom, WebStorm ...)
 
 And install these modules :
 ```
@@ -330,6 +332,7 @@ npm run build
 │  │  │  │  SshWebBtn.js        # SshWeb Button component
 │  │  │  │  StatusHandler.js    # Status chip component
 │  │  │  │  TutorialBtn.js      # Tutorial Button component
+│  │  │  │  TutorialVideoBtn.js # Video Tutorial Button component
 │  │  │  │  
 │  │  │  ├─Admin/               # Admin control with redux
 │  │  │  │      
@@ -474,14 +477,28 @@ https://support.google.com/analytics/answer/1033068?hl=en
 * A40503
 * Kevin Huang
 
+### PDF Toutorial Edit ###
+* A40503
+* Kevin Huang
+* Yenhsuan
+
+### Video Toutorial ###
+* 533830
+* Amy
+* A60144
+* Theresa
+
 ## Who do I talk to? ##
 
 * Me or my boss, perhaps.
 
 ## Change log ##
 
-last update 2017-10-03
+last update 2017-10-06
 
+* `0.4.3` add vedio tutorial
+* `0.4.2` get hisotry data by using Redux, add some animate
+* `0.4.1` change redux folder
 * `0.4.0` change new API
 * `0.3.3` fix editDate counting days
 * `0.3.2` add updateWeb Shell Script
