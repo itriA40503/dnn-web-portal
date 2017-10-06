@@ -13,7 +13,7 @@ import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage, gpuTyp
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { errorNotify, copyNotify } from '../Notify/actionNotify';
+import { errorNotify, copyNotify } from '../../redux/Notify/actionNotify';
 // ICON
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy';
 import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail';
@@ -103,7 +103,7 @@ class CreatePage extends React.Component {
                 <div>
                   <div style={{ margin: '0px auto' }}>
                     <div style={{ display: 'inline-block' }}>
-                      <Animated animationIn="rollIn" isVisible={true}>
+                      <Animated animationInDelay={0.8} animationIn="rollIn" isVisible={true}>
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
@@ -124,12 +124,12 @@ class CreatePage extends React.Component {
                   </div>
                   <div style={{ margin: '0px auto' }}>
                     <div style={{ display: 'inline-block' }}>
-                      <Animated animationIn="rollIn" isVisible={true}>
+                      <Animated animationInDelay={0.8} animationIn="rollIn" isVisible={true}>
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
                     <div style={{ display: 'inline-block', marginLeft: '3px' }}>
-                      <Animated animationIn="flash" isVisible={true}>
+                      <Animated animationInDelay={0.8} animationIn="flash" isVisible={true}>
                         <DatePicker
                           autoOk={true}
                           floatingLabelText={t('common:endDate')}
@@ -619,7 +619,6 @@ class CreatePage extends React.Component {
     );
   }
   renderSelectGpu = () => {
-    const { t } = this.props;
     return (
       <div style={{ margin: '0px auto' }}>
         <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
@@ -706,22 +705,22 @@ class CreatePage extends React.Component {
             </Animated>
           </div>
           <div style={{ display: 'inline-block' }}>
-          <SelectField
-            key={instance.instance}
-            floatingLabelText={
-              'Instance ' + index + ' ' + t('common:instanceMachine')
-            }
-            onChange={this.machineSelect.bind(null, index)}
-            value={instance.machine}
-          >
-            {this.state.availableMachines.map((machine, index) => (
-              <MenuItem
-                key={machine.id}
-                value={index}
-                primaryText={machine.name}
-              />
-            ))}
-          </SelectField>
+            <SelectField
+              key={instance.instance}
+              floatingLabelText={
+                'Instance ' + index + ' ' + t('common:instanceMachine')
+              }
+              onChange={this.machineSelect.bind(null, index)}
+              value={instance.machine}
+            >
+              {this.state.availableMachines.map((machine, index) => (
+                <MenuItem
+                  key={machine.id}
+                  value={index}
+                  primaryText={machine.name}
+                />
+              ))}
+            </SelectField>
           </div>
         </div>
         <br />
@@ -782,7 +781,7 @@ class CreatePage extends React.Component {
               </Table>
             </CardText>
           </Card>
-        </div>        
+        </div>
       </div>
     );
   };
@@ -856,78 +855,80 @@ class CreatePage extends React.Component {
     const { t } = this.props;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Card>
-          <CardActions
-            style={{
-              zIndex: 2,
-              display: 'inline-block',
-              float: 'right',
-              right: '10px',
-            }}
-          >
-            <FlatButton
-              label={t('common:specialOrder')}
-              style={
-                finished ? (
-                  { color: 'white' }
-                ) : (
-                  { color: muiStyle.palette.primary1Color }
-                )
-              }
-              icon={<CommunicationContactMail />}
-              disabled={finished}
-              href={'mailto:eNgiNEer@No.oNe.cARe'}
-              data-tip
-              data-for="mailto"
-            />
-            <ReactTooltip id="mailto" place="bottom" effect="solid">
-              <span>{t('common:mailto')}</span>
-            </ReactTooltip>
-            <FlatButton
-              label={t('common:backReview')}
-              style={
-                loadingCreate ? (
-                  { color: 'white' }
-                ) : (
-                  { color: muiStyle.palette.primary1Color }
-                )
-              }
-              icon={<ImageViewComfy />}
-              disabled={loadingCreate}
-              onTouchTap={this.props.switchReview}
-            />
-            <FlatButton
-              label={t('common:backReview')}
-              style={
-                !finished ? (
-                  { display: 'none' }
-                ) : (
-                  { color: muiStyle.palette.primary1Color }
-                )
-              }
-              icon={<ImageViewComfy />}
-              disabled={!finished}
-              onTouchTap={this.CreateDone}
-            />
-          </CardActions>
-          <CardTitle title={t('common:create')} />
-          <div style={{ width: '100%', maxWidth: '55%', margin: 'auto' }}>
-            <Stepper activeStep={stepIndex}>
-              <Step>
-                <StepLabel>{t('common:createStep.step1')}</StepLabel>
-              </Step>
-              <Step>
-                <StepLabel>{t('common:createStep.step2')}</StepLabel>
-              </Step>
-              <Step>
-                <StepLabel>{t('common:createStep.step4')}</StepLabel>
-              </Step>
-            </Stepper>
-            <ExpandTransition loading={loading} open={true}>
-              {this.renderContent()}
-            </ExpandTransition>
-          </div>
-        </Card>
+        <Animated animationIn="slideInDown" animationOut="slideOutUp" isVisible={true}>
+          <Card>
+            <CardActions
+              style={{
+                zIndex: 2,
+                display: 'inline-block',
+                float: 'right',
+                right: '10px',
+              }}
+            >
+              <FlatButton
+                label={t('common:specialOrder')}
+                style={
+                  finished ? (
+                    { color: 'white' }
+                  ) : (
+                    { color: muiStyle.palette.primary1Color }
+                  )
+                }
+                icon={<CommunicationContactMail />}
+                disabled={finished}
+                href={'mailto:eNgiNEer@No.oNe.cARe'}
+                data-tip
+                data-for="mailto"
+              />
+              <ReactTooltip id="mailto" place="bottom" effect="solid">
+                <span>{t('common:mailto')}</span>
+              </ReactTooltip>
+              <FlatButton
+                label={t('common:backReview')}
+                style={
+                  loadingCreate ? (
+                    { color: 'white' }
+                  ) : (
+                    { color: muiStyle.palette.primary1Color }
+                  )
+                }
+                icon={<ImageViewComfy />}
+                disabled={loadingCreate}
+                onTouchTap={this.props.switchReview}
+              />
+              <FlatButton
+                label={t('common:backReview')}
+                style={
+                  !finished ? (
+                    { display: 'none' }
+                  ) : (
+                    { color: muiStyle.palette.primary1Color }
+                  )
+                }
+                icon={<ImageViewComfy />}
+                disabled={!finished}
+                onTouchTap={this.CreateDone}
+              />
+            </CardActions>
+            <CardTitle title={t('common:create')} />
+            <div style={{ width: '100%', maxWidth: '55%', margin: 'auto' }}>
+              <Stepper activeStep={stepIndex}>
+                <Step>
+                  <StepLabel>{t('common:createStep.step1')}</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>{t('common:createStep.step2')}</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>{t('common:createStep.step4')}</StepLabel>
+                </Step>
+              </Stepper>
+              <ExpandTransition loading={loading} open={true}>
+                {this.renderContent()}
+              </ExpandTransition>
+            </div>
+          </Card>
+        </Animated>
       </MuiThemeProvider>
     );
   }

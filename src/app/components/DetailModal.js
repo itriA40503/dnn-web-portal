@@ -24,7 +24,7 @@ import ActionToc from 'material-ui/svg-icons/action/toc';
 import { green500, indigo900 } from 'material-ui/styles/colors';
 import { muiStyle, muiTheme } from '../myTheme';
 
-import { copyNotify } from './Notify/actionNotify';
+import { copyNotify } from '../redux/Notify/actionNotify';
 import StatusHandler from './StatusHandler';
 import GpuHandler from './GpuHandler';
 import HoverDiv from './HoverDiv';

@@ -13,7 +13,7 @@ import DeviceStorage from 'material-ui/svg-icons/device/storage';
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { copyNotify } from './Notify/actionNotify';
+import { copyNotify } from '../redux/Notify/actionNotify';
 
 import { ftpPass } from '../utils/FtpPass';
 import { FTPHost, FTPPort } from '../resource';

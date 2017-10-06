@@ -11,7 +11,7 @@ import ReactGA from 'react-ga';
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AdminAdd } from './Admin/actionAdmin';
+import { AdminIncrease, AdminDecrease } from '../redux/Admin/actionAdmin';
 
 import { lineCode2, DnnLogo } from '../image';
 import pjson from '../../../package.json';
@@ -62,9 +62,9 @@ class Footer extends Component {
           open={this.state.open}
           containerStyle={{ overflow: 'hidden' }}
         >
-          <img width="100%" src={lineCode2} onClick={this.props.AdminAdd} alt="Line Code" />
+          <img width="100%" src={lineCode2} onClick={this.props.AdminIncrease} alt="Line Code" />
           <div style={{ textAlign: 'center' }}>
-            <Avatar src={DnnLogo} size={100} />
+            <Avatar src={DnnLogo} size={100} onTouchTap={this.props.AdminDecrease} />
             <br />
             {'v ' + pjson.version }
             <br />
@@ -87,7 +87,7 @@ class Footer extends Component {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ AdminAdd }, dispatch);
+  return bindActionCreators({ AdminIncrease, AdminDecrease }, dispatch);
 }
 
 export default connect(null, matchDispatchToProps)(translate('')(Footer));

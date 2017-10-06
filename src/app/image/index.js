@@ -29,6 +29,7 @@ import _lineCode from './lineQRCode.png';
 import _lineCode2 from './lineQRCode2.png';
 import _lineLogo from './LINE_Text_Logo_TypeA.png';
 import _lineLogo2 from './LINE_Text_Logo_TypeB.png';
+import _serval from './serval.png';
 
 export const monkey = _monkey;
 export const logo = _logo;
@@ -61,3 +62,4 @@ export const lineCode = _lineCode;
 export const lineCode2 = _lineCode2;
 export const lineLogo = _lineLogo;
 export const lineLogo2 = _lineLogo2;
+export const serval = _serval;
