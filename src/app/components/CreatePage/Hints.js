@@ -40,7 +40,7 @@ class Hints extends React.PureComponent {
             <span>
               {'\u00A0'}
               <TiTick color={greenA700} />{' '}
-              {t('common:createStep.avalableInstance')} :{' '}
+              {t('common:createStep.availableInstance')} :{' '}
               <font color={greenA700}>
                 <b>{this.props.availableNumber}</b>
               </font>
@@ -50,7 +50,7 @@ class Hints extends React.PureComponent {
             <span>
               {'\u00A0'}
               <TiTimes color={redA700} />{' '}
-              {t('common:createStep.avalableInstance')} :{' '}
+              {t('common:createStep.availableInstance')} :{' '}
               <font color={redA700}>
                 <b>{this.props.availableNumber} </b>
                 {t('common:noInstance')}
