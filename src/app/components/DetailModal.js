@@ -14,15 +14,17 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import ReactTooltip from 'react-tooltip';
 import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // ICON
 import ActionToc from 'material-ui/svg-icons/action/toc';
+import ActionOpenInBrowser from 'material-ui/svg-icons/action/open-in-browser';
 // COLOR
 import { green500, indigo900 } from 'material-ui/styles/colors';
-import { muiStyle, muiTheme } from '../myTheme';
+import { muiStyle, muiTheme, StripedStyle } from '../myTheme';
 
 import { copyNotify } from '../redux/Notify/actionNotify';
 import StatusHandler from './StatusHandler';
@@ -261,6 +263,68 @@ class DetailModal extends React.Component {
     );
   }
 
+  renderTabThree = () => {
+    const { t } = this.props;
+    return (
+      <div>
+        <Table bodyStyle={{ overflow: 'visible' }}>
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+          >
+            <TableRow>
+              <TableHeaderColumn style={textCenter}>{<font color="#000"><b>{t('common:portName')}</b></font>}</TableHeaderColumn>
+              <TableHeaderColumn style={textCenter}>{<font color="#000"><b>{t('common:protocol')}</b></font>}</TableHeaderColumn>
+              <TableHeaderColumn style={textCenter}>{<font color="#000"><b>{t('common:targetPort')}</b></font>}</TableHeaderColumn>
+              <TableHeaderColumn style={textCenter}>{<font color="#000"><b>{t('common:nodePort')}</b></font>}</TableHeaderColumn>
+              <TableHeaderColumn style={textCenter}>{<font color="#000"><b>{}</b></font>}</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={false}
+            showRowHover
+          >
+            {
+              this.props.data.container.ports.map((obj, index) => (
+                <TableRow style={StripedStyle(index)}>
+                  <TableRowColumn style={textCenter}>
+                    {<p><b><font>{obj.name}</font></b></p>}
+                  </TableRowColumn>
+                  <TableRowColumn style={textCenter}>
+                    {<p><b><font>{obj.protocol}</font></b></p>}
+                  </TableRowColumn>
+                  <TableRowColumn style={textCenter}>
+                    {<p><b><font>{obj.targetPort}</font></b></p>}
+                  </TableRowColumn>
+                  <TableRowColumn style={textCenter}>
+                    {<p><b><font>{obj.nodePort}</font></b></p>}
+                  </TableRowColumn>
+                  <TableRowColumn style={textCenter}>
+                    {<p>
+                      <IconButton
+                        iconStyle={{ width: 24, height: 24 }}
+                        style={{ width: 24, height: 24, padding: 2 }}
+                        href={`http://${this.props.data.container.podIp}:${obj.nodePort}`}
+                        target="_blank"
+                        data-tip
+                        data-for="openTab"
+                      >
+                        <ActionOpenInBrowser />
+                      </IconButton>
+                      <ReactTooltip id="openTab" place="left" effect="solid">
+                        <span>{t('common:openNewTab')}</span>
+                      </ReactTooltip>
+                    </p>}
+                  </TableRowColumn>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </div>
+    );
+  }
+
   render() {
     const { t, iconColor, showStatus } = this.props;
     const optionsStyle = {
@@ -298,7 +362,9 @@ class DetailModal extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          autoDetectWindowHeight={false}
           autoScrollBodyContent
+          contentStyle={{ height: '100%', maxHeight: '100%' }}
         >
           <div style={optionsStyle}>
             <Divider />
@@ -309,6 +375,9 @@ class DetailModal extends React.Component {
                 </Tab>
                 <Tab label={<b>{t('common:dateRange')}</b>} value="b">
                   {this.renderTabTwo()}
+                </Tab>
+                <Tab label={<b>{t('common:portForwarding')}</b>} value="b">
+                  {this.renderTabThree()}
                 </Tab>
               </Tabs>
             </MuiThemeProvider>
