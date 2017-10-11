@@ -121,9 +121,11 @@ class HistoryTable extends Component {
     const orgData = this.props.historyData;
     const tableData = [];
     orgData.map((obj) => {
-      let data = obj;
+      let data = Object.assign({}, obj); // Deep copy
       data.startedAt = moment(obj.startedAt).format('YYYY-MM-DD');
       data.endedAt = moment(obj.endedAt).format('YYYY-MM-DD');
+      // data.id = `${obj.machine.label} - ${obj.id}`;
+      // console.log(obj.machine.label, '::', obj.id);
       tableData.push(data);
       return 0;
     });
@@ -156,7 +158,8 @@ class HistoryTable extends Component {
               },
               {
                 Header: t('common:scheduleID'),
-                accessor: 'id',
+                id: 'scheduleID',
+                accessor: d => (`${d.machine.label} - ${d.id}`),
               },
               {
                 Header: t('common:image'),

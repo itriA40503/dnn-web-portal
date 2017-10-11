@@ -126,8 +126,14 @@
     "ftpProtocol":"Protocol",
     "copySshCmd":"Click to Copy SSH command",
     "openSsh":"Copy SSH password & Open SSH web",
+    "portName":"Port Name",
+    "portForwarding":"Port Forwarding",
+    "protocol":"Protocol",
+    "targetPort":"Container Port",
+    "nodePort":"Node Port",
+    "openNewTab":"Open on new tab",
     "tutorial":"Tutorial",
     "tutorialVideo":"Video Tutorial",
-    "contactUs":"Contact",
+    "contactUs":"Contact",    
     "pdfLang":"eng"
 }
