@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.3
+* Version 0.4.4
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -494,8 +494,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-10-06
+last update 2017-10-11
 
+* `0.4.4` add port forwarding infomation
 * `0.4.3` add vedio tutorial
 * `0.4.2` get hisotry data by using Redux, add some animate
 * `0.4.1` change redux folder
