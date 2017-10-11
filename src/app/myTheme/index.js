@@ -2,6 +2,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   lightBlue500,
   lightBlue900,
+  blueGrey50,
   redA700,
   deepOrangeA400,
   pink500,
@@ -38,3 +39,5 @@ export const muiTheme = getMuiTheme({
     iconColor: muiStyle.palette.primary1Color,
   },
 });
+
+export const StripedStyle = index => ({ background: index % 2 ? blueGrey50 : 'white' });
