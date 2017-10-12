@@ -299,17 +299,16 @@ export const getInfo = async (token) => {
 //   return result;
 // };
 
-export const getHistory = async (dispatch, token) => {
-  return axios
-  .get(ApiGetHistory, {
+export const getHistory = async (dispatch, token) => (
+  axios.get(ApiGetHistory, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
   .then(res => dispatch(getHistoryData(res.data.historySchedules)))
   .catch((err) => {
     console.log(err);
     dispatch(errorNotify('ERROR : HistoryTable'));
-  });
-};
+  })
+);
 
 export const getschedule = async (years) => {
   let data = {};
