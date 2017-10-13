@@ -32,13 +32,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeNotify } from '../redux/Notify/actionNotify';
 
+import ReviewMachine from './Machines/ReviewMachine';
 import ReviewTable from './ReviewTable';
 import HistoryTable from './HistoryTable';
 import FtpInfoModal from './FtpInfoModal';
 import ChartContainer from './Charts/ChartContainer';
 import Footer from './Footer';
 import CreatePage from './CreatePage/CreatePage';
-import Machines from './Charts/Machines';
+// import Machines from './Charts/Machines';
 import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
 import TutorialVideoBtn from './TutorialVideoBtn';
@@ -149,7 +150,7 @@ class MainContainer extends Component {
     super(props, context);
     this.state = {
       open:
-        localStorage.getItem('itriUser') === 'A40503' && this.props.admin > 6,
+        (localStorage.getItem('itriUser') === 'A40503' || localStorage.getItem('itriUser') === 'A60144') && this.props.admin > 6,
       content: '',
       notifyOpen: false,
       notifyMsg: '',
@@ -188,7 +189,7 @@ class MainContainer extends Component {
       });
   };
   handleToggle = () => {
-    if (localStorage.getItem('itriUser') === 'A40503' && this.props.admin > 6) {
+    if ((localStorage.getItem('itriUser') === 'A40503' || localStorage.getItem('itriUser') === 'A60144') && this.props.admin > 6) {
       this.setState({
         open: !this.state.open,
       });
@@ -239,12 +240,14 @@ class MainContainer extends Component {
       case 6:
         return (
           <div>
-            <Machines />
+            <ReviewMachine token={this.props.token} />
           </div>
         );
       default:
         return (
           <div>
+            <ReviewMachine token={this.props.token} />
+            <br />
             <ReviewTable token={this.props.token} />
             <HistoryTable token={this.props.token} />
           </div>
