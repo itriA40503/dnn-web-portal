@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.4
+* Version 0.4.5
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -16,7 +16,9 @@
     * [Using the Image](#using-the-image)
     * [Upload image](#upload-image)
     * [Building Image form container](#building-image-form-container)
-    * [Building the Image](#building-the-image)
+    * [Building the Image form dockerfile](#building-the-image-form-dockerfile)
+        * [Static Dockerfile](#static-dockerfile)
+        * [Develop Dockerfile](#develop-dockerfile)
     * [Change API from container](#change-api-from-container)
     * [Change SSHweb from container](#change-sshweb-from-container)
     * [Change FTP from container](#change-ftp-from-container)    
@@ -110,12 +112,21 @@ docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 docker commit -a "a40503" <container name> dnn-web-gui:TAG
 ```
 
-### Building the Image ###
+### Building the Image from dockerfile ###
 
+#### Static Dockerfile ####
 * This image only have web server and packaged webportal 
 * This image NOT inculde development environment 
 * You CANNOT Change API,FTP,SSHweb from this container
 * Need `npm run build` in first
+```
+cd docker
+docker build -t dnnweb .
+```
+
+#### Develop Dockerfile ####
+* This image inculde development environment 
+* You can Change API,FTP,SSHweb from this container
 ```
 cd docker
 docker build -t dnnweb .
@@ -494,8 +505,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-10-11
+last update 2017-10-18
 
+* `0.4.5` add machineTable, add develop Dockerfile
 * `0.4.4` add port forwarding infomation
 * `0.4.3` add vedio tutorial
 * `0.4.2` get hisotry data by using Redux, add some animate
