@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cp Dockerfile ../../../
+cd ../../../
+docker build -t dnn-web-gui:static .
+rm Dockerfile

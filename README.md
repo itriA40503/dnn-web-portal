@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.5
+* Version 0.4.6
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -121,7 +121,7 @@ docker commit -a "a40503" <container name> dnn-web-gui:TAG
 * Need `npm run build` in first
 ```
 cd docker
-docker build -t dnnweb .
+sh buildImage
 ```
 
 #### Develop Dockerfile ####
@@ -129,7 +129,7 @@ docker build -t dnnweb .
 * You can Change API,FTP,SSHweb from this container
 ```
 cd docker
-docker build -t dnnweb .
+sh buildImage
 ```
 
 ### Change API from container ###
@@ -507,6 +507,7 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 last update 2017-10-18
 
+* `0.4.6` add buildImage Shell Script
 * `0.4.5` add machineTable, add develop Dockerfile
 * `0.4.4` add port forwarding infomation
 * `0.4.3` add vedio tutorial
