@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cp Dockerfile ../../../
+cp -r nginx ../../../nginx
+cd ../../../
+docker build -t dnn-web-gui:dev .
+rm -r nginx/
+rm Dockerfile
