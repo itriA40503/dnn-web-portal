@@ -17,6 +17,7 @@ RUN npm install npm -g
 
 # coy project
 COPY ./dnnwebportal /dnnwebportal
+RUN cd /dnnwebportal
 RUN npm install
 RUN npm run build
 RUN cp -r build /user/share/nginx/html/DNN
