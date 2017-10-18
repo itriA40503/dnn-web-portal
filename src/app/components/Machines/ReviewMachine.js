@@ -69,17 +69,20 @@ class ReviewMachine extends Component {
       resized: [],
       filtered: [],
       click: false,
+      data: [],
+      isVisible: true,
     };
-  }
-
-  refresh = async () => {
-    this.asyncTimer = await setTimeout(() => console.log('400'), 400);
-    this.asyncTimer = await setTimeout(() => console.log('1400'), 1400);
-    await getMachines(this.props.dispatch, this.props.token);
   }
 
   componentDidMount() {
     getMachines(this.props.dispatch, this.props.token);
+  }
+
+  refresh = async () => {
+    // const { machineData } = this.props;
+    await getMachines(this.props.dispatch, this.props.token);
+    this.asyncTimer = await setTimeout(() => this.setState({ isVisible: false }), 10);
+    this.asyncTimer = await setTimeout(() => this.setState({ isVisible: true }), 700);
   }
 
   renderTable = () => {
@@ -193,7 +196,7 @@ class ReviewMachine extends Component {
           <CardTitle title={t('common:machine.review')} />
           <div style={{ margin: 'auto', textAlign: 'center' }}>
             <ExpandTransition loading={this.state.loading} open={true}>
-              <Animated animationIn="slideInDown" isVisible={true}>
+              <Animated animationIn="slideInDown" isVisible={this.state.isVisible}>
                 {this.renderTable()}
               </Animated>
             </ExpandTransition>
