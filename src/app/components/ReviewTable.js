@@ -93,7 +93,7 @@ class ReviewTable extends Component {
     try {
       this.setState({ loading: true });
       const api = await getInfo(this.props.token);
-      console.log(api);
+      // console.log(api);
       if (api.data.schedules) {
         this.dummyAsync(() => {
           console.log('api:' + false);
@@ -163,6 +163,8 @@ class ReviewTable extends Component {
     const { t } = this.props;
     const { switchCreatePage, loading } = this.state;
     // console.log(this.state.data.map((data, index)=>(data.statusId)))
+    let instaceNum = this.state.data.length;
+    if (this.props.admin > 6) instaceNum = 0;
     return (
       <div>
         {!switchCreatePage ? (
@@ -171,14 +173,14 @@ class ReviewTable extends Component {
               <FlatButton
                 label={t('common:create')}
                 style={
-                  this.state.data.length === 3 ? (
+                  instaceNum >= 3 ? (
                     { color: 'grey' }
                   ) : (
                     { color: muiStyle.palette.primary1Color }
                   )
                 }
                 icon={<ContentAdd />}
-                disabled={this.state.data.length === 3}
+                disabled={instaceNum >= 3}
                 onTouchTap={this.SwitchCreatePage}
               />
               <FlatButton
@@ -331,7 +333,7 @@ class ReviewTable extends Component {
           <CreatePage
             switchReview={this.switchReview}
             refresh={this.getData}
-            currentInstanceNum={this.state.data.length}
+            currentInstanceNum={instaceNum}
             token={this.props.token}
           />
         )}
@@ -339,8 +341,13 @@ class ReviewTable extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    admin: state.admin,
+  };
+}
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({ errorNotify, copyNotify }, dispatch);
 }
 
-export default connect(null, matchDispatchToProps)(translate('')(ReviewTable));
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(ReviewTable));

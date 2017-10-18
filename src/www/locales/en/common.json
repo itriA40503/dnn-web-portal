@@ -30,7 +30,8 @@
         "error":"Error",
         "help":"Try refresh (on top-right) or contact(LINE) us.",
         "count":"Will refresh after 6 seconds.",
-        "creatings":"creatings"
+        "creatings":"creatings",
+        "disable":"Disable"
     },
     "image": "Image",
     "imageDesc": "Image description",
@@ -135,5 +136,22 @@
     "tutorial":"Tutorial",
     "tutorialVideo":"Video Tutorial",
     "contactUs":"Contact",    
-    "pdfLang":"eng"
+    "pdfLang":"eng",
+    "machine":{
+        "review":"Machine Information",
+        "id":"Machine Id",
+        "label":"Machine Label",
+        "statusId":"Machine Status",
+        "gpuType":"Gpu Type",
+        "gpuAmount":"Gpu Amount",
+        "edit":"Edit",
+        "remove":"Remove",
+        "enable":"Enable/Disable",
+        "comfirm":"Do you want to",
+        "create":"Create Machine",
+        "name":"Machine Name"
+    },
+    "enable": "ENABLE",
+    "disable": "DISABLE",
+    "success": "Success"
 }
