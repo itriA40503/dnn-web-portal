@@ -16,7 +16,7 @@ RUN apt-get install nodejs -y
 RUN npm install npm -g
 
 # coy project
-COPY ../../../dnnwebportal /dnnwebportal
+COPY ./dnnwebportal /dnnwebportal
 RUN npm install
 RUN npm run build
 RUN cp -r build /user/share/nginx/html/DNN
