@@ -46,7 +46,7 @@ import TutorialVideoBtn from './TutorialVideoBtn';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
-import { ApiGetInfo } from '../resource';
+import { ApiGetInfo, adminList } from '../resource';
 
 const styles = {
   container: {
@@ -150,7 +150,7 @@ class MainContainer extends Component {
     super(props, context);
     this.state = {
       open:
-        (localStorage.getItem('itriUser') === 'A40503' || localStorage.getItem('itriUser') === 'A60144') && this.props.admin > 6,
+        (adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6,
       content: '',
       notifyOpen: false,
       notifyMsg: '',
@@ -189,7 +189,7 @@ class MainContainer extends Component {
       });
   };
   handleToggle = () => {
-    if ((localStorage.getItem('itriUser') === 'A40503' || localStorage.getItem('itriUser') === 'A60144') && this.props.admin > 6) {
+    if ((adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6) {
       this.setState({
         open: !this.state.open,
       });
@@ -246,8 +246,6 @@ class MainContainer extends Component {
       default:
         return (
           <div>
-            <ReviewMachine token={this.props.token} />
-            <br />
             <ReviewTable token={this.props.token} />
             <HistoryTable token={this.props.token} />
           </div>
@@ -272,7 +270,7 @@ class MainContainer extends Component {
                   <b> DNN Web portal</b>
                 </span>
               }
-              iconElementLeft={this.props.admin > 6 ? <img height={60} alt={'serval'} src={serval} /> : <div />}
+              iconElementLeft={(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6 ? <img height={60} alt={'serval'} src={serval} /> : <div />}
               style={{ backgroundColor: lightBlue900 }}
               onLeftIconButtonTouchTap={this.handleToggle}
               iconStyleRight={{ margin: 'auto' }}
@@ -391,7 +389,7 @@ class MainContainer extends Component {
                   onTouchTap={() =>
                     displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
                 />
-                {localStorage.getItem('itriUser') === 'A40503' &&
+                {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
                 this.props.admin > 6 && (
                   <div>
                     <MenuItem
