@@ -37,7 +37,7 @@ export const ApiSIGNIN = ApiURL + '/user/signin';
 export const ApiCreateSchedule = ApiURL + '/user/schedule/';
 export const ApiCheckInstance = ApiURL + '/machine/remain';
 export const ApiGetCalendar = ApiURL + '/machine/calendar/';
-export const ApiGetInfo = ApiURL + '/user/schedules';
+export const ApiGetInfo = ApiURL + '/user/schedules/reserved';
 export const ApiDeleteSchedule = ApiURL + '/user/schedule/';
 export const ApiGetExtDate = ApiURL + '/user/schedule/';
 export const ApiPutExtDate = ApiURL + '/user/schedule/';
@@ -60,6 +60,8 @@ export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 // GPU array
 export const gpuTypeList = ['v100', 'GTX1080'];
 export const gpuAmountList = ['1', '2', '3', '4'];
+// Admin list
+export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
 // fake data
 export const DATA = [
   {
@@ -293,15 +295,16 @@ export const getInfo = async (token) => {
   return result;
 };
 
-// export const getHistory = async (token) => {
-//   const result = await axios
-//   .get(ApiGetHistory, {
-//     headers: { 'X-Access-Token': token, Accept: 'application/json' },
-//   })
-//   .then(res => res)
-//   .catch(err => err);
-//   return result;
-// };
+export const getImages = async (dispatch, token) => (
+  axios.get(ApiGetImage, {
+    headers: { 'X-Access-Token': token, Accept: 'application/json' },
+  })
+  .then(res => dispatch(getMachineData(res.data.machines)))
+  .catch((err) => {
+    console.log(err);
+    dispatch(errorNotify('ERROR : MachineTable'));
+  })
+);
 
 export const getMachines = async (dispatch, token) => (
   axios.get(ApiGetMachine, {
