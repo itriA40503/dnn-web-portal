@@ -60,17 +60,18 @@ class EnableMachine extends React.Component {
   };
   constructor(props) {
     super(props);
-    let action = '';
-    if (this.props.data.statusId === 1) {
-      action = 'disable';
-    } else {
-      action = 'enable';
-    }
+    // let action = '';
+    // if (this.props.data.statusId === 1) {
+    //   action = 'disable';
+    // } else {
+    //   action = 'enable';
+    // }
+    // console.log(this.props.data.label, this.props.data.statusId, action);
     this.state = {
       open: false,
       loading: false,
       comfirm: false,
-      action,
+      action: (this.props.data.statusId === 1 ? 'disable' : 'enable'),
     };
   }
   handleOpen = () => {
@@ -101,7 +102,8 @@ class EnableMachine extends React.Component {
       this.setState({
         loading: true,
       });
-      const api = `${ApiPutMachine}${this.props.data.id}qwer/${this.state.action}`;
+      const action = (this.props.data.statusId === 1 ? 'disable' : 'enable');
+      const api = `${ApiPutMachine}${this.props.data.id}/${action}`;
       fetch(api, {
         method: 'put',
         headers: {
@@ -171,12 +173,12 @@ class EnableMachine extends React.Component {
         onTouchTap={this.handleSubmit}
       />,
     ];
-
+    const action = (this.props.data.statusId === 1 ? 'disable' : 'enable');
     return (
       <div>
         <FlatButton
           label=""
-          style={this.state.action !== 'disable' ? { color: redA700 } : { color: greenA700 }}
+          style={this.props.data.statusId === 1 ? { color: greenA700 } : { color: redA700 }}
           fullWidth={true}
           data-tip
           data-for="machineEnable"
@@ -190,7 +192,7 @@ class EnableMachine extends React.Component {
           title={
             <div>
               <b>{t('common:machine.comfirm')}</b>
-              <font color={this.state.action === 'disable' ? redA700 : greenA700}><b>{' ' + t(`common:${this.state.action}`)}</b></font>
+              <font color={this.props.data.statusId === 1 ? redA700 : greenA700}><b>{' ' + t(`common:${action}`)}</b></font>
               <font color={muiStyle.palette.primary1Color}><b>{` ${this.props.data.label} ?`}</b></font>
             </div>
           }
@@ -200,7 +202,7 @@ class EnableMachine extends React.Component {
         >
           {this.state.comfirm ? (
             <div>
-              <b>{t('common:deletedSuccess')}</b>
+              <b>{t(`common:${action}`)}{t('common:success')}</b>
             </div>
           ) : (
             <div>
