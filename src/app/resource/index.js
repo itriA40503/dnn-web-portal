@@ -5,6 +5,7 @@ import api from './api.json';
 import ftp from './ftp.json';
 import sshweb from './sshweb.json';
 
+import { getMachineData } from '../redux/MachineData/actionMachineData';
 import { getHistoryData } from '../redux/HistoryData/actionHistoryData';
 import { errorNotify } from '../redux/Notify/actionNotify';
 // export const DOMAIN = 'http://tarsanad.ddns.net'
@@ -36,7 +37,7 @@ export const ApiSIGNIN = ApiURL + '/user/signin';
 export const ApiCreateSchedule = ApiURL + '/user/schedule/';
 export const ApiCheckInstance = ApiURL + '/machine/remain';
 export const ApiGetCalendar = ApiURL + '/machine/calendar/';
-export const ApiGetInfo = ApiURL + '/user/schedules';
+export const ApiGetInfo = ApiURL + '/user/schedules/reserved';
 export const ApiDeleteSchedule = ApiURL + '/user/schedule/';
 export const ApiGetExtDate = ApiURL + '/user/schedule/';
 export const ApiPutExtDate = ApiURL + '/user/schedule/';
@@ -44,6 +45,9 @@ export const ApiGetHistory = ApiURL + '/user/schedules/history';
 export const ApiGetImage = ApiURL + '/image/';
 export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machine/';
+export const ApiRemoveMachine = ApiURL + '/admin/machine/';
+export const ApiPutMachine = ApiURL + '/admin/machine/';
+export const ApiCreateMachine = ApiURL + '/admin/machine/';
 
 // FTP
 export const FTPHost = ftp.host;
@@ -55,7 +59,9 @@ export const SshWebHost = SshWebIP + ':' + SshWebPort;
 export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 // GPU array
 export const gpuTypeList = ['v100', 'GTX1080'];
-
+export const gpuAmountList = ['1', '2', '3', '4'];
+// Admin list
+export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
 // fake data
 export const DATA = [
   {
@@ -289,27 +295,38 @@ export const getInfo = async (token) => {
   return result;
 };
 
-// export const getHistory = async (token) => {
-//   const result = await axios
-//   .get(ApiGetHistory, {
-//     headers: { 'X-Access-Token': token, Accept: 'application/json' },
-//   })
-//   .then(res => res)
-//   .catch(err => err);
-//   return result;
-// };
+export const getImages = async (dispatch, token) => (
+  axios.get(ApiGetImage, {
+    headers: { 'X-Access-Token': token, Accept: 'application/json' },
+  })
+  .then(res => dispatch(getMachineData(res.data.machines)))
+  .catch((err) => {
+    console.log(err);
+    dispatch(errorNotify('ERROR : MachineTable'));
+  })
+);
 
-export const getHistory = async (dispatch, token) => {
-  return axios
-  .get(ApiGetHistory, {
+export const getMachines = async (dispatch, token) => (
+  axios.get(ApiGetMachine, {
+    headers: { 'X-Access-Token': token, Accept: 'application/json' },
+  })
+  .then(res => dispatch(getMachineData(res.data.machines)))
+  .catch((err) => {
+    console.log(err);
+    dispatch(errorNotify('ERROR : MachineTable'));
+  })
+);
+
+export const getHistory = async (dispatch, token) => (
+  axios.get(ApiGetHistory, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
   .then(res => dispatch(getHistoryData(res.data.historySchedules)))
   .catch((err) => {
     console.log(err);
     dispatch(errorNotify('ERROR : HistoryTable'));
-  });
-};
+  })
+);
 
 export const getschedule = async (years) => {
   let data = {};

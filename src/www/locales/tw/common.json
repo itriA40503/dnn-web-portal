@@ -30,7 +30,8 @@
         "error":"錯誤",
         "help":"試試右上的重新整理 或者 聯絡(LINE)我們",
         "count":"6秒後將會自動重新整理",
-        "creatings":"建立中"
+        "creatings":"建立中",
+        "disable":"關閉"
     },
     "image": "Image",
     "imageDesc": "Image 內容描述",
@@ -135,5 +136,22 @@
     "tutorial":"教學文件",
     "tutorialVideo":"教學影片",
     "contactUs":"聯絡我們",
-    "pdfLang":"tc"
+    "pdfLang":"tc",
+    "machine":{
+        "review":"Machine 資訊",
+        "id":"資源Id",
+        "label":"資源標籤",
+        "statusId":"資源狀態",
+        "gpuType":"Gpu類型",
+        "gpuAmount":"Gpu數量",
+        "edit":"編輯",
+        "remove":"移除",
+        "enable":"啟動/關閉",
+        "comfirm":"您確定要",
+        "create":"建立資源",
+        "name":"資源名稱"
+    },
+    "enable": "啟動",
+    "disable": "關閉",
+    "success": "成功!"
 }
