@@ -30,7 +30,8 @@
         "error":"Error",
         "help":"Try refresh (on top-right) or contact(LINE) us.",
         "count":"Will refresh after 6 seconds.",
-        "creatings":"creatings"
+        "creatings":"creatings",
+        "disable":"Disable"
     },
     "image": "Image",
     "imageDesc": "Image description",
@@ -151,5 +152,6 @@
         "name":"Machine Name"
     },
     "enable": "ENABLE",
-    "disable": "DISABLE"
+    "disable": "DISABLE",
+    "success": "Success"
 }
