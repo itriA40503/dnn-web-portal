@@ -15,7 +15,7 @@ COPY ./dnnwebportal /dnnwebportal
 RUN cd /dnnwebportal && npm install && npm run build 
 RUN cp -r build /usr/share/nginx/html/
 # copy nginx.conf (enable gzip)
-COPY ./nginx/default.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 # copy default.conf (change default path)
 COPY ./nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
