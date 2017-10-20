@@ -94,8 +94,9 @@ sudo service docker restart
 ```
 docker pull 100.86.2.10:32190/dnn-web-gui:TAG
 docker run -it -d -p xxxx:80 --name webportal dnn-web-gui:TAG
-docker exec -it webportal /etc/init.d/nginx start
 ```
+
+#### If version < `0.4.6` need run `docker exec -it webportal /etc/init.d/nginx start`
 
 ### Upload image ###
 
@@ -193,6 +194,7 @@ docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ```
 * on `91% additional asset processing` will take a monent to build
 * Will automatically git pull, install module, package and update Web
+* Update to `master` lasest version
 
 ## Webportal Requirement ##
 
