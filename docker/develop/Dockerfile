@@ -18,5 +18,3 @@ RUN cp -r /dnnwebportal/build/ /usr/share/nginx/html/ && mv /usr/share/nginx/htm
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 # copy default.conf (change default path)
 COPY ./nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-
-#RUN nginx -s reload
