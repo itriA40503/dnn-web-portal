@@ -10,6 +10,6 @@ npm install
 
 npm run build
 
-rm -r /usr/share/nginx/htmlDNN
+rm -r /usr/share/nginx/html/DNN
 
 cp -r build/ /usr/share/nginx/html/DNN
