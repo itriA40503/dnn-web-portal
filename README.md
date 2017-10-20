@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.6
+* Version 0.4.7
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -175,14 +175,24 @@ docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
 
 ### Update webportal from container ###
 
-* Need set `.git-credentials` in first
-* on `91% additional asset processing` will take a monent to build
-* Will automatically git pull, install module, package and update Web
-
+1. Need set `.git-credentials` in first
+    Put your git's account&password in `.git-credentials`
+    format: `https://username:password@bitbucket.org`
+2. Copy `.git-credentials` to container root
+```
+docker cp .git-credentials <your container>:/root/.git-credentials`
+```
+3. In container excute `git config --global credential.helper store`
+```
+docker exec -it <your container> git config --global credential.helper store
+```
+4. Then using `updateWeb`
 example :
 ```
 docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ```
+* on `91% additional asset processing` will take a monent to build
+* Will automatically git pull, install module, package and update Web
 
 ## Webportal Requirement ##
 
@@ -517,8 +527,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-10-18
+last update 2017-10-20
 
+* `0.4.7` add `.git-credentials`
 * `0.4.6` add buildImage Shell Script
 * `0.4.5` add machineTable, add develop Dockerfile
 * `0.4.4` add port forwarding infomation
