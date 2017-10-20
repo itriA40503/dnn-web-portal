@@ -10,6 +10,6 @@ cd /dnnwebportal
 
 npm run app
 
-rm -r /var/www/html/DNN
+rm -r /usr/share/nginx/html/DNN
 
-cp -r build/ /var/www/html/DNN
+cp -r build/ /usr/share/nginx/html/DNN
