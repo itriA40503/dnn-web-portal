@@ -119,16 +119,19 @@ docker commit -a "a40503" <container name> dnn-web-gui:TAG
 * This image NOT inculde development environment 
 * You CANNOT Change API,FTP,SSHweb from this container
 * Need `npm run build` in first
+* Default image name `dnn-web-gui:static`
 ```
-cd docker
+cd docker/static
 sh buildImage
 ```
 
 #### Develop Dockerfile ####
 * This image inculde development environment 
 * You can Change API,FTP,SSHweb from this container
+* Building this image whill take minutes
+* Default image name `dnn-web-gui:dev`
 ```
-cd docker
+cd docker/develop
 sh buildImage
 ```
 
@@ -344,20 +347,29 @@ npm run build
 │  │  │  │  StatusHandler.js    # Status chip component
 │  │  │  │  TutorialBtn.js      # Tutorial Button component
 │  │  │  │  TutorialVideoBtn.js # Video Tutorial Button component
-│  │  │  │  
-│  │  │  ├─Admin/               # Admin control with redux
 │  │  │  │      
-│  │  │  ├─Charts/              # Chart components
+│  │  │  ├─Charts/              # Chart components (not use for now)
 │  │  │  │      
 │  │  │  ├─CreatePage/          # Create Page components
 │  │  │  │      
 │  │  │  ├─Notify/              # Notify control with redux
 │  │  │  │      
-│  │  │  ├─reducers/            # redux reducers
+│  │  │  ├─Machines/            # Machines components for admin
 │  │  │  │      
 │  │  │  └─ReviewCalendar/      # ReviewCalendar components
 │  │  │
 │  │  ├─image/                  # images
+│  │  │
+│  │  ├─redux                   # Redux
+│  │  │  ├─Admin/               # Admin control
+│  │  │  │      
+│  │  │  ├─HistoryData/         # HistoryData
+│  │  │  │      
+│  │  │  ├─MachineData/         # MachineData
+│  │  │  │      
+│  │  │  ├─Notify/              # Notify
+│  │  │  │      
+│  │  │  └─reducers/            # Redux reducers
 │  │  │          
 │  │  ├─myTheme/                # Theme
 │  │  │      
