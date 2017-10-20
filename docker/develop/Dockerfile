@@ -13,7 +13,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && apt-get install no
 COPY ./dnnwebportal /dnnwebportal
 # install web modules and build
 RUN cd /dnnwebportal && npm install && npm run build 
-RUN cp -r /dnnwebportal/build/ /usr/share/nginx/html/ && mv /usr/share/nginx/html/dnnwebportal /usr/share/nginx/html/DNN 
+RUN cp -r /dnnwebportal/build/ /usr/share/nginx/html/ && mv /usr/share/nginx/html/build /usr/share/nginx/html/DNN 
 # copy nginx.conf (enable gzip)
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 # copy default.conf (change default path)
