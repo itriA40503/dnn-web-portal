@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.7
+* Version 0.4.8
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -72,7 +72,7 @@
 
 ### naming of Image ###
 
-* dnnweb: `dnn-web-gui` version: `2017v0.2.12`
+* dnnweb: `dnn-web-gui` version: `0.2.12`
 * sshweb: `dnn-web-gui` version: `2017v1.0.0`
 
 ### Using the Image ###
@@ -529,8 +529,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-10-20
+last update 2017-10-27
 
+* `0.4.8` add service email
 * `0.4.7` add `.git-credentials`
 * `0.4.6` add buildImage Shell Script
 * `0.4.5` add machineTable, add develop Dockerfile

@@ -28,7 +28,7 @@ import StatusHandler from './StatusHandler';
 import GpuHandler from './GpuHandler';
 import SshWebBtn from './SshWebBtn';
 // API call
-import { getInfo } from '../resource';
+import { getInfo, serviceEmail } from '../resource';
 
 // style
 import { muiStyle } from '../myTheme';
@@ -193,7 +193,7 @@ class ReviewTable extends Component {
                 label={t('common:contactUs')}
                 style={{ color: muiStyle.palette.primary1Color }}
                 icon={<CommunicationContactMail />}
-                href={'mailto:eNgiNEer@No.oNe.cARe'}
+                href={`mailto:${serviceEmail}`}
               />
             </CardActions>
             <CardTitle title={t('common:reviewTitle')} />

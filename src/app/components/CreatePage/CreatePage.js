@@ -9,7 +9,7 @@ import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 // API
 import axios from 'axios';
-import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage, gpuTypeList } from '../../resource';
+import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage, gpuTypeList, serviceEmail } from '../../resource';
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -876,7 +876,7 @@ class CreatePage extends React.Component {
                 }
                 icon={<CommunicationContactMail />}
                 disabled={finished}
-                href={'mailto:eNgiNEer@No.oNe.cARe'}
+                href={`mailto:${serviceEmail}`}
                 data-tip
                 data-for="mailto"
               />

@@ -62,6 +62,9 @@ export const gpuTypeList = ['v100', 'GTX1080Ti'];
 export const gpuAmountList = ['1', '2', '3', '4'];
 // Admin list
 export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
+// email
+export const serviceEmail = 'dnnfarmservice@gmail.com';
+
 // fake data
 export const DATA = [
   {
