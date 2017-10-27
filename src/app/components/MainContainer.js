@@ -46,7 +46,7 @@ import TutorialVideoBtn from './TutorialVideoBtn';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
-import { ApiGetInfo, adminList } from '../resource';
+import { ApiGetInfo, adminList, serviceEmail } from '../resource';
 
 const styles = {
   container: {
@@ -346,7 +346,7 @@ class MainContainer extends Component {
                   action={
                     this.props.notify.error && (
                       <FlatButton
-                        href={'mailto:eNgiNEer@No.oNe.cARe'}
+                        href={`mailto:${serviceEmail}`}
                         style={{ color: 'white' }}
                       >
                         Tell us
