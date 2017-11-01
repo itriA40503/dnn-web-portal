@@ -71,7 +71,7 @@
 ## Docker Image ##
 
 ### naming of Image ###
----
+
 * dnnweb: `dnn-web-gui` version: `0.2.12`
 * sshweb: `dnn-web-gui` version: `2017v1.0.0`
 
@@ -97,24 +97,24 @@ docker run -it -d -p xxxx:80 --name webportal dnn-web-gui:TAG
 ```
 
 #### If version < `0.4.6` need run `docker exec -it webportal /etc/init.d/nginx start`
-
-### Upload image ###
 ---
+### Upload image ###
+
 * You can upload image from `100.86.2.10:32190` after import CA
 
 ```
 docker tag SOURCE_IMAGE:TAG 100.86.2.10:32190/TARGET_IMAGE:TAG
 docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 ```
-
-### Building Image form container ###
 ---
+### Building Image form container ###
+
 ```
 docker commit -a "a40503" <container name> dnn-web-gui:TAG
 ```
-
-### Building the Image from dockerfile ###
 ---
+### Building the Image from dockerfile ###
+
 #### Static Dockerfile ####
 * This image only have web server and packaged webportal 
 * This image NOT inculde development environment 
@@ -136,9 +136,9 @@ sh buildImage
 cd docker/develop
 sh buildImage <b><your tag></b>
 ```
-
-### Change API from container ###
 ---
+### Change API from container ###
+
 `
 docker exec dnn-web-gui sh /dnnwebportal/changeAPI <your IP with http or https> <port>
 `
@@ -148,9 +148,9 @@ example :
 ```
 docker exec dnn-web-gui sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 ```
-
-### Change SSHweb from container ###
 ---
+### Change SSHweb from container ###
+
 * input one port (the ssh gui port(default 10443))
 
 `
@@ -162,9 +162,9 @@ example :
 ```
 docker exec dnn-web-gui sh /dnnwebportal/changeSSH http://127.0.0.1 5566
 ```
-
-### Change FTP from container ###
 ---
+### Change FTP from container ###
+
 `
 docker exec dnn-web-gui sh /dnnwebportal/changeFTP <your host> <port>
 `
@@ -174,9 +174,9 @@ example :
 ```
 docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ```
-
-### Update webportal from container ###
 ---
+### Update webportal from container ###
+
 1. Need set `.git-credentials` in first
     Put your git's account&password in `.git-credentials`
     format: `https://username:password@bitbucket.org`
@@ -225,34 +225,34 @@ npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugi
 ```
 git clone https://github.com/ITRI-ICL-DivX/dnn-web-portal.git
 ```
-
-### Install Modules ###
 ---
+### Install Modules ###
+
 ```
 npm install
 ```
 * for install modules
-
-### Run dev-server ###
 ---
+### Run dev-server ###
+
 ```
 npm start
 ```
 * need `npm run build` in first time
 * for development, run dev-server
 * open 'localhost:8080' on browser
-
-### Testing compnent ###
 ---
+### Testing compnent ###
+
 ```
 npm run styleguide
 ```
 * The compnent document
 * open 'localhost:6060' on browser
 ![alt text](/src/app/image/readme/DNNdoc.gif "DNN doc")
-
-### Packaging Project ###
 ---
+### Packaging Project ###
+
 ```
 npm run dll
 npm run app
