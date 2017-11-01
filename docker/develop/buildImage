@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version = $(jq -r '.version' ../../package.json)
+version=$(jq -r '.version' ../../package.json)
 
 cp Dockerfile ../../../
 cp -r nginx ../../../nginx
@@ -10,7 +10,7 @@ if [ -z "$1" ];
   then
     docker build -t dnn-web-gui:${version} .
 else
-    docker build -t dnn-web-gui:$1${vesrsion} .
-
+    docker build -t dnn-web-gui:$1${version} .
+fi
 rm -r nginx/
 rm Dockerfile
