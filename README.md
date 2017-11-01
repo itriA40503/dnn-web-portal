@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.8
+* Version 0.4.9
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -16,7 +16,7 @@
     * [Using the Image](#using-the-image)
     * [Upload image](#upload-image)
     * [Building Image form container](#building-image-form-container)
-    * [Building the Image form dockerfile](#building-the-image-form-dockerfile)
+    * [Building the Image form dockerfile](#building-the-image-from-dockerfile)    
         * [Static Dockerfile](#static-dockerfile)
         * [Develop Dockerfile](#develop-dockerfile)
     * [Change API from container](#change-api-from-container)
@@ -71,12 +71,12 @@
 ## Docker Image ##
 
 ### naming of Image ###
-
+---
 * dnnweb: `dnn-web-gui` version: `0.2.12`
 * sshweb: `dnn-web-gui` version: `2017v1.0.0`
 
 ### Using the Image ###
-
+---
 * You need import Certificate Authority(CA) on your client
 * The `ca.crt` on `./ca`
 
@@ -99,7 +99,7 @@ docker run -it -d -p xxxx:80 --name webportal dnn-web-gui:TAG
 #### If version < `0.4.6` need run `docker exec -it webportal /etc/init.d/nginx start`
 
 ### Upload image ###
-
+---
 * You can upload image from `100.86.2.10:32190` after import CA
 
 ```
@@ -108,13 +108,13 @@ docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 ```
 
 ### Building Image form container ###
-
+---
 ```
 docker commit -a "a40503" <container name> dnn-web-gui:TAG
 ```
 
 ### Building the Image from dockerfile ###
-
+---
 #### Static Dockerfile ####
 * This image only have web server and packaged webportal 
 * This image NOT inculde development environment 
@@ -130,14 +130,15 @@ sh buildImage
 * This image inculde development environment 
 * You can Change API,FTP,SSHweb from this container
 * Building this image whill take minutes
-* Default image name `dnn-web-gui:dev`
+* Default image name `dnn-web-gui:${current vserion}`
+* You can input your tag or not. (default tag is current vserion)
 ```
 cd docker/develop
-sh buildImage
+sh buildImage <b><your tag></b>
 ```
 
 ### Change API from container ###
-
+---
 `
 docker exec dnn-web-gui sh /dnnwebportal/changeAPI <your IP with http or https> <port>
 `
@@ -149,7 +150,7 @@ docker exec dnn-web-gui sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 ```
 
 ### Change SSHweb from container ###
-
+---
 * input one port (the ssh gui port(default 10443))
 
 `
@@ -163,7 +164,7 @@ docker exec dnn-web-gui sh /dnnwebportal/changeSSH http://127.0.0.1 5566
 ```
 
 ### Change FTP from container ###
-
+---
 `
 docker exec dnn-web-gui sh /dnnwebportal/changeFTP <your host> <port>
 `
@@ -175,7 +176,7 @@ docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ```
 
 ### Update webportal from container ###
-
+---
 1. Need set `.git-credentials` in first
     Put your git's account&password in `.git-credentials`
     format: `https://username:password@bitbucket.org`
@@ -220,20 +221,20 @@ npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugi
 
 ## How do I get set up from this porject ##
 
-Ask for developer to get access privileges, then you can clone or fork.
+**Ask for developer to get access privileges, then you can clone or fork.**
 ```
-git clone https://a40503@bitbucket.org/a40503/dnnwebportal.git
+git clone https://github.com/ITRI-ICL-DivX/dnn-web-portal.git
 ```
 
 ### Install Modules ###
-
+---
 ```
 npm install
 ```
 * for install modules
 
 ### Run dev-server ###
-
+---
 ```
 npm start
 ```
@@ -242,7 +243,7 @@ npm start
 * open 'localhost:8080' on browser
 
 ### Testing compnent ###
-
+---
 ```
 npm run styleguide
 ```
@@ -251,7 +252,7 @@ npm run styleguide
 ![alt text](/src/app/image/readme/DNNdoc.gif "DNN doc")
 
 ### Packaging Project ###
-
+---
 ```
 npm run dll
 npm run app
@@ -529,8 +530,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-10-27
+last update 2017-11-01
 
+* `0.4.9` buildImage with custom tag
 * `0.4.8` add service email
 * `0.4.7` add `.git-credentials`
 * `0.4.6` add buildImage Shell Script
