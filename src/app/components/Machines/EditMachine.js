@@ -120,7 +120,7 @@ class EditMachine extends React.Component {
       },
       body: JSON.stringify({
         gpuType: (this.state.gpuType === null ? this.props.data.gpuType : this.state.gpuType),
-        gpuAmount: (this.state.gpuAmount === null ? this.props.data.gpuAmount + '' : this.state.gpuAmount),
+        gpuAmount: (this.state.gpuAmount === null ? this.props.data.gpuAmount : this.state.gpuAmount),
       }),
       // body:data
     })
