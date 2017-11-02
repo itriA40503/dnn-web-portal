@@ -45,6 +45,8 @@ export const ApiGetHistory = ApiURL + '/user/schedules/history';
 export const ApiGetImage = ApiURL + '/images/';
 export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machines/';
+// for admin api
+export const ApiGetAllMachine = ApiURL + '/admin/machines/';
 export const ApiRemoveMachine = ApiURL + '/admin/machine/';
 export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
@@ -310,10 +312,10 @@ export const getImages = async (dispatch, token) => (
 );
 
 export const getMachines = async (dispatch, token) => (
-  axios.get(ApiGetMachine, {
+  axios.get(ApiGetAllMachine, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
-  .then(res => dispatch(getMachineData(res.data.machines)))
+  .then(res => dispatch(getMachineData(res.data)))
   .catch((err) => {
     console.log(err);
     dispatch(errorNotify('ERROR : MachineTable'));
