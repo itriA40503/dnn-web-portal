@@ -195,7 +195,6 @@ class MainContainer extends Component {
       });
     }
   };
-
   handleMenuTap = (value) => {
     // console.log(value)
     this.setState({
@@ -213,7 +212,7 @@ class MainContainer extends Component {
         return (
           <div>
             <ReviewTable token={this.props.token} />
-            <HistoryTable token={this.props.token} />
+            <HistoryTable token={this.props.token} />>
           </div>
         );
       case 1:
@@ -252,7 +251,123 @@ class MainContainer extends Component {
         );
     }
   };
-
+  renderBarElm = () => {
+    const { t } = this.props;
+    return (
+      <div>
+        <span
+          style={{ display: 'inline-block', verticalAlign: 'super' }}
+        >
+          <div>
+            <TutorialVideoBtn />
+          </div>
+        </span>
+        <span
+          style={{ display: 'inline-block', verticalAlign: 'super' }}
+        >
+          <div>
+            <TutorialBtn />
+          </div>
+        </span>
+        <span
+          style={{ display: 'inline-block', verticalAlign: 'super' }}
+        >
+          <FtpInfoModal iconColor={'#fff'} />
+        </span>
+        <span
+          style={{ display: 'inline-block', verticalAlign: 'super' }}
+        >
+          <LanguageBtn color={'white'} />
+        </span>
+        <span style={{ verticalAlign: 'super' }}>
+          <FlatButton
+            style={{ color: 'white' }}
+            label={<b>{t('common:signOut')}</b>}
+            icon={<ExitIcon color="white" />}
+            onTouchTap={() => this.props.SignOut()}
+            data-tip
+            data-for="signOut"
+          />
+          <ReactTooltip id="signOut" place="bottom" effect="solid">
+            <span>{t('common:signOut')}</span>
+          </ReactTooltip>
+        </span>
+        <span
+          style={{ display: 'inline-block', verticalAlign: 'sub' }}
+        >
+          <SocialPerson color="white" />
+        </span>
+        <span style={{ verticalAlign: 'text-bottom' }}>
+          <b>
+            <font size={3} color="#FDD100">
+              {''}
+              {this.props.user}
+            </font>
+          </b>
+        </span>
+      </div>
+    );
+  }
+  renderSideMenu = () => {
+    const { t } = this.props;
+    return (
+      <Paper
+        style={
+          this.state.open ? (
+            MenuStyles.sidebarOpen
+          ) : (
+            MenuStyles.sidebarClosed
+          )
+        }
+      >
+        <MenuItem
+          primaryText={'Dashboard'}
+          onTouchTap={() => this.handleMenuTap(0)}
+        />
+        <MenuItem
+          leftIcon={<ImageViewComfy />}
+          primaryText={t('common:menu.info')}
+          onTouchTap={() => this.handleMenuTap(1)}
+        />
+        <MenuItem
+          leftIcon={<ActionHistory />}
+          primaryText={t('common:menu.history')}
+          onTouchTap={() => this.handleMenuTap(2)}
+        />
+        <MenuItem
+          leftIcon={<ContentAdd />}
+          primaryText={t('common:menu.create')}
+          onTouchTap={() => this.handleMenuTap(3)}
+        />
+        <MenuItem
+          leftIcon={<ImagePictureAsPdf />}
+          primaryText={t('common:tutorial')}
+          onTouchTap={() =>
+            displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
+        />
+        {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
+        this.props.admin > 6 && (
+          <div>
+            <MenuItem
+              leftIcon={<AnalysisIcon />}
+              primaryText={t('common:menu.charts')}
+              onTouchTap={() => this.handleMenuTap(5)}
+            />
+            <MenuItem
+              leftIcon={<MachineIcon />}
+              primaryText={t('common:menu.machine')}
+              onTouchTap={() => this.handleMenuTap(6)}
+            />
+          </div>
+        )}
+        <MenuItem
+          leftIcon={<ExitIcon />}
+          primaryText={'SignOut'}
+          onTouchTap={() => this.props.SignOut()}
+        />
+      </Paper>
+    );
+  }
   render() {
     const { t } = this.props;
     return (
@@ -276,56 +391,7 @@ class MainContainer extends Component {
               iconStyleRight={{ margin: 'auto' }}
               iconElementRight={
                 <div>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'super' }}
-                  >
-                    <div>
-                      <TutorialVideoBtn />
-                    </div>
-                  </span>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'super' }}
-                  >
-                    <div>
-                      <TutorialBtn />
-                    </div>
-                  </span>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'super' }}
-                  >
-                    <FtpInfoModal iconColor={'#fff'} />
-                  </span>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'super' }}
-                  >
-                    <LanguageBtn color={'white'} />
-                  </span>
-                  <span style={{ verticalAlign: 'super' }}>
-                    <FlatButton
-                      style={{ color: 'white' }}
-                      label={<b>{t('common:signOut')}</b>}
-                      icon={<ExitIcon color="white" />}
-                      onTouchTap={() => this.props.SignOut()}
-                      data-tip
-                      data-for="signOut"
-                    />
-                    <ReactTooltip id="signOut" place="bottom" effect="solid">
-                      <span>{t('common:signOut')}</span>
-                    </ReactTooltip>
-                  </span>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'sub' }}
-                  >
-                    <SocialPerson color="white" />
-                  </span>
-                  <span style={{ verticalAlign: 'text-bottom' }}>
-                    <b>
-                      <font size={3} color="#FDD100">
-                        {''}
-                        {this.props.user}
-                      </font>
-                    </b>
-                  </span>
+                  {this.renderBarElm()}
                 </div>
               }
             />
@@ -355,61 +421,7 @@ class MainContainer extends Component {
                   }
                 />
               </div>
-              <Paper
-                style={
-                  this.state.open ? (
-                    MenuStyles.sidebarOpen
-                  ) : (
-                    MenuStyles.sidebarClosed
-                  )
-                }
-              >
-                <MenuItem
-                  primaryText={'Dashboard'}
-                  onTouchTap={() => this.handleMenuTap(0)}
-                />
-                <MenuItem
-                  leftIcon={<ImageViewComfy />}
-                  primaryText={t('common:menu.info')}
-                  onTouchTap={() => this.handleMenuTap(1)}
-                />
-                <MenuItem
-                  leftIcon={<ActionHistory />}
-                  primaryText={t('common:menu.history')}
-                  onTouchTap={() => this.handleMenuTap(2)}
-                />
-                <MenuItem
-                  leftIcon={<ContentAdd />}
-                  primaryText={t('common:menu.create')}
-                  onTouchTap={() => this.handleMenuTap(3)}
-                />
-                <MenuItem
-                  leftIcon={<ImagePictureAsPdf />}
-                  primaryText={t('common:tutorial')}
-                  onTouchTap={() =>
-                    displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
-                />
-                {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
-                this.props.admin > 6 && (
-                  <div>
-                    <MenuItem
-                      leftIcon={<AnalysisIcon />}
-                      primaryText={t('common:menu.charts')}
-                      onTouchTap={() => this.handleMenuTap(5)}
-                    />
-                    <MenuItem
-                      leftIcon={<MachineIcon />}
-                      primaryText={t('common:menu.machine')}
-                      onTouchTap={() => this.handleMenuTap(6)}
-                    />
-                  </div>
-                )}
-                <MenuItem
-                  leftIcon={<ExitIcon />}
-                  primaryText={'SignOut'}
-                  onTouchTap={() => this.props.SignOut()}
-                />
-              </Paper>
+              {this.renderSideMenu()}
             </div>
             <Footer />
           </div>
