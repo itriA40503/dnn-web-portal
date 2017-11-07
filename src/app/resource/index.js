@@ -35,16 +35,18 @@ export const DOMAIN = api.host;
 export const ApiURL = DOMAIN + PORT;
 export const ApiSIGNIN = ApiURL + '/user/signin';
 export const ApiCreateSchedule = ApiURL + '/user/schedule/';
-export const ApiCheckInstance = ApiURL + '/machine/remain';
-export const ApiGetCalendar = ApiURL + '/machine/calendar/';
+export const ApiCheckInstance = ApiURL + '/machines/remain';
+export const ApiGetCalendar = ApiURL + '/machines/calendar/';
 export const ApiGetInfo = ApiURL + '/user/schedules/reserved';
 export const ApiDeleteSchedule = ApiURL + '/user/schedule/';
 export const ApiGetExtDate = ApiURL + '/user/schedule/';
 export const ApiPutExtDate = ApiURL + '/user/schedule/';
 export const ApiGetHistory = ApiURL + '/user/schedules/history';
-export const ApiGetImage = ApiURL + '/image/';
+export const ApiGetImage = ApiURL + '/images/';
 export const ApiGetAll = ApiURL + '/schedule';
-export const ApiGetMachine = ApiURL + '/machine/';
+export const ApiGetMachine = ApiURL + '/machines/';
+// for admin api
+export const ApiGetAllMachine = ApiURL + '/admin/machines/';
 export const ApiRemoveMachine = ApiURL + '/admin/machine/';
 export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
@@ -59,7 +61,7 @@ export const SshWebHost = SshWebIP + ':' + SshWebPort;
 export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 // GPU array
 export const gpuTypeList = ['v100', 'GTX1080Ti'];
-export const gpuAmountList = ['1', '2', '3', '4'];
+export const gpuAmountList = [1, 2, 3, 4];
 // Admin list
 export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
 // email
@@ -310,10 +312,10 @@ export const getImages = async (dispatch, token) => (
 );
 
 export const getMachines = async (dispatch, token) => (
-  axios.get(ApiGetMachine, {
+  axios.get(ApiGetAllMachine, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
-  .then(res => dispatch(getMachineData(res.data.machines)))
+  .then(res => dispatch(getMachineData(res.data)))
   .catch((err) => {
     console.log(err);
     dispatch(errorNotify('ERROR : MachineTable'));

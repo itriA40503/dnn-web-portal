@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.4.9
+* Version 0.5.0
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -530,8 +530,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-11-01
+last update 2017-11-07
 
+* `0.5.0` change api for dnn-web-server:0.2.5
 * `0.4.9` buildImage with custom tag
 * `0.4.8` add service email
 * `0.4.7` add `.git-credentials`
