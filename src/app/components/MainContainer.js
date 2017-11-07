@@ -14,6 +14,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ActionHistory from 'material-ui/svg-icons/action/history';
 import MachineIcon from 'material-ui/svg-icons/action/dns';
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 
 import ReactTooltip from 'react-tooltip';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -43,6 +44,8 @@ import CreatePage from './CreatePage/CreatePage';
 import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
 import TutorialVideoBtn from './TutorialVideoBtn';
+
+import ReviewProject from './Project/ReviewProject';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
@@ -242,6 +245,12 @@ class MainContainer extends Component {
             <ReviewMachine token={this.props.token} />
           </div>
         );
+      case 7:
+        return (
+          <div>
+            <ReviewProject />
+          </div>
+        );
       default:
         return (
           <div>
@@ -339,15 +348,20 @@ class MainContainer extends Component {
           primaryText={t('common:menu.create')}
           onTouchTap={() => this.handleMenuTap(3)}
         />
-        <MenuItem
+        {false && <MenuItem
           leftIcon={<ImagePictureAsPdf />}
           primaryText={t('common:tutorial')}
           onTouchTap={() =>
             displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
-        />
+        />}
         {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
         this.props.admin > 6 && (
           <div>
+            <MenuItem
+              leftIcon={<ActionAssignment />}
+              primaryText={t('common:menu.create')}
+              onTouchTap={() => this.handleMenuTap(7)}
+            />
             <MenuItem
               leftIcon={<AnalysisIcon />}
               primaryText={t('common:menu.charts')}
