@@ -79,7 +79,6 @@ class WelcomePage extends Component {
           </Row>
         </div>
         <div style={styles.root}>
-         
         </div>
       </div>
     );
