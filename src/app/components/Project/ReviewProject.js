@@ -10,6 +10,11 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { muiStyle } from '../../myTheme';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+// ICON
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+import FaFlask from 'react-icons/lib/fa/flask';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class ReviewProject extends Component {
   constructor(props) {
@@ -19,22 +24,30 @@ class ReviewProject extends Component {
       treeData: [
         { title: 'Project1',
           expanded: true,
-          data:'123',
+          data: '123',
+          type: 'project',
           select: false,
           children: [
-            { title: 'job1' }, { title: 'job2' }, { title: 'job3' }, { title: 'job3' }
+            { title: 'job1', type: 'job', data: 'job1 data' },
+            { title: 'job2', type: 'job', data: 'job2 data' },
+            { title: 'job3', type: 'job', data: 'job3 data' },
+            { title: 'job4', type: 'job', data: 'job4 data' },
           ],
         },
         { title: 'Project2',
           expanded: true,
-          data:'123',
+          data: '123',
           select: false,
-          children: [{ title: 'job' }],
+          type: 'project',
+          children: [{ title: 'job', type: 'job', data: 'job data' }],
         },
       ],
       open: false,
+      newPjName: '',
+      currentData: null,
     };
   }
+  handleChange = (event, value) => this.setState({ [event.target.name]: value });
   changeSelect = node => {
     console.log(node);
   }
@@ -45,20 +58,35 @@ class ReviewProject extends Component {
     this.setState({ open: true });
   };
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, newPjName: '' });
   };
   handleSubmit = () => {
-
+    let data = this.state.treeData;
+    let newPj = {};
+    newPj.title = this.state.newPjName;
+    data.push(newPj);
+    this.setState({ treeData: data, open: false });
   };
+  handleTouch = data => {
+    console.log(data)
+    this.setState({ currentData: data });
+  }
   renderList = (data) => {
     return (
       <List>
-        {data.map(obj => (
+        {data.map((obj, index) => (
           <ListItem
             initiallyOpen
+            key={index}
+            leftIcon={<ActionAssignment />}
             primaryText={obj.title}
-            nestedItems={obj.children.map(job =>(
-              <ListItem primaryText={job.title} />
+            onTouchTap={() => this.handleTouch(obj)}
+            nestedItems={obj.children && obj.children.map(job =>(
+              <ListItem
+                leftIcon={<FaFlask size={20} />}
+                primaryText={job.title}
+                onTouchTap={() => this.handleTouch(job)}
+              />
             ))}
           />
         ))}
@@ -74,7 +102,7 @@ class ReviewProject extends Component {
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={t('common:submit')}
         secondary={true}
         onTouchTap={this.handleSubmit}
       />,
@@ -83,9 +111,9 @@ class ReviewProject extends Component {
       <div>
         <FlatButton
           style={{ color: muiStyle.palette.primary1Color }}
-          label={'+'}
-          labelPosition="before"
-          onTouchTap={this.handleOpen()}
+          label={'Create Project'}
+          onTouchTap={() => this.handleOpen()}
+          icon={<ContentAdd />}
         />
         <Dialog
           title={
@@ -99,19 +127,57 @@ class ReviewProject extends Component {
           modal={true}
           open={this.state.open}
         >
-          <TextField />
+          <TextField
+            onChange={this.handleChange}
+            floatingLabelText={'Project Name'}
+            name={'newPjName'}
+          />
         </Dialog>
       </div>
     );
   }
-  render() {
-    const getNodeKey = ({ treeIndex }) => treeIndex;
+  renderProjectInfo = (project) => {
     return (
       <Card>
+        <CardTitle title={<b><ActionAssignment /> {project.title}</b>} />
         <div>
-          {this.renderList(this.state.treeData)}
+          {project.data}
         </div>
       </Card>
+    )
+  }
+  renderJobInfo = (job) => {
+    return (
+      <Card>
+        <CardTitle title={<b><FaFlask /> {job.title}</b>} />
+        <div>
+          {job.data}
+        </div>
+      </Card>
+    )
+  }
+  render() {
+    // const getNodeKey = ({ treeIndex }) => treeIndex;
+    return (
+      <div>
+        <Row>
+          <Col xs={3}>
+            <Card>
+              <CardActions style={{ textAlign: 'right' }}>
+                {this.renderCreate()}
+              </CardActions>
+              <div>
+                {this.renderList(this.state.treeData)}
+              </div>
+            </Card>
+          </Col>
+          <Col xs={9}>
+            { this.state.currentData !== null &&
+              (this.state.currentData.type === 'project' ? this.renderProjectInfo(this.state.currentData) : this.renderJobInfo(this.state.currentData))
+            }
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
