@@ -70,7 +70,7 @@ class CreateDataSet extends React.Component {
   renderByType = (type) => {
     switch (type) {
       case 'Classification':
-        return (<div><Classification /></div>);
+        return (<div><Classification backReview={this.props.backReview} /></div>);
       case 'Object Detection':
         return (<div>{'Object Detection'}</div>);
       case 'Processing':

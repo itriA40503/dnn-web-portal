@@ -77,6 +77,7 @@ class Classification extends React.Component {
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   createApi = () => {
     console.log(this.state);
+    this.props.backReview();
   }
   checkSeparateTest = () => {
     this.setState({
@@ -556,7 +557,7 @@ class Classification extends React.Component {
             backgroundColor={muiStyle.palette.primary1Color}
             labelColor={'white'}
             disabled={this.state.loadingCreate}
-            onTouchTap={this.createApi}
+            onTouchTap={() => this.createApi()}
           />
         </div>
       </div>
