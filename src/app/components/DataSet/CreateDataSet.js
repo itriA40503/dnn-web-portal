@@ -18,6 +18,7 @@ import SelectField from 'material-ui/SelectField';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import ReactTooltip from 'react-tooltip';
 import { sampleCrop, sampleFill, sampleSquash, sampleHalf } from '../../image/imageBase64';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
@@ -173,7 +174,11 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'super' }}
+                data-tip
+                data-for="imgType"
+              >
                 <SelectField
                   name="imgType"
                   floatingLabelText={'Image Type'}
@@ -191,29 +196,42 @@ class CreateDataSet extends React.Component {
                     primaryText={'Color'}
                   />
                 </SelectField>
+                <ReactTooltip id="imgType" place="right" effect="solid">
+                  <p>{'Color is 3-channel RGB'}</p>
+                  <p>{'Grapscale is single channel monochrome'}</p>
+                </ReactTooltip>
               </div>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'bottom' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'middle' }} 
+                data-tip
+                data-for="size"
+              >
                 <TextField
-                  style={{ width: 80 }}
+                  style={{ width: 50 }}
+                  floatingLabelText={'Width'}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
                 />
-                {'X'}
+                {' X '}
                 <TextField
-                  style={{ width: 80 }}
+                  style={{ width: 50 }}
+                  floatingLabelText={'Height'}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
                 />
               </div>
+              <ReactTooltip id="size" place="right" effect="solid">
+                <p>{'Input images will be resized to fit.'}</p>
+              </ReactTooltip>
             </div>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
@@ -221,9 +239,17 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'super' }}
+                data-tip
+                data-for="resize"
+              >
                 {this.renderSelectResize()}
               </div>
+              <ReactTooltip id="resize" place="bottom" effect="solid">
+                <p>{'Options for dealing with aspect ratio changes during resize.'}</p>
+                <p>{'See examples beside.'}</p>
+              </ReactTooltip>
             </div>
           </Col>
           <Col>
@@ -243,7 +269,11 @@ class CreateDataSet extends React.Component {
               <ActionLabel color={muiStyle.palette.primary1Color} />
             </Animated>
           </div>
-          <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+          <div
+            style={{ display: 'inline-block', marginLeft: '3px' }}
+            data-tip
+            data-for="trainPath"
+          >
             <TextField
               name="trainPath"
               floatingLabelText={'Training Images path'}
@@ -253,6 +283,11 @@ class CreateDataSet extends React.Component {
                 borderColor: muiStyle.palette.primary1Color,
               }}
             />
+            <ReactTooltip id="trainPath" place="right" effect="solid">
+              <p>{'Indicate a folder which holds subfolders full of images.'}</p>
+              <p>{'Each subfolder should be named according to the desired label for the images that it holds.'}</p>
+              <p>{'Can aslso be URL for an apache/nginx auto-indexed folder.'}</p>
+            </ReactTooltip>
           </div>
         </div>
         <Row style={{ margin: '2px' }}>
@@ -263,7 +298,11 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+              <div
+                style={{ display: 'inline-block', marginLeft: '3px' }}
+                data-tip
+                data-for="miniClass"
+              >
                 <TextField
                   name="miniClass"
                   floatingLabelText={'Minimum samples per class'}
@@ -274,6 +313,11 @@ class CreateDataSet extends React.Component {
                   }}
                 />
               </div>
+              <ReactTooltip id="miniClass" place="bottom" effect="solid">
+                <p>{'You can choose to specify a minimum number of samples per class.'}</p>
+                <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                <p>{'Leave blank to ignore this feature'}</p>
+              </ReactTooltip>
             </div>
           </Col>
           <Col>
@@ -283,7 +327,11 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+              <div
+                style={{ display: 'inline-block', marginLeft: '3px' }}
+                data-tip
+                data-for="maxClass"
+              >
                 <TextField
                   name="maxClass"
                   floatingLabelText={'Maximum samples per class'}
@@ -294,6 +342,11 @@ class CreateDataSet extends React.Component {
                   }}
                 />
               </div>
+              <ReactTooltip id="maxClass" place="bottom" effect="solid">
+                <p>{'You can choose to specify a maximum number of samples per class.'}</p>
+                <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                <p>{'Leave blank to ignore this feature'}</p>
+              </ReactTooltip>
             </div>
           </Col>
         </Row>
@@ -306,7 +359,11 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+              <div
+                style={{ display: 'inline-block', marginLeft: '3px' }}
+                data-tip
+                data-for="percentVaild"
+              >
                 <TextField
                   name="percentVaild"
                   floatingLabelText={'% for validation'}
@@ -317,6 +374,9 @@ class CreateDataSet extends React.Component {
                   }}
                 />
               </div>
+              <ReactTooltip id="percentVaild" place="bottom" effect="solid">
+                <p>{'You can choose to set apart a certain percentage of images from the training images for the validation set.'}</p>
+              </ReactTooltip>
             </div>
           </Col>
           }
@@ -328,7 +388,11 @@ class CreateDataSet extends React.Component {
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
-              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+              <div
+                style={{ display: 'inline-block', marginLeft: '3px' }}
+                data-tip
+                data-for="percentTest"
+              >
                 <TextField
                   name="percentTest"
                   floatingLabelText={'% for testing'}
@@ -339,11 +403,15 @@ class CreateDataSet extends React.Component {
                   }}
                 />
               </div>
+              <ReactTooltip id="percentTest" place="bottom" effect="solid">
+                <p>{'You can choose to set apart a certain percentage of images from the training images for the test set.'}</p>
+              </ReactTooltip>
             </div>
           </Col>
           }
         </Row>
         <Divider />
+        <br />
         <Card>
           <Checkbox
             label="Separate testing images folder (option)"
@@ -378,7 +446,11 @@ class CreateDataSet extends React.Component {
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                    <div
+                      style={{ display: 'inline-block', marginLeft: '3px' }}
+                      data-tip
+                      data-for="testMiniClass"
+                    >
                       <TextField
                         name="testMiniClass"
                         floatingLabelText={'Minimum samples per class'}
@@ -389,6 +461,11 @@ class CreateDataSet extends React.Component {
                         }}
                       />
                     </div>
+                    <ReactTooltip id="testMiniClass" place="bottom" effect="solid">
+                      <p>{'You can choose to specify a minimum number of samples per class.'}</p>
+                      <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                      <p>{'Leave blank to ignore this feature'}</p>
+                    </ReactTooltip>
                   </div>
                 </Col>
                 <Col>
@@ -398,7 +475,11 @@ class CreateDataSet extends React.Component {
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                    <div
+                      style={{ display: 'inline-block', marginLeft: '3px' }}
+                      data-tip
+                      data-for="testMaxClass"
+                    >
                       <TextField
                         name="testMaxClass"
                         floatingLabelText={'Maximum samples per class'}
@@ -409,6 +490,11 @@ class CreateDataSet extends React.Component {
                         }}
                       />
                     </div>
+                    <ReactTooltip id="testMaxClass" place="bottom" effect="solid">
+                      <p>{'You can choose to specify a maximum number of samples per class.'}</p>
+                      <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                      <p>{'Leave blank to ignore this feature'}</p>
+                    </ReactTooltip>
                   </div>
                 </Col>
               </Row>
@@ -450,7 +536,11 @@ class CreateDataSet extends React.Component {
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                    <div
+                      style={{ display: 'inline-block', marginLeft: '3px' }}
+                      data-tip
+                      data-for="vaildMiniClass"
+                    >
                       <TextField
                         name="vaildMiniClass"
                         floatingLabelText={'Minimum samples per class'}
@@ -461,6 +551,11 @@ class CreateDataSet extends React.Component {
                         }}
                       />
                     </div>
+                    <ReactTooltip id="vaildMiniClass" place="bottom" effect="solid">
+                      <p>{'You can choose to specify a minimum number of samples per class.'}</p>
+                      <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                      <p>{'Leave blank to ignore this feature'}</p>
+                    </ReactTooltip>
                   </div>
                 </Col>
                 <Col>
@@ -470,7 +565,11 @@ class CreateDataSet extends React.Component {
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                    <div
+                      style={{ display: 'inline-block', marginLeft: '3px' }}
+                      data-tip
+                      data-for="vaildMaxClass"
+                    >
                       <TextField
                         name="vaildMaxClass"
                         floatingLabelText={'Maximum samples per class'}
@@ -481,6 +580,11 @@ class CreateDataSet extends React.Component {
                         }}
                       />
                     </div>
+                    <ReactTooltip id="vaildMaxClass" place="bottom" effect="solid">
+                      <p>{'You can choose to specify a maximum number of samples per class.'}</p>
+                      <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                      <p>{'Leave blank to ignore this feature'}</p>
+                    </ReactTooltip>
                   </div>
                 </Col>
               </Row>
@@ -505,7 +609,7 @@ class CreateDataSet extends React.Component {
         </CardActions>
         <CardTitle title={'CreateDataSet'} />
         <ExpandTransition open={true} >
-          <div style={{ marginLeft: 50, marginRight: 50 }}>
+          <div style={{ marginLeft: 200, marginRight: 200 }}>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
