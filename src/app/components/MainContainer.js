@@ -387,7 +387,7 @@ class MainContainer extends Component {
         />
         <MenuItem
           leftIcon={<DeviceWidgets />}
-          primaryText={'models'}
+          primaryText={'Models'}
           onTouchTap={() => this.handleMenuTap(9)}
           nestedItems={[
             <MenuItem
