@@ -112,7 +112,7 @@
     "gpuType":"GPU Type",
     "gpuNumber":"GPU Number",
     "menu":{
-        "info":"Information",
+        "info":"Instance",
         "history":"History",
         "create":"Create Instance",
         "storage":"Open Storage",
