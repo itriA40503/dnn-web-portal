@@ -20,7 +20,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import ReactTooltip from 'react-tooltip';
 import { sampleCrop, sampleFill, sampleSquash, sampleHalf } from '../../image/imageBase64';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
 
 const types = ['Classification', 'Object Detection', 'Processing', 'Segmentation', 'Other'];
