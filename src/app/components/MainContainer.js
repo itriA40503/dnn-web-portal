@@ -15,7 +15,12 @@ import ActionHistory from 'material-ui/svg-icons/action/history';
 import MachineIcon from 'material-ui/svg-icons/action/dns';
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+import DeviceStorage from 'material-ui/svg-icons/device/storage';
+import DeviceWidgets from 'material-ui/svg-icons/device/widgets';
+import MapsLayers from 'material-ui/svg-icons/maps/layers';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
 
+import Divider from 'material-ui/Divider';
 import ReactTooltip from 'react-tooltip';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
@@ -45,7 +50,10 @@ import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
 import TutorialVideoBtn from './TutorialVideoBtn';
 
+import WelcomePage from './WelcomePage';
 import ReviewProject from './Project/ReviewProject';
+
+import ReviewDataSet from './DataSet/ReviewDataSet';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
@@ -152,8 +160,8 @@ class MainContainer extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      open:
-        (adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6,
+      open: true,
+        // (adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6,
       content: '',
       notifyOpen: false,
       notifyMsg: '',
@@ -214,8 +222,7 @@ class MainContainer extends Component {
       case 0:
         return (
           <div>
-            <ReviewTable token={this.props.token} />
-            <HistoryTable token={this.props.token} />>
+            <WelcomePage />
           </div>
         );
       case 1:
@@ -249,6 +256,24 @@ class MainContainer extends Component {
         return (
           <div>
             <ReviewProject />
+          </div>
+        );
+      case 8:
+        return (
+          <div>
+            <ReviewDataSet />
+          </div>
+        );
+      case 9:
+        return (
+          <div>
+            {'Models'}
+          </div>
+        );
+       case 10:
+        return (
+          <div>
+            {'Network'}
           </div>
         );
       default:
@@ -330,6 +355,7 @@ class MainContainer extends Component {
         }
       >
         <MenuItem
+          leftIcon={<ActionDashboard />}
           primaryText={'Dashboard'}
           onTouchTap={() => this.handleMenuTap(0)}
         />
@@ -348,6 +374,30 @@ class MainContainer extends Component {
           primaryText={t('common:menu.create')}
           onTouchTap={() => this.handleMenuTap(3)}
         />
+        <Divider />
+        <MenuItem
+          leftIcon={<ActionAssignment />}
+          primaryText={'Project'}
+          onTouchTap={() => this.handleMenuTap(7)}
+        />
+        <MenuItem
+          leftIcon={<DeviceStorage />}
+          primaryText={'DataSet'}
+          onTouchTap={() => this.handleMenuTap(8)}
+        />
+        <MenuItem
+          leftIcon={<DeviceWidgets />}
+          primaryText={'models'}
+          onTouchTap={() => this.handleMenuTap(9)}
+          nestedItems={[
+            <MenuItem
+              leftIcon={<MapsLayers />}
+              primaryText={'Network'}
+              onTouchTap={() => this.handleMenuTap(10)}
+            />,
+          ]}
+        />
+        <Divider />
         {false && <MenuItem
           leftIcon={<ImagePictureAsPdf />}
           primaryText={t('common:tutorial')}
@@ -357,11 +407,6 @@ class MainContainer extends Component {
         {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
         this.props.admin > 6 && (
           <div>
-            <MenuItem
-              leftIcon={<ActionAssignment />}
-              primaryText={t('common:menu.create')}
-              onTouchTap={() => this.handleMenuTap(7)}
-            />
             <MenuItem
               leftIcon={<AnalysisIcon />}
               primaryText={t('common:menu.charts')}
@@ -383,7 +428,6 @@ class MainContainer extends Component {
     );
   }
   render() {
-    const { t } = this.props;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={prefixedStyles.wrapper}>
@@ -399,7 +443,6 @@ class MainContainer extends Component {
                   <b> DNN Web portal</b>
                 </span>
               }
-              iconElementLeft={(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6 ? <img height={60} alt={'serval'} src={serval} /> : <div />}
               style={{ backgroundColor: lightBlue900 }}
               onLeftIconButtonTouchTap={this.handleToggle}
               iconStyleRight={{ margin: 'auto' }}
