@@ -48,25 +48,23 @@ class CreateDataSet extends React.Component {
     });
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  renderSelectType = () => {
-    return (
-      <div>
-        <SelectField
-          floatingLabelText={'DataSet Type'}
-          onChange={this.handleTypeChange}
-          value={this.state.type}
-        >
-          {types.map(type => (
-            <MenuItem
-              key={type}
-              value={type}
-              primaryText={type}
-            />
-          ))}
-        </SelectField>
-      </div>
-    );
-  }
+  renderSelectType = () => (
+    <div>
+      <SelectField
+        floatingLabelText={'DataSet Type'}
+        onChange={this.handleTypeChange}
+        value={this.state.type}
+      >
+        {types.map(type => (
+          <MenuItem
+            key={type}
+            value={type}
+            primaryText={type}
+          />
+        ))}
+      </SelectField>
+    </div>
+  )
   renderByType = (type) => {
     switch (type) {
       case 'Classification':
@@ -117,7 +115,7 @@ class CreateDataSet extends React.Component {
               </div>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-5px'}}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-5px' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
