@@ -126,13 +126,13 @@ class Classification extends React.Component {
         <Row style={{ margin: '2px' }}>
           <Col>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px'}}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
               <div
-                style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px'}}
+                style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px' }}
                 data-tip
                 data-for="imgType"
               >
@@ -166,7 +166,7 @@ class Classification extends React.Component {
                 </Animated>
               </div>
               <div
-                style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }} 
+                style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }}
                 data-tip
                 data-for="size"
               >
