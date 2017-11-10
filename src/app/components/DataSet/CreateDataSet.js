@@ -117,7 +117,7 @@ class CreateDataSet extends React.Component {
               </div>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-5px'}}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>

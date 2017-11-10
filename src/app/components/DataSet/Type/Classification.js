@@ -126,13 +126,13 @@ class Classification extends React.Component {
         <Row style={{ margin: '2px' }}>
           <Col>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px'}}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
               <div
-                style={{ display: 'inline-block', verticalAlign: 'super' }}
+                style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px'}}
                 data-tip
                 data-for="imgType"
               >
@@ -160,27 +160,29 @@ class Classification extends React.Component {
               </div>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'bottom' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'bottom', position: 'relative', top: '-7px' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
               <div
-                style={{ display: 'inline-block', verticalAlign: 'middle' }} 
+                style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }} 
                 data-tip
                 data-for="size"
               >
                 <TextField
-                  style={{ width: 50 }}
+                  style={{ width: 50, marginRight: '3px' }}
                   floatingLabelText={'Width'}
+                  inputStyle={{ textAlign: 'center' }}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
                 />
                 {' X '}
                 <TextField
-                  style={{ width: 50 }}
+                  style={{ width: 50, marginLeft: '3px' }}
                   floatingLabelText={'Height'}
+                  inputStyle={{ textAlign: 'center' }}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
@@ -191,13 +193,13 @@ class Classification extends React.Component {
               </ReactTooltip>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
               </div>
               <div
-                style={{ display: 'inline-block', verticalAlign: 'super' }}
+                style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px' }}
                 data-tip
                 data-for="resize"
               >
@@ -372,12 +374,14 @@ class Classification extends React.Component {
         <Card>
           <Checkbox
             label="Separate testing images folder (option)"
+            labelStyle={{ fontSize: '16px' }}
+            style={{ padding: '10px 10px' }}
             onCheck={() => this.checkSeparateTest()}
             checked={this.state.testChecked}
           />
           { this.state.testChecked &&
-            <div>
-              <div style={{ margin: '0px auto' }}>
+            <div style={{ margin: '20px' }}>
+              <div style={{ margin: '0px 2px' }}>
                 <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                   <Animated animationIn="rollIn" isVisible={true}>
                     <ActionLabel color={muiStyle.palette.primary1Color} />
@@ -462,12 +466,14 @@ class Classification extends React.Component {
         <Card>
           <Checkbox
             label="Separate validation images folder (option)"
+            labelStyle={{ fontSize: '16px' }}
+            style={{ padding: '10px 10px' }}
             onCheck={() => this.checkSeparateVaild()}
             checked={this.state.vaildChecked}
           />
           { this.state.vaildChecked &&
-            <div>
-              <div style={{ margin: '0px auto' }}>
+            <div style={{ margin: '20px' }}>
+              <div style={{ margin: '0px 2px' }}>
                 <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                   <Animated animationIn="rollIn" isVisible={true}>
                     <ActionLabel color={muiStyle.palette.primary1Color} />
