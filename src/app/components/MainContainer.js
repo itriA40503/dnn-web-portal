@@ -19,6 +19,7 @@ import DeviceStorage from 'material-ui/svg-icons/device/storage';
 import DeviceWidgets from 'material-ui/svg-icons/device/widgets';
 import MapsLayers from 'material-ui/svg-icons/maps/layers';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import HardwareMemory from 'material-ui/svg-icons/hardware/memory';
 
 import Divider from 'material-ui/Divider';
 import ReactTooltip from 'react-tooltip';
@@ -52,7 +53,7 @@ import TutorialVideoBtn from './TutorialVideoBtn';
 
 import WelcomePage from './WelcomePage';
 import ReviewProject from './Project/ReviewProject';
-
+import ReviewRes from './Resource/ReviewRes';
 import ReviewDataSet from './DataSet/ReviewDataSet';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
@@ -270,10 +271,16 @@ class MainContainer extends Component {
             {'Models'}
           </div>
         );
-       case 10:
+      case 10:
         return (
           <div>
             {'Network'}
+          </div>
+        );
+      case 11:
+        return (
+          <div>
+            <ReviewRes />
           </div>
         );
       default:
@@ -376,6 +383,11 @@ class MainContainer extends Component {
         />
         <Divider />
         <MenuItem
+          leftIcon={<HardwareMemory />}
+          primaryText={'Resource'}
+          onTouchTap={() => this.handleMenuTap(11)}
+        />
+        <MenuItem
           leftIcon={<ActionAssignment />}
           primaryText={'Project'}
           onTouchTap={() => this.handleMenuTap(7)}
@@ -389,6 +401,7 @@ class MainContainer extends Component {
           leftIcon={<DeviceWidgets />}
           primaryText={'Models'}
           onTouchTap={() => this.handleMenuTap(9)}
+          initiallyOpen={true}
           nestedItems={[
             <MenuItem
               leftIcon={<MapsLayers />}
