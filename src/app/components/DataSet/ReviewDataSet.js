@@ -37,28 +37,6 @@ const fakeData = [
     createAt: '2777-07-17T07:35:30.973Z',
   },
 ];
-const styles = {
-  root: {
-    margin: '-2px',
-  },
-  gridList: {
-    width: '100%',
-    margin: 0,
-  },
-  refresh: {
-    display: 'inline-block',
-    position: 'relative',
-  },
-  actions: {
-    zIndex: 2,
-    display: 'inline-block',
-    float: 'right',
-    right: '10px',
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-};
 
 class ReviewDataSet extends Component {
   constructor(props) {
