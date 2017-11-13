@@ -340,10 +340,12 @@ class Segmentation extends React.Component {
               />
             </SelectField>
             <ReactTooltip id="channelCvt" place="right" effect="solid">
-              <p style={styles.tooltip}>{'Perform selected channel conversion.'}</p>
+              <p style={styles.tooltip}>{'Perform selected channel conversion. Label images are single'}</p>
+              <p style={styles.tooltip}>{'channel and not affected by this parameter.'}</p>
             </ReactTooltip>
           </div>
         </div>
+        <p style={{ fontSize: '14px' }}>{'Note: the recommended label encoding is PNG.'}</p>
         <Divider />
         <br />
         <div style={styles.actions}>
