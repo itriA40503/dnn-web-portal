@@ -135,12 +135,11 @@ class Processing extends React.Component {
               }}
             />
           </div>
-          <ReactTooltip id="percentValid" place="bottom" effect="solid">
+          <ReactTooltip id="percentValid" place="right" effect="solid">
             <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
             <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
           </ReactTooltip>
         </div>
-
         <br />
         <Card>
           <Checkbox
@@ -212,7 +211,6 @@ class Processing extends React.Component {
             </div>
           }
         </Card>
-
         <div style={{ margin: '0px auto' }}>
           <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
             <Animated animationIn="rollIn" isVisible={true}>
@@ -251,7 +249,6 @@ class Processing extends React.Component {
             </ReactTooltip>
           </div>
         </div>
-
         <Divider />
         <br />
         <div style={styles.actions}>
