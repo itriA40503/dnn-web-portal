@@ -315,12 +315,13 @@ class Classification extends React.Component {
           </Col>
         </Row>
         <Row style={{ margin: '2px' }}>
-          { !this.state.vaildChecked &&
           <Col>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={muiStyle.palette.primary1Color} />
+                  <ActionLabel color={this.state.vaildChecked ?
+                    muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                  />
                 </Animated>
               </div>
               <div
@@ -330,6 +331,7 @@ class Classification extends React.Component {
               >
                 <TextField
                   name="percentVaild"
+                  disabled={this.state.vaildChecked}
                   floatingLabelText={'% for validation'}
                   onChange={this.handleChange}
                   value={this.state.percentVaild}
@@ -344,13 +346,13 @@ class Classification extends React.Component {
               </ReactTooltip>
             </div>
           </Col>
-          }
-          { !this.state.testChecked &&
           <Col>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={muiStyle.palette.primary1Color} />
+                  <ActionLabel color={this.state.testChecked ?
+                    muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                  />
                 </Animated>
               </div>
               <div
@@ -360,6 +362,7 @@ class Classification extends React.Component {
               >
                 <TextField
                   name="percentTest"
+                  disabled={this.state.testChecked}
                   floatingLabelText={'% for testing'}
                   onChange={this.handleChange}
                   value={this.state.percentTest}
@@ -374,7 +377,6 @@ class Classification extends React.Component {
               </ReactTooltip>
             </div>
           </Col>
-          }
         </Row>
         <Divider />
         <br />
