@@ -21,6 +21,7 @@ import Divider from 'material-ui/Divider';
 
 import Classification from './Type/Classification';
 import ObjectDetection from './Type/ObjectDetection';
+import Processing from './Type/Processing';
 import Other from './Type/Other';
 
 const types = ['Classification', 'Object Detection', 'Processing', 'Segmentation', 'Other'];
@@ -74,7 +75,7 @@ class CreateDataSet extends React.Component {
       case 'Object Detection':
         return (<div><ObjectDetection backReview={this.props.backReview} /></div>);
       case 'Processing':
-        return (<div>{'Processing'}</div>);
+        return (<div><Processing backReview={this.props.backReview} /></div>);
       case 'Segmentation':
         return (<div>{'Segmentation'}</div>);
       case 'Other':
