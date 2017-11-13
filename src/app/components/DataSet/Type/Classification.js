@@ -65,12 +65,12 @@ class Classification extends React.Component {
       trainPath: null,         // training images path
       miniClass: null,         // Minimum samples per class (train)
       maxClass: null,          // Maximum samples per class (train)
-      percentVaild: null,      // % for validation
+      percentValid: null,      // % for validation
       percentTest: null,       // % for testing
-      vaildPath: null,         // validation images path
-      vaildMiniClass: null,    // Minimum samples per class (validation)
-      vaildMaxClass: null,     // Maximum samples per class (validation)
-      vaildChecked: false,     // check Separate validation images folder
+      validPath: null,         // validation images path
+      validMiniClass: null,    // Minimum samples per class (validation)
+      validMaxClass: null,     // Maximum samples per class (validation)
+      validChecked: false,     // check Separate validation images folder
       testPath: null,          // validation images path
       testMiniClass: null,     // Minimum samples per class (testing)
       testMaxClass: null,      // Maximum samples per class (testing)
@@ -88,9 +88,9 @@ class Classification extends React.Component {
       testChecked: !this.state.testChecked,
     });
   }
-  checkSeparateVaild = () => {
+  checkSeparateValid = () => {
     this.setState({
-      vaildChecked: !this.state.vaildChecked,
+      validChecked: !this.state.validChecked,
     });
   }
   handleImgTypeChange = (event, index, value) => {
@@ -319,7 +319,7 @@ class Classification extends React.Component {
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={this.state.vaildChecked ?
+                  <ActionLabel color={this.state.validChecked ?
                     muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
                   />
                 </Animated>
@@ -327,20 +327,20 @@ class Classification extends React.Component {
               <div
                 style={{ display: 'inline-block', marginLeft: '3px' }}
                 data-tip
-                data-for="percentVaild"
+                data-for="percentValid"
               >
                 <TextField
-                  name="percentVaild"
-                  disabled={this.state.vaildChecked}
+                  name="percentValid"
+                  disabled={this.state.validChecked}
                   floatingLabelText={'% for validation'}
                   onChange={this.handleChange}
-                  value={this.state.percentVaild}
+                  value={this.state.percentValid}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
                 />
               </div>
-              <ReactTooltip id="percentVaild" place="bottom" effect="solid">
+              <ReactTooltip id="percentValid" place="bottom" effect="solid">
                 <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
                 <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
               </ReactTooltip>
@@ -477,10 +477,10 @@ class Classification extends React.Component {
             label="Separate validation images folder (option)"
             labelStyle={{ fontSize: '16px' }}
             style={{ padding: '10px 10px' }}
-            onCheck={() => this.checkSeparateVaild()}
-            checked={this.state.vaildChecked}
+            onCheck={() => this.checkSeparateValid()}
+            checked={this.state.validChecked}
           />
-          { this.state.vaildChecked &&
+          { this.state.validChecked &&
             <div style={{ margin: '20px' }}>
               <div style={{ margin: '0px 2px' }}>
                 <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
@@ -490,10 +490,10 @@ class Classification extends React.Component {
                 </div>
                 <div style={{ display: 'inline-block', marginLeft: '3px' }}>
                   <TextField
-                    name="vaildPath"
+                    name="validPath"
                     floatingLabelText={'Validation Images path'}
                     onChange={this.handleChange}
-                    value={this.state.vaildPath}
+                    value={this.state.validPath}
                     underlineFocusStyle={{
                       borderColor: muiStyle.palette.primary1Color,
                     }}
@@ -511,19 +511,19 @@ class Classification extends React.Component {
                     <div
                       style={{ display: 'inline-block', marginLeft: '3px' }}
                       data-tip
-                      data-for="vaildMiniClass"
+                      data-for="validMiniClass"
                     >
                       <TextField
-                        name="vaildMiniClass"
+                        name="validMiniClass"
                         floatingLabelText={'Minimum samples per class'}
                         onChange={this.handleChange}
-                        value={this.state.vaildMiniClass}
+                        value={this.state.validMiniClass}
                         underlineFocusStyle={{
                           borderColor: muiStyle.palette.primary1Color,
                         }}
                       />
                     </div>
-                    <ReactTooltip id="vaildMiniClass" place="bottom" effect="solid">
+                    <ReactTooltip id="validMiniClass" place="bottom" effect="solid">
                       <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
                       <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
                       <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
@@ -540,19 +540,19 @@ class Classification extends React.Component {
                     <div
                       style={{ display: 'inline-block', marginLeft: '3px' }}
                       data-tip
-                      data-for="vaildMaxClass"
+                      data-for="validMaxClass"
                     >
                       <TextField
-                        name="vaildMaxClass"
+                        name="validMaxClass"
                         floatingLabelText={'Maximum samples per class'}
                         onChange={this.handleChange}
-                        value={this.state.vaildMaxClass}
+                        value={this.state.validMaxClass}
                         underlineFocusStyle={{
                           borderColor: muiStyle.palette.primary1Color,
                         }}
                       />
                     </div>
-                    <ReactTooltip id="vaildMaxClass" place="bottom" effect="solid">
+                    <ReactTooltip id="validMaxClass" place="bottom" effect="solid">
                       <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
                       <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
                       <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>

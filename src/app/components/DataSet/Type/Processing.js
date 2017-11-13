@@ -122,10 +122,10 @@ class Processing extends React.Component {
           <div
             style={{ display: 'inline-block', marginLeft: '3px' }}
             data-tip
-            data-for="percentVaild"
+            data-for="percentValid"
           >
             <TextField
-              name="percentVaild"
+              name="percentValid"
               disabled={this.state.validChecked}
               floatingLabelText={'% For Validation'}
               onChange={this.handleChange}
@@ -135,7 +135,7 @@ class Processing extends React.Component {
               }}
             />
           </div>
-          <ReactTooltip id="percentVaild" place="bottom" effect="solid">
+          <ReactTooltip id="percentValid" place="bottom" effect="solid">
             <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
             <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
           </ReactTooltip>
