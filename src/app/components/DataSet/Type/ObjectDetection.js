@@ -84,7 +84,7 @@ class ObjectDetection extends React.Component {
             >
               <TextField
                 name="trainImageFolder"
-                floatingLabelText={'Training image folder'}
+                floatingLabelText={'Training Image Folder'}
                 onChange={this.handleChange}
                 value={this.state.trainImageFolder}
                 underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
@@ -115,7 +115,7 @@ class ObjectDetection extends React.Component {
             >
               <TextField
                 name="trainLabelFolder"
-                floatingLabelText={'Training label folder'}
+                floatingLabelText={'Training Label Folder'}
                 onChange={this.handleChange}
                 value={this.state.trainLabelFolder}
                 underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
@@ -139,7 +139,7 @@ class ObjectDetection extends React.Component {
           >
             <TextField
               name="validImageFolder"
-              floatingLabelText={'Validation image folder'}
+              floatingLabelText={'Validation Image Folder'}
               onChange={this.handleChange}
               value={this.state.validImageFolder}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
@@ -162,7 +162,7 @@ class ObjectDetection extends React.Component {
           >
             <TextField
               name="validLabelFolder"
-              floatingLabelText={'Validation label folder'}
+              floatingLabelText={'Validation Label Folder'}
               onChange={this.handleChange}
               value={this.state.validLabelFolder}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
@@ -185,15 +185,15 @@ class ObjectDetection extends React.Component {
             data-for="padImage"
           >
             <TextField
-              style={{ width: 130, marginRight: '3px' }}
-              floatingLabelText={'Pad image width'}
+              style={{ width: 140, marginRight: '3px' }}
+              floatingLabelText={'Pad Image Width'}
               inputStyle={{ textAlign: 'center' }}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
             {' X '}
             <TextField
-              style={{ width: 130, marginLeft: '3px' }}
-              floatingLabelText={'Pad image height'}
+              style={{ width: 140, marginLeft: '3px' }}
+              floatingLabelText={'Pad Image Height'}
               inputStyle={{ textAlign: 'center' }}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
@@ -217,14 +217,14 @@ class ObjectDetection extends React.Component {
           >
             <TextField
               style={{ width: 150, marginRight: '3px' }}
-              floatingLabelText={'Resize image width'}
+              floatingLabelText={'Resize Image Width'}
               inputStyle={{ textAlign: 'center' }}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
             {' X '}
             <TextField
               style={{ width: 150, marginLeft: '3px' }}
-              floatingLabelText={'Resize image height'}
+              floatingLabelText={'Resize Image Height'}
               inputStyle={{ textAlign: 'center' }}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
@@ -248,7 +248,7 @@ class ObjectDetection extends React.Component {
           >
             <SelectField
               name="channelCvt"
-              floatingLabelText={'Channel conversion'}
+              floatingLabelText={'Channel Conversion'}
               onChange={this.handleImgTypeChange}
               value={this.state.channelCvt}
             >
@@ -288,7 +288,7 @@ class ObjectDetection extends React.Component {
             <TextField
               name="minBoxSize"
               value={this.state.minBoxSize}
-              floatingLabelText={'Minimum box size'}
+              floatingLabelText={'Minimum Box Size'}
               onChange={this.handleChange}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
@@ -314,7 +314,7 @@ class ObjectDetection extends React.Component {
             <TextField
               name="customClass"
               value={this.state.customClass}
-              floatingLabelText={'Custom classes'}
+              floatingLabelText={'Custom Classes'}
               onChange={this.handleChange}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />

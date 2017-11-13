@@ -239,7 +239,7 @@ class Classification extends React.Component {
           >
             <TextField
               name="trainPath"
-              floatingLabelText={'Training Images path'}
+              floatingLabelText={'Training Images Path'}
               onChange={this.handleChange}
               value={this.state.trainPath}
               underlineFocusStyle={{
@@ -269,7 +269,7 @@ class Classification extends React.Component {
               >
                 <TextField
                   name="miniClass"
-                  floatingLabelText={'Minimum samples per class'}
+                  floatingLabelText={'Minimum Samples Per Class'}
                   onChange={this.handleChange}
                   value={this.state.miniClass}
                   underlineFocusStyle={{
@@ -298,7 +298,7 @@ class Classification extends React.Component {
               >
                 <TextField
                   name="maxClass"
-                  floatingLabelText={'Maximum samples per class'}
+                  floatingLabelText={'Maximum Samples Per Class'}
                   onChange={this.handleChange}
                   value={this.state.maxClass}
                   underlineFocusStyle={{
@@ -332,7 +332,7 @@ class Classification extends React.Component {
                 <TextField
                   name="percentValid"
                   disabled={this.state.validChecked}
-                  floatingLabelText={'% for validation'}
+                  floatingLabelText={'% For Validation'}
                   onChange={this.handleChange}
                   value={this.state.percentValid}
                   underlineFocusStyle={{
@@ -363,7 +363,7 @@ class Classification extends React.Component {
                 <TextField
                   name="percentTest"
                   disabled={this.state.testChecked}
-                  floatingLabelText={'% for testing'}
+                  floatingLabelText={'% For Testing'}
                   onChange={this.handleChange}
                   value={this.state.percentTest}
                   underlineFocusStyle={{
@@ -382,7 +382,7 @@ class Classification extends React.Component {
         <br />
         <Card>
           <Checkbox
-            label="Separate testing images folder (option)"
+            label="Separate Testing Images Folder (option)"
             labelStyle={{ fontSize: '16px' }}
             style={{ padding: '10px 10px' }}
             onCheck={() => this.checkSeparateTest()}
@@ -399,7 +399,7 @@ class Classification extends React.Component {
                 <div style={{ display: 'inline-block', marginLeft: '3px' }}>
                   <TextField
                     name="testPath"
-                    floatingLabelText={'Test Images path'}
+                    floatingLabelText={'Test Images Path'}
                     onChange={this.handleChange}
                     value={this.state.testPath}
                     underlineFocusStyle={{
@@ -423,7 +423,7 @@ class Classification extends React.Component {
                     >
                       <TextField
                         name="testMiniClass"
-                        floatingLabelText={'Minimum samples per class'}
+                        floatingLabelText={'Minimum Samples Per Class'}
                         onChange={this.handleChange}
                         value={this.state.testMiniClass}
                         underlineFocusStyle={{
@@ -452,7 +452,7 @@ class Classification extends React.Component {
                     >
                       <TextField
                         name="testMaxClass"
-                        floatingLabelText={'Maximum samples per class'}
+                        floatingLabelText={'Maximum Samples Per Class'}
                         onChange={this.handleChange}
                         value={this.state.testMaxClass}
                         underlineFocusStyle={{
@@ -474,7 +474,7 @@ class Classification extends React.Component {
         <br />
         <Card>
           <Checkbox
-            label="Separate validation images folder (option)"
+            label="Separate Validation Images Folder (option)"
             labelStyle={{ fontSize: '16px' }}
             style={{ padding: '10px 10px' }}
             onCheck={() => this.checkSeparateValid()}
@@ -491,7 +491,7 @@ class Classification extends React.Component {
                 <div style={{ display: 'inline-block', marginLeft: '3px' }}>
                   <TextField
                     name="validPath"
-                    floatingLabelText={'Validation Images path'}
+                    floatingLabelText={'Validation Images Path'}
                     onChange={this.handleChange}
                     value={this.state.validPath}
                     underlineFocusStyle={{
@@ -515,7 +515,7 @@ class Classification extends React.Component {
                     >
                       <TextField
                         name="validMiniClass"
-                        floatingLabelText={'Minimum samples per class'}
+                        floatingLabelText={'Minimum Samples Per Class'}
                         onChange={this.handleChange}
                         value={this.state.validMiniClass}
                         underlineFocusStyle={{
@@ -544,7 +544,7 @@ class Classification extends React.Component {
                     >
                       <TextField
                         name="validMaxClass"
-                        floatingLabelText={'Maximum samples per class'}
+                        floatingLabelText={'Maximum Samples Per Class'}
                         onChange={this.handleChange}
                         value={this.state.validMaxClass}
                         underlineFocusStyle={{
