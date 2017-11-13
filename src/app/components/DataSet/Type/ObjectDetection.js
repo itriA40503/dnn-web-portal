@@ -111,7 +111,7 @@ class ObjectDetection extends React.Component {
             <div
               style={{ display: 'inline-block', marginLeft: '3px' }}
               data-tip
-              data-for="trainLabelFolder" 
+              data-for="trainLabelFolder"
             >
               <TextField
                 name="trainLabelFolder"
@@ -135,16 +135,16 @@ class ObjectDetection extends React.Component {
           <div
             style={{ display: 'inline-block', marginLeft: '3px' }}
             data-tip
-            data-for="vaildImageFolder" 
+            data-for="validImageFolder"
           >
             <TextField
-              name="vaildImageFolder"
+              name="validImageFolder"
               floatingLabelText={'Validation image folder'}
               onChange={this.handleChange}
               value={this.state.validImageFolder}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
-            <ReactTooltip id="vaildImageFolder" place="right" effect="solid">
+            <ReactTooltip id="validImageFolder" place="right" effect="solid">
               <p style={styles.tooltip}>{'Indicate a folder of images to use for training.'}</p>
             </ReactTooltip>
           </div>
@@ -158,16 +158,16 @@ class ObjectDetection extends React.Component {
           <div
             style={{ display: 'inline-block', marginLeft: '3px' }}
             data-tip
-            data-for="vaildLabelFolder" 
+            data-for="validLabelFolder"
           >
             <TextField
-              name="vaildLabelFolder"
+              name="validLabelFolder"
               floatingLabelText={'Validation label folder'}
               onChange={this.handleChange}
               value={this.state.validLabelFolder}
               underlineFocusStyle={{ borderColor: muiStyle.palette.primary1Color }}
             />
-            <ReactTooltip id="vaildLabelFolder" place="right" effect="solid">
+            <ReactTooltip id="validLabelFolder" place="right" effect="solid">
               <p style={styles.tooltip}>{'Indicate a folder of validation labels.'}</p>
             </ReactTooltip>
           </div>
@@ -309,7 +309,7 @@ class ObjectDetection extends React.Component {
           <div
             style={{ display: 'inline-block', marginLeft: '3px' }}
             data-tip
-            data-for="customClass" 
+            data-for="customClass"
           >
             <TextField
               name="customClass"
