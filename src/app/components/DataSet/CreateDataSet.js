@@ -21,6 +21,7 @@ import Divider from 'material-ui/Divider';
 
 import Classification from './Type/Classification';
 import ObjectDetection from './Type/ObjectDetection';
+import Other from './Type/Other';
 
 const types = ['Classification', 'Object Detection', 'Processing', 'Segmentation', 'Other'];
 const styles = {
@@ -77,7 +78,7 @@ class CreateDataSet extends React.Component {
       case 'Segmentation':
         return (<div>{'Segmentation'}</div>);
       case 'Other':
-        return (<div>{'Other'}</div>);
+        return (<div><Other backReview={this.props.backReview} /></div>);
       default:
         return null;
     }
