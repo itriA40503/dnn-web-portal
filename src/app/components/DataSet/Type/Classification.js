@@ -49,6 +49,10 @@ const styles = {
     right: '10px',
     margin: '0px auto',
   },
+  tooltip: {
+    margin: '0px auto',
+    fontSize: '14px',
+  },
 };
 
 class Classification extends React.Component {
@@ -123,7 +127,7 @@ class Classification extends React.Component {
   render() {
     return (
       <div>
-        <Row style={{ margin: '2px' }}>
+        <Row style={{ margin: '0px auto' }}>
           <Col>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
@@ -154,8 +158,8 @@ class Classification extends React.Component {
                   />
                 </SelectField>
                 <ReactTooltip id="imgType" place="right" effect="solid">
-                  <p>{'Color is 3-channel RGB'}</p>
-                  <p>{'Grapscale is single channel monochrome'}</p>
+                  <p style={styles.tooltip}>{'Color is 3-channel RGB'}</p>
+                  <p style={styles.tooltip}>{'Grapscale is single channel monochrome'}</p>
                 </ReactTooltip>
               </div>
             </div>
@@ -189,7 +193,7 @@ class Classification extends React.Component {
                 />
               </div>
               <ReactTooltip id="size" place="right" effect="solid">
-                <p>{'Input images will be resized to fit.'}</p>
+                <p style={styles.tooltip}>{'Input images will be resized to fit.'}</p>
               </ReactTooltip>
             </div>
             <div style={{ margin: '0px auto' }}>
@@ -206,8 +210,8 @@ class Classification extends React.Component {
                 {this.renderSelectResize()}
               </div>
               <ReactTooltip id="resize" place="bottom" effect="solid">
-                <p>{'Options for dealing with aspect ratio changes during resize.'}</p>
-                <p>{'See examples beside.'}</p>
+                <p style={styles.tooltip}>{'Options for dealing with aspect ratio changes during resize.'}</p>
+                <p style={styles.tooltip}>{'See examples beside.'}</p>
               </ReactTooltip>
             </div>
           </Col>
@@ -243,9 +247,10 @@ class Classification extends React.Component {
               }}
             />
             <ReactTooltip id="trainPath" place="right" effect="solid">
-              <p>{'Indicate a folder which holds subfolders full of images.'}</p>
-              <p>{'Each subfolder should be named according to the desired label for the images that it holds.'}</p>
-              <p>{'Can aslso be URL for an apache/nginx auto-indexed folder.'}</p>
+              <p style={styles.tooltip}>{'Indicate a folder which holds subfolders full of images. Each'}</p>
+              <p style={styles.tooltip}>{'subfolder should be named according to the desired label for '}</p>
+              <p style={styles.tooltip}>{'the images that it holds. Can also be URL for an apache/nginx'}</p>
+              <p style={styles.tooltip}>{'auto-indexed folder.'}</p>
             </ReactTooltip>
           </div>
         </div>
@@ -273,9 +278,9 @@ class Classification extends React.Component {
                 />
               </div>
               <ReactTooltip id="miniClass" place="bottom" effect="solid">
-                <p>{'You can choose to specify a minimum number of samples per class.'}</p>
-                <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                <p>{'Leave blank to ignore this feature'}</p>
+                <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
               </ReactTooltip>
             </div>
           </Col>
@@ -302,9 +307,9 @@ class Classification extends React.Component {
                 />
               </div>
               <ReactTooltip id="maxClass" place="bottom" effect="solid">
-                <p>{'You can choose to specify a maximum number of samples per class.'}</p>
-                <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                <p>{'Leave blank to ignore this feature'}</p>
+                <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
               </ReactTooltip>
             </div>
           </Col>
@@ -334,7 +339,8 @@ class Classification extends React.Component {
                 />
               </div>
               <ReactTooltip id="percentVaild" place="bottom" effect="solid">
-                <p>{'You can choose to set apart a certain percentage of images from the training images for the validation set.'}</p>
+                <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
+                <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
               </ReactTooltip>
             </div>
           </Col>
@@ -363,7 +369,8 @@ class Classification extends React.Component {
                 />
               </div>
               <ReactTooltip id="percentTest" place="bottom" effect="solid">
-                <p>{'You can choose to set apart a certain percentage of images from the training images for the test set.'}</p>
+                <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
+                <p style={styles.tooltip}>{'from the training images for the test set.'}</p>
               </ReactTooltip>
             </div>
           </Col>
@@ -423,9 +430,9 @@ class Classification extends React.Component {
                       />
                     </div>
                     <ReactTooltip id="testMiniClass" place="bottom" effect="solid">
-                      <p>{'You can choose to specify a minimum number of samples per class.'}</p>
-                      <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                      <p>{'Leave blank to ignore this feature'}</p>
+                      <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                      <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
                     </ReactTooltip>
                   </div>
                 </Col>
@@ -452,9 +459,9 @@ class Classification extends React.Component {
                       />
                     </div>
                     <ReactTooltip id="testMaxClass" place="bottom" effect="solid">
-                      <p>{'You can choose to specify a maximum number of samples per class.'}</p>
-                      <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                      <p>{'Leave blank to ignore this feature'}</p>
+                      <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                      <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
                     </ReactTooltip>
                   </div>
                 </Col>
@@ -515,9 +522,9 @@ class Classification extends React.Component {
                       />
                     </div>
                     <ReactTooltip id="vaildMiniClass" place="bottom" effect="solid">
-                      <p>{'You can choose to specify a minimum number of samples per class.'}</p>
-                      <p>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                      <p>{'Leave blank to ignore this feature'}</p>
+                      <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                      <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
                     </ReactTooltip>
                   </div>
                 </Col>
@@ -544,9 +551,9 @@ class Classification extends React.Component {
                       />
                     </div>
                     <ReactTooltip id="vaildMaxClass" place="bottom" effect="solid">
-                      <p>{'You can choose to specify a maximum number of samples per class.'}</p>
-                      <p>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                      <p>{'Leave blank to ignore this feature'}</p>
+                      <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                      <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
                     </ReactTooltip>
                   </div>
                 </Col>
