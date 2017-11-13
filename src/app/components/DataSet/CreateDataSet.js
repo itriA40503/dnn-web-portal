@@ -18,8 +18,9 @@ import SelectField from 'material-ui/SelectField';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import Classification from './Type/Classification';
 
+import Classification from './Type/Classification';
+import ObjectDetection from './Type/ObjectDetection';
 
 const types = ['Classification', 'Object Detection', 'Processing', 'Segmentation', 'Other'];
 const styles = {
@@ -70,7 +71,7 @@ class CreateDataSet extends React.Component {
       case 'Classification':
         return (<div><Classification backReview={this.props.backReview} /></div>);
       case 'Object Detection':
-        return (<div>{'Object Detection'}</div>);
+        return (<div><ObjectDetection backReview={this.props.backReview} /></div>);
       case 'Processing':
         return (<div>{'Processing'}</div>);
       case 'Segmentation':
