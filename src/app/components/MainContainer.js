@@ -55,6 +55,7 @@ import WelcomePage from './WelcomePage';
 import ReviewProject from './Project/ReviewProject';
 import ReviewRes from './Resource/ReviewRes';
 import ReviewDataSet from './DataSet/ReviewDataSet';
+import ReviewModel from './Models/ReviewModel';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
@@ -268,7 +269,7 @@ class MainContainer extends Component {
       case 9:
         return (
           <div>
-            {'Models'}
+            <ReviewModel />
           </div>
         );
       case 10:
