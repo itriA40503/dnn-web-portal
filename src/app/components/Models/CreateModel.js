@@ -19,6 +19,7 @@ import ReactTooltip from 'react-tooltip';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import { Row, Col } from 'react-flexbox-grid';
 import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
 const styles = {
@@ -49,6 +50,7 @@ class CreateModel extends React.Component {
       batchAccum: null,        // batch accumulate
       solverType: null,        // optimizer
       learningRate: null,      // base learning rate
+      advanced: false,         // advanced learning rate options
       policy: null,            // learning rate decay policy
       stepSize: null,          // step size
       gamma: null,             // gamma
@@ -65,6 +67,11 @@ class CreateModel extends React.Component {
   handleSolverTypeChange = (event, index, value) => {
     this.setState({
       solverType: value,
+    });
+  }
+  checkAdvancedLearningOptions = () => {
+    this.setState({
+      advanced: !this.state.advanced,
     });
   }
   render() {
@@ -98,9 +105,50 @@ class CreateModel extends React.Component {
                 />
               </div>
             </div>
+            <div style={{ margin: '0px auto' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
+                <Animated animationIn="rollIn" isVisible={true}>
+                  <ActionLabel color={muiStyle.palette.primary1Color} />
+                </Animated>
+              </div>
+              <div style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px' }}>
+                <SelectField
+                  name="solverType"
+                  floatingLabelText={'Model Type'}
+                  onChange={this.handleTypeChange}
+                  autoWidth={true}
+                  value={this.state.type}
+                >
+                  <MenuItem
+                    key={'Classification'}
+                    value={'Classification'}
+                    primaryText={'Classification'}
+                  />
+                  <MenuItem
+                    key={'Object Detection'}
+                    value={'Object Detection'}
+                    primaryText={'Object Detection'}
+                  />
+                  <MenuItem
+                    key={'Processing'}
+                    value={'Processing'}
+                    primaryText={'Processing'}
+                  />
+                  <MenuItem
+                    key={'Segmentation'}
+                    value={'Segmentation'}
+                    primaryText={'Segmentation'}
+                  />
+                  <MenuItem
+                    key={'Other'}
+                    value={'Other'}
+                    primaryText={'Other'}
+                  />
+                </SelectField>
+              </div>
+            </div>
             <br />
             <Divider />
-
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -126,7 +174,6 @@ class CreateModel extends React.Component {
                 </ReactTooltip>
               </div>
             </div>
-            
             <Row style={{ margin: '0px auto' }}>
               <Col>
                 <div style={{ margin: '0px auto' }}>
@@ -184,7 +231,6 @@ class CreateModel extends React.Component {
                 </div>
               </Col>
             </Row>
-
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -212,7 +258,6 @@ class CreateModel extends React.Component {
                 </ReactTooltip>
               </div>
             </div>
-
             <Row style={{ margin: '0px auto' }}>
               <Col>
                 <div style={{ margin: '0px auto' }}>
@@ -272,9 +317,14 @@ class CreateModel extends React.Component {
                 </div>
               </Col>
             </Row>
-
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
+              <div style={{
+                display: 'inline-block',
+                verticalAlign: 'super',
+                position: 'relative',
+                top: '-10px',
+              }}
+              >
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
@@ -342,7 +392,6 @@ class CreateModel extends React.Component {
                 </ReactTooltip>
               </div>
             </div>
-
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -370,6 +419,29 @@ class CreateModel extends React.Component {
                 </ReactTooltip>
               </div>
             </div>
+            <br />
+            <Card>
+              <Checkbox
+                label="Show Advanced Learning Rate Options"
+                labelStyle={{ fontSize: '16px' }}
+                style={{ padding: '10px 10px' }}
+                onCheck={() => this.checkAdvancedLearningOptions()}
+                checked={this.state.advanced}
+              />
+            </Card>
+
+            <br />
+            <Divider />
+            <br />
+            <div style={styles.actions}>
+              <RaisedButton
+                label={'create model'}
+                backgroundColor={muiStyle.palette.primary1Color}
+                labelColor={'white'}
+                disabled={this.state.loadingCreate}
+                onTouchTap={() => this.createApi()}
+              />
+            </div>
 
           </div>
           <br />
@@ -377,7 +449,7 @@ class CreateModel extends React.Component {
             {
               false &&
               <RaisedButton
-                label={'create dataset'}
+                label={'create model'}
                 backgroundColor={muiStyle.palette.primary1Color}
                 labelColor={'white'}
                 disabled={this.state.loadingCreate}
