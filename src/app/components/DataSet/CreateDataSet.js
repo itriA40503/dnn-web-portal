@@ -128,6 +128,7 @@ class CreateDataSet extends React.Component {
                 {this.renderSelectType()}
               </div>
             </div>
+            <br />
             <Divider />
             {this.renderByType(this.state.type)}
           </div>
