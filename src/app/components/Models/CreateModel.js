@@ -22,6 +22,15 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
+const policyTypes = [
+  'Fixed',
+  'Step Down',
+  'Step Down (arbitary steps)',
+  'Exponential Decay',
+  'Inverse Decay',
+  'Polynomial Decay',
+  'Sigmoid Decay',
+];
 const styles = {
   actions: {
     zIndex: 2,
@@ -50,7 +59,7 @@ class CreateModel extends React.Component {
       batchAccum: null,        // batch accumulate
       solverType: null,        // optimizer
       learningRate: null,      // base learning rate
-      advanced: false,         // advanced learning rate options
+      advancedChecked: false,  // advanced learning rate options
       policy: null,            // learning rate decay policy
       stepSize: null,          // step size
       gamma: null,             // gamma
@@ -69,11 +78,33 @@ class CreateModel extends React.Component {
       solverType: value,
     });
   }
-  checkAdvancedLearningOptions = () => {
+  handlePolicyTypeChange = (event, index, value) => {
     this.setState({
-      advanced: !this.state.advanced,
+      policy: value,
     });
   }
+  checkAdvancedLearningOptions = () => {
+    this.setState({
+      advancedChecked: !this.state.advancedChecked,
+    });
+  }
+  renderPolicyType = () => (
+    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+      <SelectField
+        floatingLabelText={'Policy'}
+        onChange={this.handlePolicyTypeChange}
+        value={this.state.policy}
+      >
+        {policyTypes.map(type => (
+          <MenuItem
+            key={type}
+            value={type}
+            primaryText={type}
+          />
+        ))}
+      </SelectField>
+    </div>
+  )
   render() {
     const { t } = this.props;
     return (
@@ -106,7 +137,13 @@ class CreateModel extends React.Component {
               </div>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
+              <div style={{
+                display: 'inline-block',
+                verticalAlign: 'super',
+                position: 'relative',
+                top: '-10px',
+              }}
+              >
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
@@ -426,8 +463,26 @@ class CreateModel extends React.Component {
                 labelStyle={{ fontSize: '16px' }}
                 style={{ padding: '10px 10px' }}
                 onCheck={() => this.checkAdvancedLearningOptions()}
-                checked={this.state.advanced}
+                checked={this.state.advancedChecked}
               />
+              { this.state.advancedChecked &&
+                <div style={{ margin: '20px' }}>
+                  <div style={{ margin: '0px 2px' }}>
+                    <div style={{
+                      display: 'inline-block',
+                      verticalAlign: 'super',
+                      position: 'relative',
+                      top: '-10px',
+                    }}
+                    >
+                      <Animated animationIn="rollIn" isVisible={true}>
+                        <ActionLabel color={muiStyle.palette.primary1Color} />
+                      </Animated>
+                    </div>
+                    {this.renderPolicyType()}
+                  </div>
+                </div>
+              }
             </Card>
 
             <br />
