@@ -23,6 +23,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
 import Fixed from './PolicyType/Fixed';
+import StepDown from './PolicyType/StepDown';
 
 const policyTypes = [
   'Fixed',
@@ -60,7 +61,7 @@ class CreateModel extends React.Component {
       batchSize: null,         // batch size
       batchAccum: null,        // batch accumulate
       solverType: 'SGD',       // optimizer
-      learningRate: null,      // base learning rate
+      learningRate: 0.01,      // base learning rate
       advancedChecked: false,  // advanced learning rate options
       policy: null,            // learning rate decay policy
       loadingCreate: false,    // loading when create
@@ -110,7 +111,7 @@ class CreateModel extends React.Component {
       case 'Fixed':
         return (<div><Fixed lr={this.state.learningRate}/></div>);
       case 'Step Down':
-        return (<div>{'Step Down'}</div>);
+        return (<div><StepDown lr={this.state.learningRate} /></div>);
       case 'Step Down (arbitary steps)':
         return (<div>{'Step Down (arbitary steps)'}</div>);
       case 'Exponential Decay':

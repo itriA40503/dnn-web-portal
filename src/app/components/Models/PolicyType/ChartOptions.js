@@ -21,6 +21,14 @@ let chartOptionsTemplate = {
   },
 };
 
+const floatPrecise = (a) => {
+  let e = 1;
+  while (Math.round(a * e) / e !== a) {
+    e *= 10;
+  }
+  return Math.log(e) / Math.LN10;
+};
+
 let chartDataTemplate = {
   labels: null,
   datasets: [
@@ -43,15 +51,6 @@ let chartDataTemplate = {
       data: null,
     },
   ],
-};
-
-// internal function
-const floatPrecise = (a) => {
-  let e = 1;
-  while (Math.round(a * e) / e !== a) {
-    e *= 10;
-  }
-  return Math.log(e) / Math.LN10;
 };
 
 const optionsTemplate = function customFromOptions() {
