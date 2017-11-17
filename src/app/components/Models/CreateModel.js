@@ -22,6 +22,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 
+import Fixed from './PolicyType/Fixed';
+
 const policyTypes = [
   'Fixed',
   'Step Down',
@@ -51,18 +53,16 @@ class CreateModel extends React.Component {
     this.state = {
       name: null,              // name of model
       type: null,              // type of model
-      epochs: null,            // training epochs
-      snapshotInterval: null,  // snapshot interval in epochs
-      validInterval: null,     // validation interval in epochs
+      epochs: 30,              // training epochs
+      snapshotInterval: 1,     // snapshot interval in epochs
+      validInterval: 1,        // validation interval in epochs
       randSeed: null,          // random seed
       batchSize: null,         // batch size
       batchAccum: null,        // batch accumulate
-      solverType: null,        // optimizer
+      solverType: 'SGD',       // optimizer
       learningRate: null,      // base learning rate
       advancedChecked: false,  // advanced learning rate options
       policy: null,            // learning rate decay policy
-      stepSize: null,          // step size
-      gamma: null,             // gamma
       loadingCreate: false,    // loading when create
     };
   }
@@ -88,8 +88,8 @@ class CreateModel extends React.Component {
       advancedChecked: !this.state.advancedChecked,
     });
   }
-  renderPolicyType = () => (
-    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+  renderPolicySelectField = () => (
+    <div>
       <SelectField
         floatingLabelText={'Policy'}
         onChange={this.handlePolicyTypeChange}
@@ -105,6 +105,26 @@ class CreateModel extends React.Component {
       </SelectField>
     </div>
   )
+  renderPolicyOptions = (type) => {
+    switch (type) {
+      case 'Fixed':
+        return (<div><Fixed lr={this.state.learningRate}/></div>);
+      case 'Step Down':
+        return (<div>{'Step Down'}</div>);
+      case 'Step Down (arbitary steps)':
+        return (<div>{'Step Down (arbitary steps)'}</div>);
+      case 'Exponential Decay':
+        return (<div>{'Exponential Decay'}</div>);
+      case 'Inverse Decay':
+        return (<div>{'Inverse Decay'}</div>);
+      case 'Polynomial Decay':
+        return (<div>{'Polynomial Decay'}</div>);
+      case 'Sigmoid Decay':
+        return (<div>{'Sigmoid Decay'}</div>);
+      default:
+        return null;
+    }
+  }
   render() {
     const { t } = this.props;
     return (
@@ -468,19 +488,24 @@ class CreateModel extends React.Component {
               { this.state.advancedChecked &&
                 <div style={{ margin: '20px' }}>
                   <div style={{ margin: '0px 2px' }}>
-                    <div style={{
-                      display: 'inline-block',
-                      verticalAlign: 'super',
-                      position: 'relative',
-                      top: '-10px',
-                    }}
+                    <div style={
+                      {
+                        display: 'inline-block',
+                        verticalAlign: 'super',
+                        position: 'relative',
+                        top: '-5px',
+                      }}
                     >
                       <Animated animationIn="rollIn" isVisible={true}>
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    {this.renderPolicyType()}
+                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                      {this.renderPolicySelectField()}
+                    </div>
                   </div>
+                  <br />
+                  {this.renderPolicyOptions(this.state.policy)}
                 </div>
               }
             </Card>
