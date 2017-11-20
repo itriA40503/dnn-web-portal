@@ -113,7 +113,7 @@ class CreateModel extends React.Component {
       case 'Step Down':
         return (<div><StepDown lr={this.state.learningRate} /></div>);
       case 'Step Down (arbitary steps)':
-        return (<div>{'Step Down (arbitary steps)'}</div>);
+        return (<div><StepDown lr={this.state.learningRate} arbitary={true} /></div>);
       case 'Exponential Decay':
         return (<div>{'Exponential Decay'}</div>);
       case 'Inverse Decay':

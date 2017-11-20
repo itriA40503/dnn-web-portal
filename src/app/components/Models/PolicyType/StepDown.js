@@ -18,10 +18,17 @@ class StepDown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'Step Down',
-      stepSize: 33,
-      gamma: 0.1,
+      type: props.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down',
+      stepSize: props.arbitary !== undefined ? '50,85' : '33',
+      gamma: props.arbitary !== undefined ? '0.5' : '0.1',
     };
+  }
+  componentWillReceiveProps(nextProps, nextState) {
+    this.setState({
+      type: nextProps.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down',
+      stepSize: nextProps.arbitary !== undefined ? '50,85' : '33',
+      gamma: nextProps.arbitary !== undefined ? '0.5' : '0.1',
+    });
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   labelGenerator = () => {
