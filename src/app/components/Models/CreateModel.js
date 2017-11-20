@@ -25,6 +25,7 @@ import Divider from 'material-ui/Divider';
 import Fixed from './PolicyType/Fixed';
 import StepDown from './PolicyType/StepDown';
 import ExponentialDecay from './PolicyType/ExponentialDecay';
+import InverseDecay from './PolicyType/InverseDecay';
 
 const policyTypes = [
   'Fixed',
@@ -118,7 +119,7 @@ class CreateModel extends React.Component {
       case 'Exponential Decay':
         return (<div><ExponentialDecay lr={this.state.learningRate} /></div>);
       case 'Inverse Decay':
-        return (<div>{'Inverse Decay'}</div>);
+        return (<div><InverseDecay lr={this.state.learningRate} /></div>);
       case 'Polynomial Decay':
         return (<div>{'Polynomial Decay'}</div>);
       case 'Sigmoid Decay':
