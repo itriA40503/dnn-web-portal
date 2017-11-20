@@ -109,7 +109,7 @@ class CreateModel extends React.Component {
   renderPolicyOptions = (type) => {
     switch (type) {
       case 'Fixed':
-        return (<div><Fixed lr={this.state.learningRate}/></div>);
+        return (<div><Fixed lr={this.state.learningRate} /></div>);
       case 'Step Down':
         return (<div><StepDown lr={this.state.learningRate} /></div>);
       case 'Step Down (arbitary steps)':
@@ -505,7 +505,6 @@ class CreateModel extends React.Component {
                       {this.renderPolicySelectField()}
                     </div>
                   </div>
-                  <br />
                   {this.renderPolicyOptions(this.state.policy)}
                 </div>
               }

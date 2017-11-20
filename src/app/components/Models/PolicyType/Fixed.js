@@ -1,10 +1,9 @@
 import React from 'react';
 // i18n
 import { translate } from 'react-i18next';
-import { Line } from 'react-chartjs-2';
-import { Row, Col } from 'react-flexbox-grid';
-
 import ChartOpt from './ChartOptions';
+import { Row, Col } from 'react-flexbox-grid';
+import { Line } from 'react-chartjs-2';
 
 class Fixed extends React.Component {
   constructor(props) {
@@ -29,15 +28,14 @@ class Fixed extends React.Component {
     return (
       <div>
         <Row>
-          <Col xs={12}>
-            <Row center="xs">
-              <Col xs={6}>
-                <Line
-                  data={this.chartData()}
-                  options={this.chartOptions()}
-                />
-              </Col>
-            </Row>
+          <Col xs={5} style={{ marginRight: '-30px' }} />
+          <Col xs={7} style={{ marginTop: '-50px' }}>
+            <div>
+              <Line
+                data={this.chartData()}
+                options={this.chartOptions()}
+              />
+            </div>
           </Col>
         </Row>
         <br />

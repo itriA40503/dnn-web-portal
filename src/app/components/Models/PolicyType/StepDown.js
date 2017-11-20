@@ -47,7 +47,7 @@ class StepDown extends React.Component {
     return (
       <div>
         <Row>
-          <Col xs={5}>
+          <Col xs={5} style={{ marginRight: '-30px' }}>
             <div style={{ margin: '0px 3px' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -84,16 +84,15 @@ class StepDown extends React.Component {
                 />
               </div>
             </div>
+            <br />
           </Col>
-          <Col xs={7}>
-            <Row center="xs">
-              <Col xs={12}>
-                <Line
-                  data={this.chartData()}
-                  options={this.chartOptions()}
-                />
-              </Col>
-            </Row>
+          <Col xs={7} style={{ marginTop: '-50px' }}>
+            <div>
+              <Line
+                data={this.chartData()}
+                options={this.chartOptions()}
+              />
+            </div>
           </Col>
         </Row>
         <br />
