@@ -6,9 +6,6 @@ let chartOptionsTemplate = {
         display: true,
         labelString: 'Training (%)',
       },
-      ticks: {
-        callback: (label) => { return (label % 9) === 0 ? label : null; },
-      },
       gridLines: {
         display: false,
       },
