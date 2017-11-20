@@ -32,7 +32,7 @@ class StepDown extends React.Component {
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   labelGenerator = () => {
-    return [...Array(100).keys()].map((v) => { return parseInt(v, 10) + 1; });
+    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
   }
   dataGenerator = () => {
     let stage;

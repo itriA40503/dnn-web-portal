@@ -13,7 +13,7 @@ class Fixed extends React.Component {
     };
   }
   labelGenerator = () => {
-    return [...Array(100).keys()].map((v) => { return parseInt(v, 10) + 1; });
+    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
   }
   dataGenerator = () => {
     return [...Array(100).fill(this.props.lr)];
