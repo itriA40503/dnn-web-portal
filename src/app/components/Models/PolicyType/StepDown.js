@@ -35,12 +35,25 @@ class StepDown extends React.Component {
     return [...Array(100).keys()].map((v) => { return parseInt(v, 10) + 1; });
   }
   dataGenerator = () => {
-    let times = -1;
+    let stage;
+    let stepList;
+    if (this.props.arbitary !== true) {
+      stage = parseInt(this.state.stepSize, 10);
+    } else {
+      stepList = this.state.stepSize.split(',').map((str) => { return parseInt(str, 10); }).reverse();
+      stage = stepList.pop();
+    }
+    let times = 1;
     let data = [...Array(100).fill(this.props.lr)].map((value, index) => {
-      if (((index) % this.state.stepSize) === 0) {
+      if ((index) === stage) {
         times += 1;
+        if (this.props.arbitary === true) {
+          stage = stepList.pop();
+        } else {
+          stage += parseInt(this.state.stepSize, 10);
+        }
       }
-      return value * (this.state.gamma ** times);
+      return value * (parseFloat(this.state.gamma) ** times);
     });
     return data;
   }
