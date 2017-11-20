@@ -27,6 +27,7 @@ import StepDown from './PolicyType/StepDown';
 import ExponentialDecay from './PolicyType/ExponentialDecay';
 import InverseDecay from './PolicyType/InverseDecay';
 import PolynomialDecay from './PolicyType/PolynomialDecay';
+import SigmoidDecay from './PolicyType/SigmoidDecay';
 
 const policyTypes = [
   'Fixed',
@@ -124,7 +125,7 @@ class CreateModel extends React.Component {
       case 'Polynomial Decay':
         return (<div><PolynomialDecay lr={this.state.learningRate} /></div>);
       case 'Sigmoid Decay':
-        return (<div>{'Sigmoid Decay'}</div>);
+        return (<div><SigmoidDecay lr={this.state.learningRate} /></div>);
       default:
         return null;
     }
