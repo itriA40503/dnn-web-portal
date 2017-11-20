@@ -24,6 +24,7 @@ import Divider from 'material-ui/Divider';
 
 import Fixed from './PolicyType/Fixed';
 import StepDown from './PolicyType/StepDown';
+import ExponentialDecay from './PolicyType/ExponentialDecay';
 
 const policyTypes = [
   'Fixed',
@@ -115,7 +116,7 @@ class CreateModel extends React.Component {
       case 'Step Down (arbitary steps)':
         return (<div><StepDown lr={this.state.learningRate} arbitary={true} /></div>);
       case 'Exponential Decay':
-        return (<div>{'Exponential Decay'}</div>);
+        return (<div><ExponentialDecay lr={this.state.learningRate} /></div>);
       case 'Inverse Decay':
         return (<div>{'Inverse Decay'}</div>);
       case 'Polynomial Decay':
