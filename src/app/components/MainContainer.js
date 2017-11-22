@@ -38,6 +38,7 @@ import { lightBlue900 } from 'material-ui/styles/colors';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeNotify } from '../redux/Notify/actionNotify';
+import { selectMenu } from '../redux/Menu/actionMenu';
 
 import ReviewMachine from './Machines/ReviewMachine';
 import ReviewTable from './ReviewTable';
@@ -57,7 +58,7 @@ import ReviewRes from './Resource/ReviewRes';
 import ReviewDataSet from './DataSet/ReviewDataSet';
 import ReviewModel from './Models/ReviewModel';
 
-import { DnnLogoYellow, serval } from '../image/imageBase64';
+import { DnnLogoYellow } from '../image/imageBase64';
 
 import { ApiGetInfo, adminList, serviceEmail } from '../resource';
 
@@ -220,18 +221,23 @@ class MainContainer extends Component {
     });
   };
   selectItem = (value) => {
+    this.props.selectMenu(value);
     switch (value) {
       case 0:
+      case 'Dashboard':
         return (
           <div>
             <WelcomePage />
           </div>
         );
       case 1:
+      case 'Instance':
         return <ReviewTable token={this.props.token} />;
       case 2:
+      case 'History':
         return <HistoryTable token={this.props.token} />;
       case 3:
+      case 'Create':
         return (
           <CreatePage
             switchReview={() => this.handleMenuTap(1)}
@@ -247,38 +253,45 @@ class MainContainer extends Component {
           </Card>
         );
       case 5:
+      case 'Charts':
         return <ChartContainer />;
       case 6:
+      case 'Machine':
         return (
           <div>
             <ReviewMachine token={this.props.token} />
           </div>
         );
       case 7:
+      case 'Project':
         return (
           <div>
             <ReviewProject />
           </div>
         );
       case 8:
+      case 'DataSet':
         return (
           <div>
             <ReviewDataSet />
           </div>
         );
       case 9:
+      case 'Models':
         return (
           <div>
             <ReviewModel />
           </div>
         );
       case 10:
+      case 'Network':
         return (
           <div>
             {'Network'}
           </div>
         );
       case 11:
+      case 'Resource':
         return (
           <div>
             <ReviewRes />
@@ -363,51 +376,51 @@ class MainContainer extends Component {
         }
       >
         <MenuItem
-          leftIcon={<ActionDashboard />}
-          primaryText={'Dashboard'}
-          onTouchTap={() => this.handleMenuTap(0)}
+          leftIcon={<ActionDashboard color={this.props.menu === 'Dashboard' && lightBlue900} />}
+          primaryText={this.props.menu === 'Dashboard' ? <font color={lightBlue900}><b>{'Dashboard'}</b></font> : 'Dashboard'}
+          onTouchTap={() => this.handleMenuTap('Dashboard')}
         />
         <MenuItem
-          leftIcon={<ImageViewComfy />}
-          primaryText={t('common:menu.info')}
-          onTouchTap={() => this.handleMenuTap(1)}
+          leftIcon={<ImageViewComfy color={this.props.menu === 'Instance' && lightBlue900} />}
+          primaryText={this.props.menu === 'Instance' ? <font color={lightBlue900}><b>{t('common:menu.info')}</b></font> : t('common:menu.info')}
+          onTouchTap={() => this.handleMenuTap('Instance')}
         />
         <MenuItem
-          leftIcon={<ActionHistory />}
-          primaryText={t('common:menu.history')}
-          onTouchTap={() => this.handleMenuTap(2)}
+          leftIcon={<ActionHistory color={this.props.menu === 'History' && lightBlue900} />}
+          primaryText={this.props.menu === 'History' ? <font color={lightBlue900}><b>{t('common:menu.history')}</b></font> : t('common:menu.history')}
+          onTouchTap={() => this.handleMenuTap('History')}
         />
         <MenuItem
-          leftIcon={<ContentAdd />}
-          primaryText={t('common:menu.create')}
-          onTouchTap={() => this.handleMenuTap(3)}
+          leftIcon={<ContentAdd color={this.props.menu === 'Create' && lightBlue900} />}
+          primaryText={this.props.menu === 'Create' ? <font color={lightBlue900}><b>{t('common:menu.create')}</b></font> : t('common:menu.create')}
+          onTouchTap={() => this.handleMenuTap('Create')}
         />
         <Divider />
         <MenuItem
-          leftIcon={<HardwareMemory />}
-          primaryText={'Resource'}
-          onTouchTap={() => this.handleMenuTap(11)}
+          leftIcon={<HardwareMemory color={this.props.menu === 'Resource' && lightBlue900} />}
+          primaryText={this.props.menu === 'Resource' ? <font color={lightBlue900}><b>{'Resource'}</b></font> : 'Resource'}
+          onTouchTap={() => this.handleMenuTap('Resource')}
         />
         <MenuItem
-          leftIcon={<ActionAssignment />}
-          primaryText={'Project'}
-          onTouchTap={() => this.handleMenuTap(7)}
+          leftIcon={<ActionAssignment color={this.props.menu === 'Project' && lightBlue900} />}
+          primaryText={this.props.menu === 'Project' ? <font color={lightBlue900}><b>{'Project'}</b></font> : 'Project'}
+          onTouchTap={() => this.handleMenuTap('Project')}
         />
         <MenuItem
-          leftIcon={<DeviceStorage />}
-          primaryText={'DataSet'}
-          onTouchTap={() => this.handleMenuTap(8)}
+          leftIcon={<DeviceStorage color={this.props.menu === 'DataSet' && lightBlue900} />}
+          primaryText={this.props.menu === 'DataSet' ? <font color={lightBlue900}><b>{'DataSet'}</b></font> : 'DataSet'}
+          onTouchTap={() => this.handleMenuTap('DataSet')}
         />
         <MenuItem
-          leftIcon={<DeviceWidgets />}
-          primaryText={'Models'}
-          onTouchTap={() => this.handleMenuTap(9)}
+          leftIcon={<DeviceWidgets color={this.props.menu === 'Models' && lightBlue900} />}
+          primaryText={this.props.menu === 'Models' ? <font color={lightBlue900}><b>{'Models'}</b></font> : 'Models'}
+          onTouchTap={() => this.handleMenuTap('Models')}
           initiallyOpen={true}
           nestedItems={[
             <MenuItem
-              leftIcon={<MapsLayers />}
-              primaryText={'Network'}
-              onTouchTap={() => this.handleMenuTap(10)}
+              leftIcon={<MapsLayers color={this.props.menu === 'Network' && lightBlue900} />}
+              primaryText={this.props.menu === 'Network' ? <font color={lightBlue900}><b>{'Network'}</b></font> : 'Network'}
+              onTouchTap={() => this.handleMenuTap('Network')}
             />,
           ]}
         />
@@ -422,14 +435,14 @@ class MainContainer extends Component {
         this.props.admin > 6 && (
           <div>
             <MenuItem
-              leftIcon={<AnalysisIcon />}
-              primaryText={t('common:menu.charts')}
-              onTouchTap={() => this.handleMenuTap(5)}
+              leftIcon={<AnalysisIcon color={this.props.menu === 'Charts' && lightBlue900} />}
+              primaryText={this.props.menu === 'Charts' ? <font color={lightBlue900}><b>{t('common:menu.charts')}</b></font> : t('common:menu.charts')}
+              onTouchTap={() => this.handleMenuTap('Charts')}
             />
             <MenuItem
-              leftIcon={<MachineIcon />}
+              leftIcon={<MachineIcon color={this.props.menu === 'Machine' && lightBlue900} />}
               primaryText={t('common:menu.machine')}
-              onTouchTap={() => this.handleMenuTap(6)}
+              onTouchTap={() => this.handleMenuTap('Machine')}
             />
           </div>
         )}
@@ -506,10 +519,11 @@ function mapStateToProps(state) {
   return {
     notify: state.notify,
     admin: state.admin,
+    menu: state.menu,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ closeNotify }, dispatch);
+  return bindActionCreators({ closeNotify, selectMenu }, dispatch);
 }
 export default connect(mapStateToProps, matchDispatchToProps)(translate('')(MainContainer));
