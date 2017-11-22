@@ -3,6 +3,7 @@ import Notify from '../Notify/reducerNotify';
 import Admin from '../Admin/reducerAdmin';
 import HistoryData from '../HistoryData/reducerHistoryData';
 import MachineData from '../MachineData/reducerMachineData';
+import Menu from '../Menu/reducerMenu';
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
  * Your entire applications state (store) is just whatever gets returned from all your reducers
@@ -13,6 +14,7 @@ const allReducers = combineReducers({
   admin: Admin,
   historyData: HistoryData,
   machineData: MachineData,
+  menu: Menu,
 });
 
 export default allReducers;
