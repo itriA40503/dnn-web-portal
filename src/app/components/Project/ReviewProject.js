@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
+// import SortableTree, { addNodeUnderParent, removeNodeAtPath } from 'react-sortable-tree';
 // i18n
 import { translate } from 'react-i18next';
 
-import { Card, CardText, CardMedia, CardTitle, CardHeader, CardActions } from 'material-ui/Card';
-import {List, ListItem} from 'material-ui/List';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import { List, ListItem } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { muiStyle } from '../../myTheme';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 // ICON
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import FaFlask from 'react-icons/lib/fa/flask';
@@ -48,10 +47,8 @@ class ReviewProject extends Component {
     };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  changeSelect = node => {
-    console.log(node);
-  }
-  addProject = (data) => {
+  changeSelect = node => console.log(node);
+  addProject = () => {
 
   }
   handleOpen = () => {
@@ -67,8 +64,8 @@ class ReviewProject extends Component {
     data.push(newPj);
     this.setState({ treeData: data, open: false });
   };
-  handleTouch = data => {
-    console.log(data)
+  handleTouch = (data) => {
+    console.log(data);
     this.setState({ currentData: data });
   }
   renderList = (data) => {
@@ -81,7 +78,7 @@ class ReviewProject extends Component {
             leftIcon={<ActionAssignment />}
             primaryText={obj.title}
             onTouchTap={() => this.handleTouch(obj)}
-            nestedItems={obj.children && obj.children.map(job =>(
+            nestedItems={obj.children && obj.children.map(job => (
               <ListItem
                 leftIcon={<FaFlask size={20} />}
                 primaryText={job.title}
@@ -144,7 +141,7 @@ class ReviewProject extends Component {
           {project.data}
         </div>
       </Card>
-    )
+    );
   }
   renderJobInfo = (job) => {
     return (
@@ -154,7 +151,7 @@ class ReviewProject extends Component {
           {job.data}
         </div>
       </Card>
-    )
+    );
   }
   render() {
     // const getNodeKey = ({ treeIndex }) => treeIndex;
