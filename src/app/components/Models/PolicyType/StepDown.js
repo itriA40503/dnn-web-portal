@@ -18,19 +18,33 @@ class StepDown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: props.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down',
+      //type: props.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down',
       stepSize: props.arbitary !== undefined ? '50,85' : '33',
       gamma: props.arbitary !== undefined ? '0.5' : '0.1',
     };
+    this.props.store({ ...this.state });
   }
   componentWillReceiveProps(nextProps, nextState) {
-    this.setState({
-      type: nextProps.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down',
-      stepSize: nextProps.arbitary !== undefined ? '50,85' : '33',
-      gamma: nextProps.arbitary !== undefined ? '0.5' : '0.1',
-    });
+    const isArbitaryChanged = nextProps.arbitary !== this.props.arbitary;
+    if (isArbitaryChanged) {
+      //const type = nextProps.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down';
+      const stepSize = nextProps.arbitary !== undefined ? '50,85' : '33';
+      const gamma = nextProps.arbitary !== undefined ? '0.5' : '0.1';
+      this.setState({ stepSize: stepSize, gamma: gamma });
+
+      const isStepSizeChanged = stepSize !== this.state.stepSize;
+      const isGammaChanged = gamma !== this.state.gamma;
+      if (isStepSizeChanged || isGammaChanged) {
+        this.props.store({ stepSize: stepSize, gamma: gamma });
+      }
+    }
   }
-  handleChange = (event, value) => this.setState({ [event.target.name]: value });
+  handleChange = (event, value) => {
+    let param = { ...this.state };
+    param[event.target.name] = value;
+    this.setState({ [event.target.name]: value });
+    this.props.store(param);
+  }
   labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
   dataGenerator = () => {
     let stage;

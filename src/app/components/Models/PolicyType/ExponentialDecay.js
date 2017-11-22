@@ -19,11 +19,17 @@ class ExponentialDecay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'Exponential Decay',
+      //type: 'Exponential Decay',
       gamma: '0.95',
     };
+    this.props.store({ ...this.state });
   }
-  handleChange = (event, value) => this.setState({ [event.target.name]: value });
+  handleChange = (event, value) => {
+    let param = { ...this.state };
+    param[event.target.name] = value;
+    this.setState({ [event.target.name]: value });
+    this.props.store(param);
+  }
   labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
   dataGenerator = () => [...Array(100).fill(this.props.lr)].map((value, index) => {
     let g = parseFloat(this.state.gamma);

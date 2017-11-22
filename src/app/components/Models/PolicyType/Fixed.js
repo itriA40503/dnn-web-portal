@@ -9,8 +9,9 @@ class Fixed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'Fixed',
+      //type: 'Fixed',
     };
+    this.props.store({ ...this.state });
   }
   labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
   dataGenerator = () => [...Array(100).fill(this.props.lr)];

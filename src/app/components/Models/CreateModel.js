@@ -68,8 +68,10 @@ class CreateModel extends React.Component {
       learningRate: 0.01,      // base learning rate
       advancedChecked: false,  // advanced learning rate options
       policy: null,            // learning rate decay policy
+      policyOptions: null,    // options for different policy
       loadingCreate: false,    // loading when create
     };
+    this.setupToParent = this.storePolicyOptionsChange.bind(this);
   }
   handleTypeChange = (event, index, value) => {
     // console.log(event, index, value);
@@ -86,6 +88,11 @@ class CreateModel extends React.Component {
   handlePolicyTypeChange = (event, index, value) => {
     this.setState({
       policy: value,
+    });
+  }
+  storePolicyOptionsChange = (value) => {
+    this.setState({
+      policyOptions: value,
     });
   }
   checkAdvancedLearningOptions = () => {
@@ -113,19 +120,67 @@ class CreateModel extends React.Component {
   renderPolicyOptions = (type) => {
     switch (type) {
       case 'Fixed':
-        return (<div><Fixed lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <Fixed
+              lr={this.state.learningRate} 
+              store={this.setupToParent}
+            />
+          </div>
+        );
       case 'Step Down':
-        return (<div><StepDown lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <StepDown
+              lr={this.state.learningRate}
+              store={this.setupToParent}
+            />
+          </div>);
       case 'Step Down (arbitary steps)':
-        return (<div><StepDown lr={this.state.learningRate} arbitary={true} /></div>);
+        return (
+          <div>
+            <StepDown
+              lr={this.state.learningRate}
+              store={this.setupToParent}
+              arbitary={true}
+            />
+          </div>
+        );
       case 'Exponential Decay':
-        return (<div><ExponentialDecay lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <ExponentialDecay
+              lr={this.state.learningRate}
+              store={this.storePolicyOptionsChange}
+            />
+          </div>
+        );
       case 'Inverse Decay':
-        return (<div><InverseDecay lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <InverseDecay
+              lr={this.state.learningRate}
+              store={this.storePolicyOptionsChange}
+            />
+          </div>
+        );
       case 'Polynomial Decay':
-        return (<div><PolynomialDecay lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <PolynomialDecay
+              lr={this.state.learningRate}
+              store={this.storePolicyOptionsChange}
+            />
+          </div>
+        );
       case 'Sigmoid Decay':
-        return (<div><SigmoidDecay lr={this.state.learningRate} /></div>);
+        return (
+          <div>
+            <SigmoidDecay 
+              lr={this.state.learningRate}
+              store={this.storePolicyOptionsChange}
+            />
+          </div>);
       default:
         return null;
     }
