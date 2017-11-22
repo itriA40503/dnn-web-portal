@@ -25,20 +25,13 @@ class PolynomialDecay extends React.Component {
     };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
-  dataGenerator = () => {
-    return [...Array(100).fill(this.props.lr)].map((value, index) => {
-      return value * ((1 - ((index) / 100.0)) ** parseFloat(this.state.power));
-    });
-  }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
+  dataGenerator = () => [...Array(100).fill(this.props.lr)].map((value, index) => {
+    let ratio = (1 - ((index) / 100.0));
+    return value * (ratio ** parseFloat(this.state.power));
+  });
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>

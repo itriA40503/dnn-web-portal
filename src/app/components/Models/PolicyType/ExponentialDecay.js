@@ -24,20 +24,13 @@ class ExponentialDecay extends React.Component {
     };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
-  dataGenerator = () => {
-    return [...Array(100).fill(this.props.lr)].map((value, index) => {
-      return value * (this.state.gamma ** (index));
-    });
-  }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
+  dataGenerator = () => [...Array(100).fill(this.props.lr)].map((value, index) => {
+    let g = parseFloat(this.state.gamma);
+    return value * (g ** (index));
+  });
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>

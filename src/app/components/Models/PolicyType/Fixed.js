@@ -12,18 +12,10 @@ class Fixed extends React.Component {
       type: 'Fixed',
     };
   }
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
-  dataGenerator = () => {
-    return [...Array(100).fill(this.props.lr)];
-  }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
+  dataGenerator = () => [...Array(100).fill(this.props.lr)];
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>

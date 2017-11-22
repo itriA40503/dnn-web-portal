@@ -26,21 +26,14 @@ class SigmoidDecay extends React.Component {
     };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
-  dataGenerator = () => {
-    return [...Array(100).fill(this.props.lr)].map((value, index) => {
-      return value / (1.0 + Math.exp(parseFloat(this.state.gamma)
-        * ((index + 1) - parseInt(this.state.step, 10))));
-    });
-  }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
+  dataGenerator = () => [...Array(100).fill(this.props.lr)].map((value, index) => {
+    let ratio = (index + 1) - parseInt(this.state.step, 10);
+    return value / (1.0 + Math.exp(parseFloat(this.state.gamma) * ratio));
+  });
+
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>
@@ -95,7 +88,7 @@ class SigmoidDecay extends React.Component {
         </Row>
         <br />
       </div>
-    )
+    );
   }
 }
 

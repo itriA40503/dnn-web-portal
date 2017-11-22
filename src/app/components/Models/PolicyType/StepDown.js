@@ -31,9 +31,7 @@ class StepDown extends React.Component {
     });
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
   dataGenerator = () => {
     let stage;
     let stepList;
@@ -57,12 +55,8 @@ class StepDown extends React.Component {
     });
     return data;
   }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>

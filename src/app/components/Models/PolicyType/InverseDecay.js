@@ -23,24 +23,16 @@ class InverseDecay extends React.Component {
       type: 'Inverse Decay',
       power: '2',
       gamma: '0.5',
-    }
+    };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-  labelGenerator = () => {
-    return [...Array(100).keys()].map((value) => { return parseInt(value, 10) + 1; });
-  }
-  dataGenerator = () => {
-    return [...Array(100).fill(this.props.lr)].map((value, index) => {
-      return value *
-        ((1 + (parseFloat(this.state.gamma) * index)) ** -parseFloat(this.state.power));
-    });
-  }
-  chartData = () => {
-    return ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
-  }
-  chartOptions = () => {
-    return ChartOpt.optionsTemplate();
-  }
+  labelGenerator = () => [...Array(100).keys()].map(value => (parseInt(value, 10) + 1));
+  dataGenerator = () => [...Array(100).fill(this.props.lr)].map((value, index) => {
+    let temp = 1 + (parseFloat(this.state.gamma) * index);
+    return value * (temp ** -parseFloat(this.state.power));
+  });
+  chartData = () => ChartOpt.dataTemplate(this.labelGenerator(), this.dataGenerator());
+  chartOptions = () => ChartOpt.optionsTemplate();
   render() {
     return (
       <div>
@@ -95,7 +87,7 @@ class InverseDecay extends React.Component {
         </Row>
         <br />
       </div>
-    )
+    );
   }
 }
 

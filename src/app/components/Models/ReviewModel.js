@@ -77,7 +77,7 @@ class ReviewModel extends Component {
                 ),
               },
               {
-                Header: 'DataName',
+                Header: 'ModelName',
                 accessor: 'name',
               },
               {
