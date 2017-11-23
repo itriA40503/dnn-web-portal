@@ -38,7 +38,10 @@ class ReviewProject extends Component {
           data: '123',
           select: false,
           type: 'project',
-          children: [{ title: 'job', type: 'job', data: 'job data' }],
+          children: [
+            { title: 'job', type: 'job', data: 'job data' },
+            { title: 'job00', type: 'job', data: 'job data 00' },
+          ],
         },
       ],
       open: false,
@@ -65,23 +68,47 @@ class ReviewProject extends Component {
     this.setState({ treeData: data, open: false });
   };
   handleTouch = (data) => {
-    console.log(data);
+    // console.log(data);
     this.setState({ currentData: data });
   }
   renderList = (data) => {
+    console.log('title', this.state.currentData);
+    const { currentData } = this.state;
     return (
       <List>
         {data.map((obj, index) => (
           <ListItem
             initiallyOpen
             key={index}
-            leftIcon={<ActionAssignment />}
-            primaryText={obj.title}
+            leftIcon={
+              <ActionAssignment
+                color={
+                  (currentData !== null && currentData.title === obj.title)
+                  && muiStyle.palette.primary1Color
+                }
+              />
+            }
+            primaryText={
+              (currentData !== null && currentData.title === obj.title) ?
+                <font color={muiStyle.palette.primary1Color} ><b>{obj.title}</b></font> : obj.title
+            }
             onTouchTap={() => this.handleTouch(obj)}
             nestedItems={obj.children && obj.children.map(job => (
               <ListItem
-                leftIcon={<FaFlask size={20} />}
-                primaryText={job.title}
+                leftIcon={
+                  <FaFlask
+                    size={20}
+                    color={
+                      (currentData !== null && currentData.title === job.title)
+                      && muiStyle.palette.primary1Color
+                    }
+                  />
+                }
+                primaryText={
+                  (currentData !== null && currentData.title === job.title) ?
+                    <font color={muiStyle.palette.primary1Color}><b>{job.title}</b></font>
+                    : job.title
+                }
                 onTouchTap={() => this.handleTouch(job)}
               />
             ))}
