@@ -242,7 +242,7 @@ class ObjectDetection extends React.Component {
             </Animated>
           </div>
           <div
-            style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px'}}
+            style={{ display: 'inline-block', verticalAlign: 'super', marginLeft: '3px' }}
             data-tip
             data-for="channelCvt"
           >
