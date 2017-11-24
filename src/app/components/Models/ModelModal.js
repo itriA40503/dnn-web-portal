@@ -16,9 +16,6 @@ import ReactTooltip from 'react-tooltip';
 // ICON
 import ActionToc from 'material-ui/svg-icons/action/toc';
 
-// COLOR
-import { muiTheme } from '../../myTheme';
-
 import { copyNotify } from '../../redux/Notify/actionNotify';
 
 class ModelModal extends React.Component {
