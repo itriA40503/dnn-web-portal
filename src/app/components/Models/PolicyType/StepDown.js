@@ -30,12 +30,12 @@ class StepDown extends React.Component {
       //const type = nextProps.arbitary !== undefined ? 'Step Down (arbitary step)' : 'Step Down';
       const stepSize = nextProps.arbitary !== undefined ? '50,85' : '33';
       const gamma = nextProps.arbitary !== undefined ? '0.5' : '0.1';
-      this.setState({ stepSize: stepSize, gamma: gamma });
+      this.setState({ stepSize, gamma });
 
       const isStepSizeChanged = stepSize !== this.state.stepSize;
       const isGammaChanged = gamma !== this.state.gamma;
       if (isStepSizeChanged || isGammaChanged) {
-        this.props.store({ stepSize: stepSize, gamma: gamma });
+        this.props.store({ stepSize, gamma });
       }
     }
   }
