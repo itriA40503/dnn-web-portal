@@ -6,16 +6,13 @@ import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 // ICON
 import ActionLabel from 'material-ui/svg-icons/action/label';
-import DeviceStorage from 'material-ui/svg-icons/device/storage';
 // COLOR
 import { muiStyle } from '../../../myTheme';
 
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
-import { Card, CardTitle, CardActions } from 'material-ui/Card';
+
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import ReactTooltip from 'react-tooltip';
