@@ -38,6 +38,10 @@ export const muiTheme = getMuiTheme({
     backgroundColor: 'transparent',
     iconColor: muiStyle.palette.primary1Color,
   },
+  slider: {
+    selectionColor: muiStyle.palette.primary1Color,
+    handleFillColor: muiStyle.palette.primary1Color,
+  },
 });
 
 export const StripedStyle = index => ({ background: index % 2 ? blueGrey50 : 'white' });
