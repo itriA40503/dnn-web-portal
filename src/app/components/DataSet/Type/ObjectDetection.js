@@ -103,7 +103,7 @@ class ObjectDetection extends React.Component {
           </div>
           <div style={{ display: 'inline-block', marginLeft: '3px' }}>
             <p style={styles.explanation}>
-              {'Label files are expected to have the .txt extension. For example if an image file is named'} 
+              {'Label files are expected to have the .txt extension. For example if an image file is named'}
             </p>
             <p style={styles.explanation}>
               {'foo.png the corresponding label file should be foo.txt.'}
@@ -180,7 +180,7 @@ class ObjectDetection extends React.Component {
             </Animated>
           </div>
           <div
-            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }} 
+            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }}
             data-tip
             data-for="padImage"
           >
@@ -211,7 +211,7 @@ class ObjectDetection extends React.Component {
             </Animated>
           </div>
           <div
-            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }} 
+            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '3px' }}
             data-tip
             data-for="resizeImage"
           >
@@ -283,7 +283,7 @@ class ObjectDetection extends React.Component {
           <div
             style={{ display: 'inline-block', marginLeft: '3px' }}
             data-tip
-            data-for="minBoxSize" 
+            data-for="minBoxSize"
           >
             <TextField
               name="minBoxSize"
