@@ -123,7 +123,7 @@ class CreateModel extends React.Component {
         return (
           <div>
             <Fixed
-              lr={this.state.learningRate} 
+              lr={this.state.learningRate}
               store={this.setupToParent}
             />
           </div>
@@ -176,7 +176,7 @@ class CreateModel extends React.Component {
       case 'Sigmoid Decay':
         return (
           <div>
-            <SigmoidDecay 
+            <SigmoidDecay
               lr={this.state.learningRate}
               store={this.storePolicyOptionsChange}
             />
