@@ -52,7 +52,7 @@ class StepDown extends React.Component {
     if (this.props.arbitary !== true) {
       stage = parseInt(this.state.stepSize, 10);
     } else {
-      stepList = this.state.stepSize.split(',').map((str) => { return parseInt(str, 10); }).reverse();
+      stepList = this.state.stepSize.split(',').map(str => parseInt(str, 10)).reverse();
       stage = stepList.pop();
     }
     let times = 1;
