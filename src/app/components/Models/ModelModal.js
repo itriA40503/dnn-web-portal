@@ -1,6 +1,5 @@
 import React from 'react';
-// GA
-import ReactGA from 'react-ga';
+
 // i18n
 import { translate } from 'react-i18next';
 // redux
