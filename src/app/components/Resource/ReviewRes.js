@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 // i18n
 import { translate } from 'react-i18next';
 
-import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import Divider from 'material-ui/Divider';
+import { Card, CardText } from 'material-ui/Card';
+import { Row, Col } from 'react-flexbox-grid';
+
+import IdeRes from './IdeRes';
+import InstanceRes from './InstanceRes';
 
 class ReviewRes extends React.Component {
   render() {
@@ -43,20 +45,10 @@ class ReviewRes extends React.Component {
             <br />
             <Row center="xs" style={{ textAlign: 'left' }} >
               <Col xs={6}>
-                <Card>
-                  <CardTitle title={'IDE used resouce'} />
-                  <CardText>
-                    {'IDE Resouce'}
-                  </CardText>
-                </Card>
+                <IdeRes />
               </Col>
               <Col xs={6}>
-                <Card>
-                  <CardTitle title={'Instance used resouce'} />
-                  <CardText>
-                    {'Instance Resouce'}
-                  </CardText>
-                </Card>
+                <InstanceRes />
               </Col>
             </Row>
           </Col>
