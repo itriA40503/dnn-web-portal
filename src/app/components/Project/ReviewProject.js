@@ -15,6 +15,9 @@ import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import FaFlask from 'react-icons/lib/fa/flask';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import ProjectInfo from './ProjectInfo';
+import JobInfo from './JobInfo';
+
 class ReviewProject extends Component {
   constructor(props) {
     super(props);
@@ -160,26 +163,6 @@ class ReviewProject extends Component {
       </div>
     );
   }
-  renderProjectInfo = (project) => {
-    return (
-      <Card>
-        <CardTitle title={<b><ActionAssignment /> {project.title}</b>} />
-        <div>
-          {project.data}
-        </div>
-      </Card>
-    );
-  }
-  renderJobInfo = (job) => {
-    return (
-      <Card>
-        <CardTitle title={<b><FaFlask /> {job.title}</b>} />
-        <div>
-          {job.data}
-        </div>
-      </Card>
-    );
-  }
   render() {
     // const getNodeKey = ({ treeIndex }) => treeIndex;
     return (
@@ -197,7 +180,7 @@ class ReviewProject extends Component {
           </Col>
           <Col xs={9}>
             { this.state.currentData !== null &&
-              (this.state.currentData.type === 'project' ? this.renderProjectInfo(this.state.currentData) : this.renderJobInfo(this.state.currentData))
+              (this.state.currentData.type === 'project' ? <ProjectInfo project={this.state.currentData} /> : <JobInfo job={this.state.currentData} />)
             }
           </Col>
         </Row>
