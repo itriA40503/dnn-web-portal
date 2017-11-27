@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // i18n
 import { translate } from 'react-i18next';
 
-import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import { Card, CardActions } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
