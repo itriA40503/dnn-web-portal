@@ -6,6 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import TextField from 'material-ui/TextField';
+
 // Color
 import { muiStyle } from '../../myTheme';
 
@@ -17,8 +19,10 @@ class CreateJob extends Component {
       dataSet: null,
       model: null,
       network: null,
+      newJobName: null,
     };
   }
+  handleChange = (event, value) => this.setState({ [event.target.name]: value });
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -104,6 +108,13 @@ class CreateJob extends Component {
           modal={true}
           open={this.state.open}
         >
+          <div>
+            <TextField
+              onChange={this.handleChange}
+              floatingLabelText={'Job Name'}
+              name={'newJobName'}
+            />
+          </div>
           <div>{this.renderDataSetField()}</div>
           <div>{this.renderModelField()}</div>
           <div>{this.renderNetworkField()}</div>
