@@ -23,7 +23,7 @@ import { muiStyle } from '../../myTheme';
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
-let fakeData = [
+const fakeData = [
   {
     name: 'data1',
     refs: '123',
@@ -56,12 +56,14 @@ class ReviewDataSet extends Component {
       click: false,
       switchCreatePage: false,
     };
+    this.myData = [];
   }
   renderTable = () => {
     const { t } = this.props;
+    const myFakeData = fakeData.concat(this.myData);
     return (
       <ReactTable
-        data={fakeData}
+        data={myFakeData}
         columns={[
           {
             Header: '',
@@ -158,7 +160,7 @@ class ReviewDataSet extends Component {
           ) : (
             <div>
               <CreateDataSet
-                toFakeData={data => fakeData.push(data)}
+                toFakeData={() => data => this.myData.push(data)}
                 backReview={() => this.setState({ switchCreatePage: false })}
               />
             </div>

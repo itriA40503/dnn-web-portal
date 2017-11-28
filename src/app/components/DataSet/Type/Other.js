@@ -56,7 +56,8 @@ class Other extends React.Component {
 
   createApi = () => {
     console.log(this.state);
-    this.props.toFakeData({
+    const appendToReviewTable = this.props.toFakeData();
+    appendToReviewTable({
       name: this.props.name,
       refs: '0',
       status: 1,
