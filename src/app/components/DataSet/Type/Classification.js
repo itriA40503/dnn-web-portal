@@ -57,13 +57,13 @@ class Classification extends React.Component {
     super(props);
     this.state = {
       type: 'Classification',  // type of dataset
-      imgType: null,           // type of image
+      imgType: 'Color',        // type of image
       resize: null,            // resize transformation of image
       trainPath: null,         // training images path
-      miniClass: null,         // Minimum samples per class (train)
+      miniClass: 2,            // Minimum samples per class (train)
       maxClass: null,          // Maximum samples per class (train)
-      percentValid: null,      // % for validation
-      percentTest: null,       // % for testing
+      percentValid: 25,        // % for validation
+      percentTest: 0,          // % for testing
       validPath: null,         // validation images path
       validMiniClass: null,    // Minimum samples per class (validation)
       validMaxClass: null,     // Maximum samples per class (validation)
@@ -78,6 +78,12 @@ class Classification extends React.Component {
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   createApi = () => {
     console.log(this.state);
+    this.props.toFakeData({
+      name: this.props.name,
+      refs: '0',
+      status: 1,
+      createAt: new Date().toISOString(),
+    });
     this.props.backReview();
   }
   checkSeparateTest = () => {

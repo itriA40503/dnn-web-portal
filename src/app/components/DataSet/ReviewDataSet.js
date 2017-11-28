@@ -23,7 +23,7 @@ import { muiStyle } from '../../myTheme';
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
-const fakeData = [
+let fakeData = [
   {
     name: 'data1',
     refs: '123',
@@ -157,7 +157,10 @@ class ReviewDataSet extends Component {
             this.renderReview()
           ) : (
             <div>
-              <CreateDataSet backReview={() => this.setState({ switchCreatePage: false })} />
+              <CreateDataSet
+                toFakeData={data => fakeData.push(data)}
+                backReview={() => this.setState({ switchCreatePage: false })}
+              />
             </div>
         )}
       </div>

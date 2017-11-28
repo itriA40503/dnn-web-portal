@@ -56,6 +56,12 @@ class Other extends React.Component {
 
   createApi = () => {
     console.log(this.state);
+    this.props.toFakeData({
+      name: this.props.name,
+      refs: '0',
+      status: 1,
+      createAt: new Date().toISOString(),
+    });
     this.props.backReview();
   }
   render() {

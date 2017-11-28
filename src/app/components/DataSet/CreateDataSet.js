@@ -72,15 +72,55 @@ class CreateDataSet extends React.Component {
   renderByType = (type) => {
     switch (type) {
       case 'Classification':
-        return (<div><Classification backReview={this.props.backReview} /></div>);
+        return (
+          <div>
+            <Classification
+              name={this.state.name}
+              backReview={this.props.backReview}
+              toFakeData={this.props.toFakeData}
+            />
+          </div>
+        );
       case 'Object Detection':
-        return (<div><ObjectDetection backReview={this.props.backReview} /></div>);
+        return (
+          <div>
+            <ObjectDetection
+              name={this.state.name}
+              backReview={this.props.backReview}
+              toFakeData={this.props.toFakeData}
+            />
+          </div>
+        );
       case 'Processing':
-        return (<div><Processing backReview={this.props.backReview} /></div>);
+        return (
+          <div>
+            <Processing
+              name={this.state.name}
+              backReview={this.props.backReview}
+              toFakeData={this.props.toFakeData}
+            />
+          </div>
+        );
       case 'Segmentation':
-        return (<div><Segmentation backReview={this.props.backReview} /></div>);
+        return (
+          <div>
+            <Segmentation
+              name={this.state.name}
+              backReview={this.props.backReview}
+              toFakeData={this.props.toFakeData}
+            />
+          </div>
+        );
       case 'Other':
-        return (<div><Other backReview={this.props.backReview} /></div>);
+        return (
+          <div>
+            <Other
+              name={this.state.name}
+              backReview={this.props.backReview}
+              toFakeData={this.props.toFakeData}
+            />
+          </div>
+        );
       default:
         return null;
     }

@@ -48,6 +48,12 @@ class Processing extends React.Component {
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   createApi = () => {
     console.log(this.state);
+    this.props.toFakeData({
+      name: this.props.name,
+      refs: '0',
+      status: 1,
+      createAt: new Date().toISOString(),
+    });
     this.props.backReview();
   }
   checkSeparateValid = () => {
