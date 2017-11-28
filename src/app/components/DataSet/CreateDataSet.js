@@ -70,9 +70,11 @@ class CreateDataSet extends React.Component {
     </div>
   )
   renderByType = (type) => {
+    const { name } = this.state;
     switch (type) {
       case 'Classification':
         return (
+          (name !== null && name !== '') &&
           <div>
             <Classification
               name={this.state.name}
