@@ -131,6 +131,22 @@ class Classification extends React.Component {
     );
   }
   render() {
+    const { imgType, imgWidth, imgHeight, resize } = this.state;
+    const img = { imgType, imgWidth, imgHeight, resize };  
+    const {
+      trainPath,
+      percentTest,
+      percentValid,
+      testChecked,
+      validChecked,
+      testPath,
+      validPath,
+    } = this.state;
+
+    const examine = val => (val !== null && val !== '');
+    const mutexTest = testChecked ? examine(testPath) : examine(percentTest);
+    const mutexValid = validChecked ? examine(validPath) : examine(percentValid);
+
     return (
       <div>
         <Row style={{ margin: '0px auto' }}>
@@ -184,6 +200,7 @@ class Classification extends React.Component {
                   style={{ width: 50, marginRight: '3px' }}
                   floatingLabelText={'Width'}
                   inputStyle={{ textAlign: 'center' }}
+                  name={'imgWidth'}
                   onChange={this.handleChange}
                   value={this.state.imgWidth}
                   underlineFocusStyle={{
@@ -195,6 +212,7 @@ class Classification extends React.Component {
                   style={{ width: 50, marginLeft: '3px' }}
                   floatingLabelText={'Height'}
                   inputStyle={{ textAlign: 'center' }}
+                  name={'imgHeight'}
                   onChange={this.handleChange}
                   value={this.state.imgHeight}
                   underlineFocusStyle={{
@@ -236,36 +254,9 @@ class Classification extends React.Component {
           </Col>
         </Row>
         <Divider />
-        <div style={{ margin: '0px auto' }}>
-          <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-            <Animated animationIn="rollIn" isVisible={true}>
-              <ActionLabel color={muiStyle.palette.primary1Color} />
-            </Animated>
-          </div>
-          <div
-            style={{ display: 'inline-block', marginLeft: '3px' }}
-            data-tip
-            data-for="trainPath"
-          >
-            <TextField
-              name="trainPath"
-              floatingLabelText={'Training Images Path'}
-              onChange={this.handleChange}
-              value={this.state.trainPath}
-              underlineFocusStyle={{
-                borderColor: muiStyle.palette.primary1Color,
-              }}
-            />
-            <ReactTooltip id="trainPath" place="right" effect="solid">
-              <p style={styles.tooltip}>{'Indicate a folder which holds subfolders full of images. Each'}</p>
-              <p style={styles.tooltip}>{'subfolder should be named according to the desired label for '}</p>
-              <p style={styles.tooltip}>{'the images that it holds. Can also be URL for an apache/nginx'}</p>
-              <p style={styles.tooltip}>{'auto-indexed folder.'}</p>
-            </ReactTooltip>
-          </div>
-        </div>
-        <Row style={{ margin: '2px' }}>
-          <Col>
+        {
+          Object.values(img).every(examine) &&
+          <div>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -275,316 +266,351 @@ class Classification extends React.Component {
               <div
                 style={{ display: 'inline-block', marginLeft: '3px' }}
                 data-tip
-                data-for="miniClass"
+                data-for="trainPath"
               >
                 <TextField
-                  name="miniClass"
-                  floatingLabelText={'Minimum Samples Per Class'}
+                  name="trainPath"
+                  floatingLabelText={'Training Images Path'}
                   onChange={this.handleChange}
-                  value={this.state.miniClass}
+                  value={this.state.trainPath}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
                 />
+                <ReactTooltip id="trainPath" place="right" effect="solid">
+                  <p style={styles.tooltip}>{'Indicate a folder which holds subfolders full of images. Each'}</p>
+                  <p style={styles.tooltip}>{'subfolder should be named according to the desired label for '}</p>
+                  <p style={styles.tooltip}>{'the images that it holds. Can also be URL for an apache/nginx'}</p>
+                  <p style={styles.tooltip}>{'auto-indexed folder.'}</p>
+                </ReactTooltip>
               </div>
-              <ReactTooltip id="miniClass" place="bottom" effect="solid">
-                <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
-                <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-              </ReactTooltip>
             </div>
-          </Col>
-          <Col>
-            <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={muiStyle.palette.primary1Color} />
-                </Animated>
-              </div>
-              <div
-                style={{ display: 'inline-block', marginLeft: '3px' }}
-                data-tip
-                data-for="maxClass"
-              >
-                <TextField
-                  name="maxClass"
-                  floatingLabelText={'Maximum Samples Per Class'}
-                  onChange={this.handleChange}
-                  value={this.state.maxClass}
-                  underlineFocusStyle={{
-                    borderColor: muiStyle.palette.primary1Color,
-                  }}
-                />
-              </div>
-              <ReactTooltip id="maxClass" place="bottom" effect="solid">
-                <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
-                <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-              </ReactTooltip>
-            </div>
-          </Col>
-        </Row>
-        <Row style={{ margin: '2px' }}>
-          <Col>
-            <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={this.state.validChecked ?
-                    muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
-                  />
-                </Animated>
-              </div>
-              <div
-                style={{ display: 'inline-block', marginLeft: '3px' }}
-                data-tip
-                data-for="percentValid"
-              >
-                <TextField
-                  name="percentValid"
-                  disabled={this.state.validChecked}
-                  floatingLabelText={'% For Validation'}
-                  onChange={this.handleChange}
-                  value={this.state.percentValid}
-                  underlineFocusStyle={{
-                    borderColor: muiStyle.palette.primary1Color,
-                  }}
-                />
-              </div>
-              <ReactTooltip id="percentValid" place="bottom" effect="solid">
-                <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
-                <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
-              </ReactTooltip>
-            </div>
-          </Col>
-          <Col>
-            <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                <Animated animationIn="rollIn" isVisible={true}>
-                  <ActionLabel color={this.state.testChecked ?
-                    muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
-                  />
-                </Animated>
-              </div>
-              <div
-                style={{ display: 'inline-block', marginLeft: '3px' }}
-                data-tip
-                data-for="percentTest"
-              >
-                <TextField
-                  name="percentTest"
-                  disabled={this.state.testChecked}
-                  floatingLabelText={'% For Testing'}
-                  onChange={this.handleChange}
-                  value={this.state.percentTest}
-                  underlineFocusStyle={{
-                    borderColor: muiStyle.palette.primary1Color,
-                  }}
-                />
-              </div>
-              <ReactTooltip id="percentTest" place="bottom" effect="solid">
-                <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
-                <p style={styles.tooltip}>{'from the training images for the test set.'}</p>
-              </ReactTooltip>
-            </div>
-          </Col>
-        </Row>
-        <Divider />
-        <br />
-        <Card>
-          <Checkbox
-            label="Separate Testing Images Folder (option)"
-            labelStyle={{ fontSize: '16px' }}
-            style={{ padding: '10px 10px' }}
-            onCheck={() => this.checkSeparateTest()}
-            checked={this.state.testChecked}
-          />
-          { this.state.testChecked &&
-            <div style={{ margin: '20px' }}>
-              <div style={{ margin: '0px 2px' }}>
-                <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                  <Animated animationIn="rollIn" isVisible={true}>
-                    <ActionLabel color={muiStyle.palette.primary1Color} />
-                  </Animated>
+            <Row style={{ margin: '2px' }}>
+              <Col>
+                <div style={{ margin: '0px auto' }}>
+                  <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <Animated animationIn="rollIn" isVisible={true}>
+                      <ActionLabel color={muiStyle.palette.primary1Color} />
+                    </Animated>
+                  </div>
+                  <div
+                    style={{ display: 'inline-block', marginLeft: '3px' }}
+                    data-tip
+                    data-for="miniClass"
+                  >
+                    <TextField
+                      name="miniClass"
+                      floatingLabelText={'Minimum Samples Per Class'}
+                      onChange={this.handleChange}
+                      value={this.state.miniClass}
+                      underlineFocusStyle={{
+                        borderColor: muiStyle.palette.primary1Color,
+                      }}
+                    />
+                  </div>
+                  <ReactTooltip id="miniClass" place="bottom" effect="solid">
+                    <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                    <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                    <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                  </ReactTooltip>
                 </div>
-                <div style={{ display: 'inline-block', marginLeft: '3px' }}>
-                  <TextField
-                    name="testPath"
-                    floatingLabelText={'Test Images Path'}
-                    onChange={this.handleChange}
-                    value={this.state.testPath}
-                    underlineFocusStyle={{
-                      borderColor: muiStyle.palette.primary1Color,
-                    }}
-                  />
+              </Col>
+              <Col>
+                <div style={{ margin: '0px auto' }}>
+                  <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <Animated animationIn="rollIn" isVisible={true}>
+                      <ActionLabel color={muiStyle.palette.primary1Color} />
+                    </Animated>
+                  </div>
+                  <div
+                    style={{ display: 'inline-block', marginLeft: '3px' }}
+                    data-tip
+                    data-for="maxClass"
+                  >
+                    <TextField
+                      name="maxClass"
+                      floatingLabelText={'Maximum Samples Per Class'}
+                      onChange={this.handleChange}
+                      value={this.state.maxClass}
+                      underlineFocusStyle={{
+                        borderColor: muiStyle.palette.primary1Color,
+                      }}
+                    />
+                  </div>
+                  <ReactTooltip id="maxClass" place="bottom" effect="solid">
+                    <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                    <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                    <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                  </ReactTooltip>
                 </div>
-              </div>
-              <Row style={{ margin: '2px' }}>
-                <Col>
-                  <div style={{ margin: '0px auto' }}>
+              </Col>
+            </Row>
+            <Row style={{ margin: '2px' }}>
+              <Col>
+                <div style={{ margin: '0px auto' }}>
+                  <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <Animated animationIn="rollIn" isVisible={true}>
+                      <ActionLabel color={this.state.validChecked ?
+                        muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                      />
+                    </Animated>
+                  </div>
+                  <div
+                    style={{ display: 'inline-block', marginLeft: '3px' }}
+                    data-tip
+                    data-for="percentValid"
+                  >
+                    <TextField
+                      name="percentValid"
+                      disabled={this.state.validChecked}
+                      floatingLabelText={'% For Validation'}
+                      onChange={this.handleChange}
+                      value={this.state.checkSeparateValid ? null : this.state.percentValid}
+                      underlineFocusStyle={{
+                        borderColor: muiStyle.palette.primary1Color,
+                      }}
+                    />
+                  </div>
+                  <ReactTooltip id="percentValid" place="bottom" effect="solid">
+                    <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
+                    <p style={styles.tooltip}>{'from the training images for the validation set.'}</p>
+                  </ReactTooltip>
+                </div>
+              </Col>
+              <Col>
+                <div style={{ margin: '0px auto' }}>
+                  <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <Animated animationIn="rollIn" isVisible={true}>
+                      <ActionLabel color={this.state.testChecked ?
+                        muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                      />
+                    </Animated>
+                  </div>
+                  <div
+                    style={{ display: 'inline-block', marginLeft: '3px' }}
+                    data-tip
+                    data-for="percentTest"
+                  >
+                    <TextField
+                      name="percentTest"
+                      disabled={this.state.testChecked}
+                      floatingLabelText={'% For Testing'}
+                      onChange={this.handleChange}
+                      value={this.state.checkSeparateTest ? null : this.state.percentTest}
+                      underlineFocusStyle={{
+                        borderColor: muiStyle.palette.primary1Color,
+                      }}
+                    />
+                  </div>
+                  <ReactTooltip id="percentTest" place="bottom" effect="solid">
+                    <p style={styles.tooltip}>{'You can choose to set apart a certain percentage of images'}</p>
+                    <p style={styles.tooltip}>{'from the training images for the test set.'}</p>
+                  </ReactTooltip>
+                </div>
+              </Col>
+            </Row>
+            <Divider />
+            <br />
+            <Card>
+              <Checkbox
+                label="Separate Testing Images Folder (option)"
+                labelStyle={{ fontSize: '16px' }}
+                style={{ padding: '10px 10px' }}
+                onCheck={() => this.checkSeparateTest()}
+                checked={this.state.testChecked}
+              />
+              { this.state.testChecked &&
+                <div style={{ margin: '20px' }}>
+                  <div style={{ margin: '0px 2px' }}>
                     <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                       <Animated animationIn="rollIn" isVisible={true}>
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div
-                      style={{ display: 'inline-block', marginLeft: '3px' }}
-                      data-tip
-                      data-for="testMiniClass"
-                    >
+                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
                       <TextField
-                        name="testMiniClass"
-                        floatingLabelText={'Minimum Samples Per Class'}
+                        name="testPath"
+                        floatingLabelText={'Test Images Path'}
                         onChange={this.handleChange}
-                        value={this.state.testMiniClass}
+                        value={this.state.testPath}
                         underlineFocusStyle={{
                           borderColor: muiStyle.palette.primary1Color,
                         }}
                       />
                     </div>
-                    <ReactTooltip id="testMiniClass" place="bottom" effect="solid">
-                      <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
-                      <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-                    </ReactTooltip>
                   </div>
-                </Col>
-                <Col>
-                  <div style={{ margin: '0px auto' }}>
+                  <Row style={{ margin: '2px' }}>
+                    <Col>
+                      <div style={{ margin: '0px auto' }}>
+                        <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                          <Animated animationIn="rollIn" isVisible={true}>
+                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                          </Animated>
+                        </div>
+                        <div
+                          style={{ display: 'inline-block', marginLeft: '3px' }}
+                          data-tip
+                          data-for="testMiniClass"
+                        >
+                          <TextField
+                            name="testMiniClass"
+                            floatingLabelText={'Minimum Samples Per Class'}
+                            onChange={this.handleChange}
+                            value={this.state.testMiniClass}
+                            underlineFocusStyle={{
+                              borderColor: muiStyle.palette.primary1Color,
+                            }}
+                          />
+                        </div>
+                        <ReactTooltip id="testMiniClass" place="bottom" effect="solid">
+                          <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                          <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                          <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                        </ReactTooltip>
+                      </div>
+                    </Col>
+                    <Col>
+                      <div style={{ margin: '0px auto' }}>
+                        <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                          <Animated animationIn="rollIn" isVisible={true}>
+                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                          </Animated>
+                        </div>
+                        <div
+                          style={{ display: 'inline-block', marginLeft: '3px' }}
+                          data-tip
+                          data-for="testMaxClass"
+                        >
+                          <TextField
+                            name="testMaxClass"
+                            floatingLabelText={'Maximum Samples Per Class'}
+                            onChange={this.handleChange}
+                            value={this.state.testMaxClass}
+                            underlineFocusStyle={{
+                              borderColor: muiStyle.palette.primary1Color,
+                            }}
+                          />
+                        </div>
+                        <ReactTooltip id="testMaxClass" place="bottom" effect="solid">
+                          <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                          <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                          <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                        </ReactTooltip>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              }
+            </Card>
+            <br />
+            <Card>
+              <Checkbox
+                label="Separate Validation Images Folder (option)"
+                labelStyle={{ fontSize: '16px' }}
+                style={{ padding: '10px 10px' }}
+                onCheck={() => this.checkSeparateValid()}
+                checked={this.state.validChecked}
+              />
+              { this.state.validChecked &&
+                <div style={{ margin: '20px' }}>
+                  <div style={{ margin: '0px 2px' }}>
                     <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                       <Animated animationIn="rollIn" isVisible={true}>
                         <ActionLabel color={muiStyle.palette.primary1Color} />
                       </Animated>
                     </div>
-                    <div
-                      style={{ display: 'inline-block', marginLeft: '3px' }}
-                      data-tip
-                      data-for="testMaxClass"
-                    >
+                    <div style={{ display: 'inline-block', marginLeft: '3px' }}>
                       <TextField
-                        name="testMaxClass"
-                        floatingLabelText={'Maximum Samples Per Class'}
+                        name="validPath"
+                        floatingLabelText={'Validation Images Path'}
                         onChange={this.handleChange}
-                        value={this.state.testMaxClass}
+                        value={this.state.validPath}
                         underlineFocusStyle={{
                           borderColor: muiStyle.palette.primary1Color,
                         }}
                       />
                     </div>
-                    <ReactTooltip id="testMaxClass" place="bottom" effect="solid">
-                      <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
-                      <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-                    </ReactTooltip>
                   </div>
-                </Col>
-              </Row>
-            </div>
-          }
-        </Card>
-        <br />
-        <Card>
-          <Checkbox
-            label="Separate Validation Images Folder (option)"
-            labelStyle={{ fontSize: '16px' }}
-            style={{ padding: '10px 10px' }}
-            onCheck={() => this.checkSeparateValid()}
-            checked={this.state.validChecked}
-          />
-          { this.state.validChecked &&
-            <div style={{ margin: '20px' }}>
-              <div style={{ margin: '0px 2px' }}>
-                <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                  <Animated animationIn="rollIn" isVisible={true}>
-                    <ActionLabel color={muiStyle.palette.primary1Color} />
-                  </Animated>
+                  <Row style={{ margin: '2px' }}>
+                    <Col>
+                      <div style={{ margin: '0px auto' }}>
+                        <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                          <Animated animationIn="rollIn" isVisible={true}>
+                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                          </Animated>
+                        </div>
+                        <div
+                          style={{ display: 'inline-block', marginLeft: '3px' }}
+                          data-tip
+                          data-for="validMiniClass"
+                        >
+                          <TextField
+                            name="validMiniClass"
+                            floatingLabelText={'Minimum Samples Per Class'}
+                            onChange={this.handleChange}
+                            value={this.state.validMiniClass}
+                            underlineFocusStyle={{
+                              borderColor: muiStyle.palette.primary1Color,
+                            }}
+                          />
+                        </div>
+                        <ReactTooltip id="validMiniClass" place="bottom" effect="solid">
+                          <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
+                          <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
+                          <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                        </ReactTooltip>
+                      </div>
+                    </Col>
+                    <Col>
+                      <div style={{ margin: '0px auto' }}>
+                        <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                          <Animated animationIn="rollIn" isVisible={true}>
+                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                          </Animated>
+                        </div>
+                        <div
+                          style={{ display: 'inline-block', marginLeft: '3px' }}
+                          data-tip
+                          data-for="validMaxClass"
+                        >
+                          <TextField
+                            name="validMaxClass"
+                            floatingLabelText={'Maximum Samples Per Class'}
+                            onChange={this.handleChange}
+                            value={this.state.validMaxClass}
+                            underlineFocusStyle={{
+                              borderColor: muiStyle.palette.primary1Color,
+                            }}
+                          />
+                        </div>
+                        <ReactTooltip id="validMaxClass" place="bottom" effect="solid">
+                          <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
+                          <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
+                          <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
+                        </ReactTooltip>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
-                <div style={{ display: 'inline-block', marginLeft: '3px' }}>
-                  <TextField
-                    name="validPath"
-                    floatingLabelText={'Validation Images Path'}
-                    onChange={this.handleChange}
-                    value={this.state.validPath}
-                    underlineFocusStyle={{
-                      borderColor: muiStyle.palette.primary1Color,
-                    }}
-                  />
-                </div>
+              }
+            </Card>
+            <br />
+            <Divider />
+            <br />
+            {
+              examine(trainPath) && mutexTest && mutexValid &&
+              <div style={styles.actions}>
+                <RaisedButton
+                  label={'create dataset'}
+                  backgroundColor={muiStyle.palette.primary1Color}
+                  labelColor={'white'}
+                  disabled={this.state.loadingCreate}
+                  onTouchTap={() => this.createApi()}
+                />
               </div>
-              <Row style={{ margin: '2px' }}>
-                <Col>
-                  <div style={{ margin: '0px auto' }}>
-                    <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                      <Animated animationIn="rollIn" isVisible={true}>
-                        <ActionLabel color={muiStyle.palette.primary1Color} />
-                      </Animated>
-                    </div>
-                    <div
-                      style={{ display: 'inline-block', marginLeft: '3px' }}
-                      data-tip
-                      data-for="validMiniClass"
-                    >
-                      <TextField
-                        name="validMiniClass"
-                        floatingLabelText={'Minimum Samples Per Class'}
-                        onChange={this.handleChange}
-                        value={this.state.validMiniClass}
-                        underlineFocusStyle={{
-                          borderColor: muiStyle.palette.primary1Color,
-                        }}
-                      />
-                    </div>
-                    <ReactTooltip id="validMiniClass" place="bottom" effect="solid">
-                      <p style={styles.tooltip}>{'You can choose to specify a minimum number of samples per class.'}</p>
-                      <p style={styles.tooltip}>{'If a class has fewer samples than the specified amount it will be ignored.'}</p>
-                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-                    </ReactTooltip>
-                  </div>
-                </Col>
-                <Col>
-                  <div style={{ margin: '0px auto' }}>
-                    <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                      <Animated animationIn="rollIn" isVisible={true}>
-                        <ActionLabel color={muiStyle.palette.primary1Color} />
-                      </Animated>
-                    </div>
-                    <div
-                      style={{ display: 'inline-block', marginLeft: '3px' }}
-                      data-tip
-                      data-for="validMaxClass"
-                    >
-                      <TextField
-                        name="validMaxClass"
-                        floatingLabelText={'Maximum Samples Per Class'}
-                        onChange={this.handleChange}
-                        value={this.state.validMaxClass}
-                        underlineFocusStyle={{
-                          borderColor: muiStyle.palette.primary1Color,
-                        }}
-                      />
-                    </div>
-                    <ReactTooltip id="validMaxClass" place="bottom" effect="solid">
-                      <p style={styles.tooltip}>{'You can choose to specify a maximum number of samples per class.'}</p>
-                      <p style={styles.tooltip}>{'If a class has more samples than the specified amount extra samples will be ignored.'}</p>
-                      <p style={styles.tooltip}>{'Leave blank to ignore this feature'}</p>
-                    </ReactTooltip>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          }
-        </Card>
-        <br />
-        <Divider />
-        <br />
-        <div style={styles.actions}>
-          <RaisedButton
-            label={'create dataset'}
-            backgroundColor={muiStyle.palette.primary1Color}
-            labelColor={'white'}
-            disabled={this.state.loadingCreate}
-            onTouchTap={() => this.createApi()}
-          />
-        </div>
+            }
+          </div>
+        }
       </div>
     );
   }
