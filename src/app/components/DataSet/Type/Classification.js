@@ -58,6 +58,8 @@ class Classification extends React.Component {
     this.state = {
       type: 'Classification',  // type of dataset
       imgType: 'Color',        // type of image
+      imgWidth: 256,           // width size of image
+      imgHeight: 256,          // height size of image
       resize: null,            // resize transformation of image
       trainPath: null,         // training images path
       miniClass: 2,            // Minimum samples per class (train)
@@ -182,6 +184,8 @@ class Classification extends React.Component {
                   style={{ width: 50, marginRight: '3px' }}
                   floatingLabelText={'Width'}
                   inputStyle={{ textAlign: 'center' }}
+                  onChange={this.handleChange}
+                  value={this.state.imgWidth}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
@@ -191,6 +195,8 @@ class Classification extends React.Component {
                   style={{ width: 50, marginLeft: '3px' }}
                   floatingLabelText={'Height'}
                   inputStyle={{ textAlign: 'center' }}
+                  onChange={this.handleChange}
+                  value={this.state.imgHeight}
                   underlineFocusStyle={{
                     borderColor: muiStyle.palette.primary1Color,
                   }}
