@@ -18,38 +18,40 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ProjectInfo from './ProjectInfo';
 import JobInfo from './JobInfo';
 
+const fakePjData = [
+  { title: 'Project1',
+    expanded: true,
+    data: '123',
+    type: 'project',
+    select: false,
+    children: [
+      { title: 'job1', type: 'job', data: 'job1 data' },
+      { title: 'job2', type: 'job', data: 'job2 data' },
+      { title: 'job3', type: 'job', data: 'job3 data' },
+      { title: 'job4', type: 'job', data: 'job4 data' },
+    ],
+  },
+  { title: 'Project2',
+    expanded: true,
+    data: '123',
+    select: false,
+    type: 'project',
+    children: [
+      { title: 'job', type: 'job', data: 'job data' },
+      { title: 'job00', type: 'job', data: 'job data 00' },
+    ],
+  },
+];
+
 class ReviewProject extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData: [
-        { title: 'Project1',
-          expanded: true,
-          data: '123',
-          type: 'project',
-          select: false,
-          children: [
-            { title: 'job1', type: 'job', data: 'job1 data' },
-            { title: 'job2', type: 'job', data: 'job2 data' },
-            { title: 'job3', type: 'job', data: 'job3 data' },
-            { title: 'job4', type: 'job', data: 'job4 data' },
-          ],
-        },
-        { title: 'Project2',
-          expanded: true,
-          data: '123',
-          select: false,
-          type: 'project',
-          children: [
-            { title: 'job', type: 'job', data: 'job data' },
-            { title: 'job00', type: 'job', data: 'job data 00' },
-          ],
-        },
-      ],
+      treeData: fakePjData,
       open: false,
       newPjName: '',
-      currentData: null,
+      currentData: fakePjData[0],
     };
   }
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
