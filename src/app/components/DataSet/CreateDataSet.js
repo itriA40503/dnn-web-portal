@@ -34,6 +34,14 @@ const styles = {
     right: '10px',
     margin: '0px auto',
   },
+  step: {
+    textAlign: 'right',
+    margin: 0,
+    paddingTop: '5px',
+    color: muiStyle.palette.primary1Color,
+    fontWeight: 'bold',
+    fontSize: '20px',
+  },
 };
 
 class CreateDataSet extends React.Component {
@@ -79,7 +87,7 @@ class CreateDataSet extends React.Component {
             <Classification
               name={this.state.name}
               backReview={this.props.backReview}
-              toFakeData={this.props.toFakeData}
+              toFakeData={this.props.toFakeData()}
             />
           </div>
         );
@@ -143,6 +151,7 @@ class CreateDataSet extends React.Component {
         <ExpandTransition open={true} >
           <div style={{ marginLeft: 200, marginRight: 200 }}>
             <div style={{ margin: '0px auto' }}>
+              <p style={styles.step}>{'step - 1'}</p>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
