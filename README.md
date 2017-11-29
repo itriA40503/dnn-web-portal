@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.5.0
+* Version 0.5.1
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -216,7 +216,7 @@ You can using plugin on editor (like Sublime, VS code, Atom, WebStorm ...)
 
 And install these modules :
 ```
-npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
+npm install -g eslint prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
 ```
 
 ## How do I get set up from this porject ##
@@ -530,8 +530,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-11-07
+last update 2017-11-29
 
+* `0.5.1` add tutorail DEMO caffe, torch and mxnet
 * `0.5.0` change api for dnn-web-server:0.2.5
 * `0.4.9` buildImage with custom tag
 * `0.4.8` add service email
