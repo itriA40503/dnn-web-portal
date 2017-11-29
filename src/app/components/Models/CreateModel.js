@@ -456,6 +456,7 @@ class CreateModel extends React.Component {
                   floatingLabelText={'Solver Type'}
                   onChange={this.handleSolverTypeChange}
                   autoWidth={true}
+                  fullWidth
                   value={this.state.solverType}
                 >
                   <MenuItem
