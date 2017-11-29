@@ -50,6 +50,14 @@ const styles = {
     margin: '0px auto',
     fontSize: '14px',
   },
+  step: {
+    textAlign: 'right',
+    margin: 0,
+    paddingTop: '5px',
+    color: muiStyle.palette.primary1Color,
+    fontWeight: 'bold',
+    fontSize: '20px',
+  },
 };
 
 class Classification extends React.Component {
@@ -80,13 +88,14 @@ class Classification extends React.Component {
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
   createApi = () => {
     console.log(this.state);
-    const appendToReviewTable = this.props.toFakeData();
-    appendToReviewTable({
+    // const appendToReviewTable = this.props.toFakeData();
+    const newData = {
       name: this.props.name,
       refs: '0',
       status: 1,
       createAt: new Date().toISOString(),
-    });
+    };
+    this.props.toFakeData(newData);
     this.props.backReview();
   }
   checkSeparateTest = () => {
@@ -133,22 +142,15 @@ class Classification extends React.Component {
   render() {
     const { imgType, imgWidth, imgHeight, resize } = this.state;
     const img = { imgType, imgWidth, imgHeight, resize };  
-    const {
-      trainPath,
-      percentTest,
-      percentValid,
-      testChecked,
-      validChecked,
-      testPath,
-      validPath,
-    } = this.state;
-
-    const examine = val => (val !== null && val !== '');
-    const mutexTest = testChecked ? examine(testPath) : examine(percentTest);
-    const mutexValid = validChecked ? examine(validPath) : examine(percentValid);
+    const emptyValue = val => (val !== null && val !== '');
+    const mutexTest = this.state.testChecked ? emptyValue(this.state.testPath) : emptyValue(this.state.percentTest);
+    const mutexValid = this.state.validChecked ? emptyValue(this.state.validPath) : emptyValue(this.state.percentValid);
+    const isMinGreaterThanMax = (a, b) => (emptyValue(a) && emptyValue(b) ? a > b : false);
+    const errorTextCondition = (a, b) => (isMinGreaterThanMax(a, b) === true ? ' ' : null);
 
     return (
       <div>
+        <p style={styles.step}>{'step - 2'}</p>
         <Row style={{ margin: '0px auto' }}>
           <Col>
             <div style={{ margin: '0px auto' }}>
@@ -255,8 +257,9 @@ class Classification extends React.Component {
         </Row>
         <Divider />
         {
-          Object.values(img).every(examine) &&
+          Object.values(img).every(emptyValue) &&
           <div>
+            <p style={styles.step}>{'step - 3'}</p>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <Animated animationIn="rollIn" isVisible={true}>
@@ -290,7 +293,12 @@ class Classification extends React.Component {
                 <div style={{ margin: '0px auto' }}>
                   <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                     <Animated animationIn="rollIn" isVisible={true}>
-                      <ActionLabel color={muiStyle.palette.primary1Color} />
+                      <ActionLabel
+                        color={
+                          isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ?
+                          muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                        }
+                      />
                     </Animated>
                   </div>
                   <div
@@ -302,6 +310,7 @@ class Classification extends React.Component {
                       name="miniClass"
                       floatingLabelText={'Minimum Samples Per Class'}
                       onChange={this.handleChange}
+                      errorText={errorTextCondition(this.state.miniClass, this.state.maxClass)}
                       value={this.state.miniClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -319,7 +328,12 @@ class Classification extends React.Component {
                 <div style={{ margin: '0px auto' }}>
                   <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                     <Animated animationIn="rollIn" isVisible={true}>
-                      <ActionLabel color={muiStyle.palette.primary1Color} />
+                      <ActionLabel
+                        color={
+                          isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ?
+                          muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                        }
+                      />
                     </Animated>
                   </div>
                   <div
@@ -331,6 +345,7 @@ class Classification extends React.Component {
                       name="maxClass"
                       floatingLabelText={'Maximum Samples Per Class'}
                       onChange={this.handleChange}
+                      errorText={errorTextCondition(this.state.miniClass, this.state.maxClass)}
                       value={this.state.maxClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -344,14 +359,23 @@ class Classification extends React.Component {
                   </ReactTooltip>
                 </div>
               </Col>
+              {
+                isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) &&
+                <p style={{ color: muiStyle.palette.accent2Color }}>
+                  {'"Maximux Samples Per Class" field must be greater than "Minimum Samples Per Class"'}
+                </p>
+              }
             </Row>
             <Row style={{ margin: '2px' }}>
               <Col>
                 <div style={{ margin: '0px auto' }}>
                   <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                     <Animated animationIn="rollIn" isVisible={true}>
-                      <ActionLabel color={this.state.validChecked ?
-                        muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                      <ActionLabel
+                        color={muiStyle.palette.primary1Color}
+                        style={
+                          this.state.validChecked ? { opacity: 0.5 } : { opacity: 1 }
+                        }
                       />
                     </Animated>
                   </div>
@@ -365,7 +389,7 @@ class Classification extends React.Component {
                       disabled={this.state.validChecked}
                       floatingLabelText={'% For Validation'}
                       onChange={this.handleChange}
-                      value={this.state.checkSeparateValid ? null : this.state.percentValid}
+                      value={this.state.validChecked ? '' : this.state.percentValid}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
                       }}
@@ -381,8 +405,11 @@ class Classification extends React.Component {
                 <div style={{ margin: '0px auto' }}>
                   <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                     <Animated animationIn="rollIn" isVisible={true}>
-                      <ActionLabel color={this.state.testChecked ?
-                        muiStyle.palette.accent2Color : muiStyle.palette.primary1Color}
+                      <ActionLabel
+                        color={muiStyle.palette.primary1Color}
+                        style={
+                          this.state.testChecked ? { opacity: 0.5 } : { opacity: 1 }
+                        }
                       />
                     </Animated>
                   </div>
@@ -396,7 +423,7 @@ class Classification extends React.Component {
                       disabled={this.state.testChecked}
                       floatingLabelText={'% For Testing'}
                       onChange={this.handleChange}
-                      value={this.state.checkSeparateTest ? null : this.state.percentTest}
+                      value={this.state.testChecked ? '' : this.state.percentTest}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
                       }}
@@ -409,7 +436,6 @@ class Classification extends React.Component {
                 </div>
               </Col>
             </Row>
-            <Divider />
             <br />
             <Card>
               <Checkbox
@@ -595,16 +621,20 @@ class Classification extends React.Component {
               }
             </Card>
             <br />
+            <br />
             <Divider />
             <br />
             {
-              examine(trainPath) && mutexTest && mutexValid &&
               <div style={styles.actions}>
                 <RaisedButton
                   label={'create dataset'}
                   backgroundColor={muiStyle.palette.primary1Color}
                   labelColor={'white'}
-                  disabled={this.state.loadingCreate}
+                  disabled={
+                    !(emptyValue(this.state.trainPath) && mutexTest && mutexValid) ||
+                    isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ||
+                    this.state.loadingCreate
+                  }
                   onTouchTap={() => this.createApi()}
                 />
               </div>
