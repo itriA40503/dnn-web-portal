@@ -117,13 +117,28 @@ export function displayPDF(username, language) {
             fontSize: 22,
           },
           {
-            text: 'Demo of Tensorflow running code\n',
+            text: 'Demo: Tensorflow Running Code\n',
             linkToPage: 12,
             style: 'outline',
           },
           {
-            text: 'TensorAPM\n',
+            text: 'Demo: Caffe running code\n',
             linkToPage: 15,
+            style: 'outline',
+          },
+          {
+            text: 'Demo: Torch running code\n',
+            linkToPage: 16,
+            style: 'outline',
+          },
+          {
+            text: 'Demo: MXNet running code\n',
+            linkToPage: 17,
+            style: 'outline',
+          },
+          {
+            text: 'TensorAPM\n',
+            linkToPage: 18,
             style: 'outline',
           },
         ],
@@ -390,9 +405,9 @@ export function displayPDF(username, language) {
         alignment: 'center',
         pageBreak: 'after',
       },
-// page 10
+// page 12
       {
-        text: 'Demo of Tensorflow running code',
+        text: 'Demo: Tensorflow Running Code',
         style: 'title',
       },
       {
@@ -542,7 +557,158 @@ export function displayPDF(username, language) {
         alignment: 'justify',
         pageBreak: 'after',
       },
-// page 13
+// page 15
+      {
+        text: 'Demo: Caffe running code',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          'To run Caffe demo follow next steps (gpu is required)',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text: '1.    cp /opt/caffe ~/caffe',
+        fontSize: 18,
+      },
+      {
+        text:
+          'Copy caffe to user’s directory to avoid permission issues',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text: '2.    cd ~/caffe',
+        fontSize: 18,
+      },
+      {
+        text: '3.    ./data/mnist/get_mnist.sh',
+        fontSize: 18,
+      },
+      {
+        text:
+          'Download Mnist dataset.',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text: '4.    ./examples/mnist/create_mnist.sh',
+        fontSize: 18,
+      },
+      {
+        text: '5.    ./examples/mnist/train_lenet.sh',
+        fontSize: 18,
+      },
+      {
+        text:
+          'Create and run network',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text:
+          'Creating and training the model described in details in official tutorial',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text:
+          'http://caffe.berkeleyvision.org/gathered/examples/mnist.html',
+        fontSize: 18,
+        alignment: 'justify',
+        pageBreak: 'after',
+      },
+// page 16
+      {
+        text: 'Demo: Torch running code',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          'To run Torch demo do following (always runs on cpu)',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text: '1.    cd /',
+        fontSize: 18,
+      },
+      {
+        text: '2.    cp demo.lua ~/demo.lua',
+        fontSize: 18,
+      },
+      {
+        text: '3.     cd ~',
+        fontSize: 18,
+      },
+      {
+        text: '4.    th demo.lua',
+        fontSize: 18,
+      },
+      {
+        text:
+          'It will train simple model on Cifar10 dataset.',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text:
+          'Dataset will be loaded to the same directory as demo.lua file.',
+        fontSize: 18,
+        alignment: 'justify',
+        pageBreak: 'after',
+      },
+// page 17
+      {
+        text: 'Demo: MXNet running code',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          'To run MXNet demo do following (always runs on cpu)',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text: '1.    cd /',
+        fontSize: 18,
+      },
+      {
+        text: '2.    cp demo.py ~/demo.py',
+        fontSize: 18,
+      },
+      {
+        text: '3.    cd ~',
+        fontSize: 18,
+      },
+      {
+        text: '4.    python demo.py',
+        fontSize: 18,
+      },
+      {
+        text:
+          'It will train simple model on MNIST dataset.',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text:
+          'Dataset will be loaded automatically. ',
+        fontSize: 18,
+        alignment: 'justify',
+        pageBreak: 'after',
+      },
+// page 18
       {
         text: 'TensorAPM',
         style: 'title',
@@ -797,8 +963,23 @@ export function displayPDF(username, language) {
             style: 'outline',
           },
           {
-            text: 'TensorAPM用戶指南\n',
+            text: 'Caffe測試範例\n',
             linkToPage: 15,
+            style: 'outline',
+          },
+          {
+            text: 'Torch測試範例\n',
+            linkToPage: 16,
+            style: 'outline',
+          },
+          {
+            text: 'MXNet測試範例\n',
+            linkToPage: 17,
+            style: 'outline',
+          },
+          {
+            text: 'TensorAPM用戶指南\n',
+            linkToPage: 18,
             style: 'outline',
           },
         ],
@@ -1078,7 +1259,7 @@ export function displayPDF(username, language) {
         alignment: 'center',
         pageBreak: 'after',
       },
-// page 10
+// page 12
       {
         text: 'Tensorflow測試範例',
         style: 'title',
@@ -1232,7 +1413,168 @@ export function displayPDF(username, language) {
         alignment: 'justify',
         pageBreak: 'after',
       },
-// page 13
+// page 15
+      {
+        text: 'Caffe測試範例',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          '請照著以下步驟執行Caffe範例程式 (需要有GPU卡)',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text: '1.    cp /opt/caffe ~/caffe',
+        fontSize: 18,
+      },
+      {
+        text:
+          '拷貝caffe程式至使用者目錄，避免發生權限不足的問題',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text: '2.    cd ~/caffe',
+        fontSize: 18,
+      },
+      {
+        text: '3.    ./data/mnist/get_mnist.sh',
+        fontSize: 18,
+      },
+      {
+        text:
+          '下載Mnist資料集',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text: '4.    ./examples/mnist/create_mnist.sh',
+        fontSize: 18,
+      },
+      {
+        text: '5.    ./examples/mnist/train_lenet.sh',
+        fontSize: 18,
+      },
+      {
+        text:
+          'Create and run network',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text:
+          '產生並執行DNN網路，其細節可參考官方說明文件：',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text:
+          'http://caffe.berkeleyvision.org/gathered/examples/mnist.html',
+        fontSize: 18,
+        alignment: 'justify',
+        pageBreak: 'after',
+      },
+// page 16
+      {
+        text: 'Torch測試範例',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          '請照著以下步驟執行Caffe範例程式 (僅會於CPU執行)',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text: '1.    cd /',
+        fontSize: 18,
+      },
+      {
+        text: '2.    cp demo.lua ~/demo.lua',
+        fontSize: 18,
+      },
+      {
+        text: '3.     cd ~',
+        fontSize: 18,
+      },
+      {
+        text: '4.    th demo.lua',
+        fontSize: 18,
+      },
+      {
+        text:
+          '範例程式會使用Cifar10資料集做訓練。',
+        fontSize: 18,
+        alignment: 'justify',
+      },
+      {
+        text:
+          '所用的資料集會被存放於demo.lua檔案的同一層目錄。',
+        fontSize: 18,
+        font: 'tc',
+        alignment: 'justify',
+        pageBreak: 'after',
+      },
+// page 17
+      {
+        text: 'MXNet測試範例',
+        style: 'title',
+      },
+      {
+        text: '\n\n',
+      },
+      {
+        text:
+          '請照著以下步驟執行MXNet範例程式 (僅會於CPU執行)',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text: '1.    cd /',
+        fontSize: 18,
+      },
+      {
+        text: '2.    cp demo.py ~/demo.py',
+        fontSize: 18,
+      },
+      {
+        text: '3.    cd ~',
+        fontSize: 18,
+      },
+      {
+        text: '4.    python demo.py',
+        fontSize: 18,
+      },
+      {
+        text:
+          '範例程式會使用MNIST資料集做訓練。',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        text:
+          '所用的資料集會自動取得。',
+        fontSize: 18,
+        alignment: 'justify',
+        font: 'tc',
+        pageBreak: 'after',
+      },
+// page 18
       {
         text: 'TensorAPM用戶指南',
         style: 'title',
