@@ -216,7 +216,7 @@ You can using plugin on editor (like Sublime, VS code, Atom, WebStorm ...)
 
 And install these modules :
 ```
-npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
+npm install -g eslint prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
 ```
 
 ## How do I get set up from this porject ##
