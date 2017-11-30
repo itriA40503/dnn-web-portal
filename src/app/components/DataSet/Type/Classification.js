@@ -19,6 +19,7 @@ import ReactTooltip from 'react-tooltip';
 import { sampleCrop, sampleFill, sampleSquash, sampleHalf } from '../../../image/imageBase64';
 import { Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
+import { isNonEmpty, isLessThan, all } from '../../../utils/Validation';
 
 const Resize = [
   {
@@ -57,6 +58,10 @@ const styles = {
     color: muiStyle.palette.primary1Color,
     fontWeight: 'bold',
     fontSize: '20px',
+  },
+  errorMessage: {
+    color: muiStyle.palette.accent2Color,
+    margin: '10px 30px',
   },
 };
 
@@ -141,13 +146,13 @@ class Classification extends React.Component {
   }
   render() {
     const { imgType, imgWidth, imgHeight, resize } = this.state;
-    const img = { imgType, imgWidth, imgHeight, resize };  
-    const emptyValue = val => (val !== null && val !== '');
-    const mutexTest = this.state.testChecked ? emptyValue(this.state.testPath) : emptyValue(this.state.percentTest);
-    const mutexValid = this.state.validChecked ? emptyValue(this.state.validPath) : emptyValue(this.state.percentValid);
-    const isMinGreaterThanMax = (a, b) => (emptyValue(a) && emptyValue(b) ? a > b : false);
-    const errorTextCondition = (a, b) => (isMinGreaterThanMax(a, b) === true ? ' ' : null);
-
+    const img = { imgType, imgWidth, imgHeight, resize };
+    const isAllNonEmpty = all(isNonEmpty);
+    const maxLessThanMin = (a, b) => isAllNonEmpty(a, b) && isLessThan(a, b);
+    const mutexTest = this.state.testChecked ?
+      isNonEmpty(this.state.testPath) : isNonEmpty(this.state.percentTest);
+    const mutexValid = this.state.validChecked ?
+      isNonEmpty(this.state.validPath) : isNonEmpty(this.state.percentValid);
     return (
       <div>
         <p style={styles.step}>{'step - 2'}</p>
@@ -227,7 +232,15 @@ class Classification extends React.Component {
               </ReactTooltip>
             </div>
             <div style={{ margin: '0px auto' }}>
-              <div style={{ display: 'inline-block', verticalAlign: 'super', position: 'relative', top: '-10px' }}>
+              <div style={
+                  {
+                    display: 'inline-block',
+                    verticalAlign: 'super',
+                    position: 'relative',
+                    top: '-10px',
+                  }
+                }
+              >
                 <Animated animationIn="rollIn" isVisible={true}>
                   <ActionLabel color={muiStyle.palette.primary1Color} />
                 </Animated>
@@ -257,7 +270,7 @@ class Classification extends React.Component {
         </Row>
         <Divider />
         {
-          Object.values(img).every(emptyValue) &&
+          Object.values(img).every(isNonEmpty) &&
           <div>
             <p style={styles.step}>{'step - 3'}</p>
             <div style={{ margin: '0px auto' }}>
@@ -295,8 +308,8 @@ class Classification extends React.Component {
                     <Animated animationIn="rollIn" isVisible={true}>
                       <ActionLabel
                         color={
-                          isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ?
-                          muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ?
+                            muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                         }
                       />
                     </Animated>
@@ -310,7 +323,7 @@ class Classification extends React.Component {
                       name="miniClass"
                       floatingLabelText={'Minimum Samples Per Class'}
                       onChange={this.handleChange}
-                      errorText={errorTextCondition(this.state.miniClass, this.state.maxClass)}
+                      errorText={maxLessThanMin(this.state.miniClass, this.state.maxClass) ? ' ' : null}
                       value={this.state.miniClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -330,8 +343,8 @@ class Classification extends React.Component {
                     <Animated animationIn="rollIn" isVisible={true}>
                       <ActionLabel
                         color={
-                          isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ?
-                          muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ?
+                            muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                         }
                       />
                     </Animated>
@@ -345,7 +358,7 @@ class Classification extends React.Component {
                       name="maxClass"
                       floatingLabelText={'Maximum Samples Per Class'}
                       onChange={this.handleChange}
-                      errorText={errorTextCondition(this.state.miniClass, this.state.maxClass)}
+                      errorText={maxLessThanMin(this.state.miniClass, this.state.maxClass) ? ' ' : null}
                       value={this.state.maxClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -360,9 +373,9 @@ class Classification extends React.Component {
                 </div>
               </Col>
               {
-                isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) &&
-                <p style={{ color: muiStyle.palette.accent2Color }}>
-                  {'"Maximux Samples Per Class" field must be greater than "Minimum Samples Per Class"'}
+                maxLessThanMin(this.state.miniClass, this.state.maxClass) &&
+                <p style={styles.errorMessage}>
+                  {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
                 </p>
               }
             </Row>
@@ -470,7 +483,12 @@ class Classification extends React.Component {
                       <div style={{ margin: '0px auto' }}>
                         <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                           <Animated animationIn="rollIn" isVisible={true}>
-                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                            <ActionLabel
+                              color={
+                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ?
+                                  muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                              }
+                            />
                           </Animated>
                         </div>
                         <div
@@ -483,6 +501,9 @@ class Classification extends React.Component {
                             floatingLabelText={'Minimum Samples Per Class'}
                             onChange={this.handleChange}
                             value={this.state.testMiniClass}
+                            errorText={
+                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ? ' ' : null
+                            }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
                             }}
@@ -499,7 +520,12 @@ class Classification extends React.Component {
                       <div style={{ margin: '0px auto' }}>
                         <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                           <Animated animationIn="rollIn" isVisible={true}>
-                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                            <ActionLabel
+                              color={
+                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ?
+                                  muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                              }
+                            />
                           </Animated>
                         </div>
                         <div
@@ -512,6 +538,9 @@ class Classification extends React.Component {
                             floatingLabelText={'Maximum Samples Per Class'}
                             onChange={this.handleChange}
                             value={this.state.testMaxClass}
+                            errorText={
+                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ? ' ' : null
+                            }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
                             }}
@@ -524,6 +553,12 @@ class Classification extends React.Component {
                         </ReactTooltip>
                       </div>
                     </Col>
+                    {
+                      maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) &&
+                      <p style={styles.errorMessage}>
+                        {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                      </p>
+                    }
                   </Row>
                 </div>
               }
@@ -562,7 +597,12 @@ class Classification extends React.Component {
                       <div style={{ margin: '0px auto' }}>
                         <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                           <Animated animationIn="rollIn" isVisible={true}>
-                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                            <ActionLabel
+                              color={
+                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ?
+                                  muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                              }
+                            />
                           </Animated>
                         </div>
                         <div
@@ -575,6 +615,9 @@ class Classification extends React.Component {
                             floatingLabelText={'Minimum Samples Per Class'}
                             onChange={this.handleChange}
                             value={this.state.validMiniClass}
+                            errorText={
+                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ? ' ' : null
+                            }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
                             }}
@@ -591,7 +634,12 @@ class Classification extends React.Component {
                       <div style={{ margin: '0px auto' }}>
                         <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                           <Animated animationIn="rollIn" isVisible={true}>
-                            <ActionLabel color={muiStyle.palette.primary1Color} />
+                            <ActionLabel
+                              color={
+                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ?
+                                  muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
+                              }
+                            />
                           </Animated>
                         </div>
                         <div
@@ -604,6 +652,9 @@ class Classification extends React.Component {
                             floatingLabelText={'Maximum Samples Per Class'}
                             onChange={this.handleChange}
                             value={this.state.validMaxClass}
+                            errorText={
+                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ? ' ' : null
+                            }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
                             }}
@@ -616,6 +667,12 @@ class Classification extends React.Component {
                         </ReactTooltip>
                       </div>
                     </Col>
+                    {
+                      maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) &&
+                      <p style={styles.errorMessage}>
+                        {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                      </p>
+                    }
                   </Row>
                 </div>
               }
@@ -631,8 +688,16 @@ class Classification extends React.Component {
                   backgroundColor={muiStyle.palette.primary1Color}
                   labelColor={'white'}
                   disabled={
-                    !(emptyValue(this.state.trainPath) && mutexTest && mutexValid) ||
-                    isMinGreaterThanMax(this.state.miniClass, this.state.maxClass) ||
+                    !(isNonEmpty(this.state.trainPath) && mutexTest && mutexValid) ||
+                    maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
+                    (
+                      this.state.testChecked &&
+                      maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass)
+                    ) ||
+                    (
+                      this.state.validChecked &&
+                      maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass)
+                    ) ||
                     this.state.loadingCreate
                   }
                   onTouchTap={() => this.createApi()}
