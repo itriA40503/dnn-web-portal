@@ -19,7 +19,7 @@ import ReactTooltip from 'react-tooltip';
 import { sampleCrop, sampleFill, sampleSquash, sampleHalf } from '../../../image/imageBase64';
 import { Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
-import { isNonEmpty, isLessThan, all } from '../../../utils/Validation';
+import { isNonEmpty, isLessThan, all, isPositive } from '../../../utils/Validation';
 
 const Resize = [
   {
@@ -149,6 +149,7 @@ class Classification extends React.Component {
     const img = { imgType, imgWidth, imgHeight, resize };
     const isAllNonEmpty = all(isNonEmpty);
     const maxLessThanMin = (a, b) => isAllNonEmpty(a, b) && isLessThan(a, b);
+    const isNonPositive = v => (isNonEmpty(v) ? (!isPositive(v)) : false);
     const mutexTest = this.state.testChecked ?
       isNonEmpty(this.state.testPath) : isNonEmpty(this.state.percentTest);
     const mutexValid = this.state.validChecked ?
@@ -308,7 +309,8 @@ class Classification extends React.Component {
                     <Animated animationIn="rollIn" isVisible={true}>
                       <ActionLabel
                         color={
-                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ?
+                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
+                            isNonPositive(this.state.miniClass) ?
                             muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                         }
                       />
@@ -323,7 +325,10 @@ class Classification extends React.Component {
                       name="miniClass"
                       floatingLabelText={'Minimum Samples Per Class'}
                       onChange={this.handleChange}
-                      errorText={maxLessThanMin(this.state.miniClass, this.state.maxClass) ? ' ' : null}
+                      errorText={
+                        maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
+                          isNonPositive(this.state.miniClass) ? ' ' : null
+                      }
                       value={this.state.miniClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -343,7 +348,8 @@ class Classification extends React.Component {
                     <Animated animationIn="rollIn" isVisible={true}>
                       <ActionLabel
                         color={
-                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ?
+                          maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
+                            isNonPositive(this.state.maxClass) ?
                             muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                         }
                       />
@@ -358,7 +364,10 @@ class Classification extends React.Component {
                       name="maxClass"
                       floatingLabelText={'Maximum Samples Per Class'}
                       onChange={this.handleChange}
-                      errorText={maxLessThanMin(this.state.miniClass, this.state.maxClass) ? ' ' : null}
+                      errorText={
+                        maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
+                          isNonPositive(this.state.maxClass) ? ' ' : null
+                      }
                       value={this.state.maxClass}
                       underlineFocusStyle={{
                         borderColor: muiStyle.palette.primary1Color,
@@ -375,7 +384,13 @@ class Classification extends React.Component {
               {
                 maxLessThanMin(this.state.miniClass, this.state.maxClass) &&
                 <p style={styles.errorMessage}>
-                  {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                  {'"Maximum Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                </p>
+              }
+              {
+                (isNonPositive(this.state.miniClass) || isNonPositive(this.state.maxClass)) &&
+                <p style={styles.errorMessage}>
+                  {'We only support the value which must be at least 1'}
                 </p>
               }
             </Row>
@@ -485,7 +500,8 @@ class Classification extends React.Component {
                           <Animated animationIn="rollIn" isVisible={true}>
                             <ActionLabel
                               color={
-                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ?
+                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ||
+                                  isNonPositive(this.state.testMiniClass) ?
                                   muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                               }
                             />
@@ -502,7 +518,8 @@ class Classification extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.testMiniClass}
                             errorText={
-                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ? ' ' : null
+                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ||
+                                isNonPositive(this.state.testMiniClass) ? ' ' : null
                             }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
@@ -522,7 +539,8 @@ class Classification extends React.Component {
                           <Animated animationIn="rollIn" isVisible={true}>
                             <ActionLabel
                               color={
-                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ?
+                                maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ||
+                                  isNonPositive(this.state.testMaxClass) ?
                                   muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                               }
                             />
@@ -539,7 +557,8 @@ class Classification extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.testMaxClass}
                             errorText={
-                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ? ' ' : null
+                              maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) ||
+                                isNonPositive(this.state.testMaxClass) ? ' ' : null
                             }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
@@ -556,7 +575,13 @@ class Classification extends React.Component {
                     {
                       maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass) &&
                       <p style={styles.errorMessage}>
-                        {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                        {'"Maximum Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                      </p>
+                    }
+                    {
+                      (isNonPositive(this.state.testMiniClass) || isNonPositive(this.state.testMaxClass)) &&
+                      <p style={styles.errorMessage}>
+                        {'We only support the value which must be at least 1'}
                       </p>
                     }
                   </Row>
@@ -599,7 +624,8 @@ class Classification extends React.Component {
                           <Animated animationIn="rollIn" isVisible={true}>
                             <ActionLabel
                               color={
-                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ?
+                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ||
+                                  isNonPositive(this.state.validMiniClass) ?
                                   muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                               }
                             />
@@ -616,7 +642,8 @@ class Classification extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.validMiniClass}
                             errorText={
-                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ? ' ' : null
+                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ||
+                                isNonPositive(this.state.validMiniClass) ? ' ' : null
                             }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
@@ -636,7 +663,8 @@ class Classification extends React.Component {
                           <Animated animationIn="rollIn" isVisible={true}>
                             <ActionLabel
                               color={
-                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ?
+                                maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ||
+                                  isNonPositive(this.state.validMaxClass) ?
                                   muiStyle.palette.accent2Color : muiStyle.palette.primary1Color
                               }
                             />
@@ -653,7 +681,8 @@ class Classification extends React.Component {
                             onChange={this.handleChange}
                             value={this.state.validMaxClass}
                             errorText={
-                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ? ' ' : null
+                              maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) ||
+                                isNonPositive(this.state.validMaxClass) ? ' ' : null
                             }
                             underlineFocusStyle={{
                               borderColor: muiStyle.palette.primary1Color,
@@ -670,7 +699,13 @@ class Classification extends React.Component {
                     {
                       maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass) &&
                       <p style={styles.errorMessage}>
-                        {'"Maximux Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                        {'"Maximum Samples Per Class" field must be greater than or equal to "Minimum Samples Per Class"'}
+                      </p>
+                    }
+                    {
+                      (isNonPositive(this.state.validMiniClass) || isNonPositive(this.state.validMaxClass)) &&
+                      <p style={styles.errorMessage}>
+                        {'We only support the value which must be at least 1'}
                       </p>
                     }
                   </Row>
@@ -688,16 +723,14 @@ class Classification extends React.Component {
                   backgroundColor={muiStyle.palette.primary1Color}
                   labelColor={'white'}
                   disabled={
-                    !(isNonEmpty(this.state.trainPath) && mutexTest && mutexValid) ||
+                    !(
+                      isNonEmpty(this.state.trainPath) &&
+                      mutexTest &&
+                      mutexValid
+                    ) ||
                     maxLessThanMin(this.state.miniClass, this.state.maxClass) ||
-                    (
-                      this.state.testChecked &&
-                      maxLessThanMin(this.state.testMiniClass, this.state.testMaxClass)
-                    ) ||
-                    (
-                      this.state.validChecked &&
-                      maxLessThanMin(this.state.validMiniClass, this.state.validMaxClass)
-                    ) ||
+                    isNonPositive(this.state.miniClass) ||
+                    isNonPositive(this.state.maxClass) ||
                     this.state.loadingCreate
                   }
                   onTouchTap={() => this.createApi()}

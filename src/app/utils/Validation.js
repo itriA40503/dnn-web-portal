@@ -18,6 +18,7 @@ export const isLessThan =
 export const isLessThanOrEqual =
   (bound, value) => (isNumeric(bound) && isNumeric(value) ? Number(bound) >= Number(value) : false);
 export const isPositive = value => isGreaterThan(0, value);
+export const isNegative = value => isLessThan(0, value);
 export const isInteger = value => (Math.floow(value) === value);
 export const isInRange = (min, max, value) => {
   if (isNumeric(min) && isNumeric(max) && isNumeric(value)) {
