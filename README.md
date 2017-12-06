@@ -93,9 +93,9 @@ sudo service docker restart
 
 ```
 docker pull 100.86.2.10:32190/dnn-web-gui:TAG
-docker run -it -d -p xxxx:80 --name webportal dnn-web-gui:TAG
+docker run -it -d -p xxxx:80 -p xxxx:443 --name webportal dnn-web-gui:TAG
 ```
-
+#### If version < `0.5.2` the port `443` is NOT avilable.
 #### If version < `0.4.6` need run `docker exec -it webportal /etc/init.d/nginx start`
 ---
 ### Upload image ###
