@@ -1,0 +1,9 @@
+{
+  "name": "DNN Farm Webportal",
+  "short_name": "DNN Farm",
+  "description": "Doki doki ~",
+  "icons": [{
+    "src": "image/dnnIcon.png",
+    "sizes": "128x128"
+  }]
+}
