@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.5.1
+* Version 0.5.2
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -95,7 +95,7 @@ sudo service docker restart
 docker pull 100.86.2.10:32190/dnn-web-gui:TAG
 docker run -it -d -p xxxx:80 -p xxxx:443 --name webportal dnn-web-gui:TAG
 ```
-#### If version < `0.5.2` the port `443` is NOT avilable.
+#### If version < `0.5.2` the port `443` is NOT available.
 #### If version < `0.4.6` need run `docker exec -it webportal /etc/init.d/nginx start`
 ---
 ### Upload image ###
@@ -530,8 +530,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-11-29
+last update 2017-12-06
 
+* `0.5.2` http2 availabled, change certificate 
 * `0.5.1` add tutorail DEMO caffe, torch and mxnet
 * `0.5.0` change api for dnn-web-server:0.2.5
 * `0.4.9` buildImage with custom tag
