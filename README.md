@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 
 * This webportal for creating instance to run DNN.
-* Version 0.5.2
+* Version 0.5.3
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -530,8 +530,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 
-last update 2017-12-06
+last update 2017-12-20
 
+* `0.5.3` add gpuAmonut (1~8) for admin
 * `0.5.2` http2 availabled, change certificate 
 * `0.5.1` add tutorail DEMO caffe, torch and mxnet
 * `0.5.0` change api for dnn-web-server:0.2.5
