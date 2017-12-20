@@ -61,7 +61,7 @@ export const SshWebHost = SshWebIP + ':' + SshWebPort;
 export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 // GPU array
 export const gpuTypeList = ['v100', 'GTX1080Ti'];
-export const gpuAmountList = [1, 2, 3, 4];
+export const gpuAmountList = [1, 2, 3, 4, 5, 6, 7, 8];
 // Admin list
 export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
 // email
