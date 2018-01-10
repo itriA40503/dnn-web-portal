@@ -13,8 +13,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AdminIncrease, AdminDecrease } from '../redux/Admin/actionAdmin';
 
-import { lineCode2, DnnLogo } from '../image';
+import { lineBar, DnnLogo } from '../image';
 import pjson from '../../../package.json';
+import { lineId, lineQR } from '../resource';
 
 /**
   Footer
@@ -43,11 +44,11 @@ class Footer extends Component {
   switchLineLang = (lang) => {
     switch (lang) {
       case 'eng':
-        return (<Friend lineid="@bsw9983a" locale="en" count home />);
+        return (<Friend lineid={lineId} locale="en" count home />);
       case 'tc':
-        return (<Friend lineid="@bsw9983a" count home />);
+        return (<Friend lineid={lineId} count home />);
       default:
-        return (<Friend lineid="@bsw9983a" count home />);
+        return (<Friend lineid={lineId} count home />);
     }
   }
 
@@ -62,8 +63,9 @@ class Footer extends Component {
           open={this.state.open}
           containerStyle={{ overflow: 'hidden' }}
         >
-          <img width="100%" src={lineCode2} onClick={this.props.AdminIncrease} alt="Line Code" />
           <div style={{ textAlign: 'center' }}>
+            <img width="100%" src={lineBar} alt="Line Code" />
+            <img width="75%" src={lineQR} onClick={this.props.AdminIncrease} alt="Line Code" />          
             <Avatar src={DnnLogo} size={100} onTouchTap={this.props.AdminDecrease} />
             <br />
             {'v ' + pjson.version }

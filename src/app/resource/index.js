@@ -8,29 +8,9 @@ import sshweb from './sshweb.json';
 import { getMachineData } from '../redux/MachineData/actionMachineData';
 import { getHistoryData } from '../redux/HistoryData/actionHistoryData';
 import { errorNotify } from '../redux/Notify/actionNotify';
-// export const DOMAIN = 'http://tarsanad.ddns.net'
-// export const PORT = ':9527'
-//  export const PORT = ':4321'
+
 export const PORT = ':' + api.port;
-// export const PATH = 'web'
-// export const API_URL = DOMAIN+':'+PORT+'/'+PATH+'/'
-// export const DOMAIN = 'http://54.249.32.121'
-// export const DOMAIN = 'http://140.96.29.153'
 export const DOMAIN = api.host;
-// export const DOMAIN = 'http://localhost'
-// export const PATH = 'user/signin'
-// export const API_URL = DOMAIN + PORT;
-// export const API_SIGNIN = API_URL + '/user/signin';
-// export const API_CreateSchedule = API_URL + '/user/schedule/';
-// export const API_CheckInstance = API_URL + '/machine/remain';
-// export const API_GetCalendar = API_URL + '/machine/calendar/';
-// export const API_GetInfo = API_URL + '/user/schedule';
-// export const API_DeleteSchedule = API_URL + '/user/schedule/';
-// export const API_GetExtDate = API_URL + '/user/schedule/';
-// export const API_PutExtDate = API_URL + '/user/schedule/';
-// export const API_GetImage = API_URL + '/image/';
-// export const API_GetAll = API_URL + '/schedule';
-// export const API_GetMachine = API_URL + '/machine/';
 
 export const ApiURL = DOMAIN + PORT;
 export const ApiSIGNIN = ApiURL + '/user/signin';
@@ -67,6 +47,10 @@ export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
 // email
 export const serviceEmail = 'dnnfarmservice@gmail.com';
 
+// line Id
+export const lineId = '@fns6530k';
+// line QR code
+export const lineQR = 'http://qr-official.line.me/L/ZgEsL_3czm.png';
 // fake data
 export const DATA = [
   {
