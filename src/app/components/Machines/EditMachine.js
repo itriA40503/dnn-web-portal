@@ -111,7 +111,7 @@ class EditMachine extends React.Component {
     };
   }
 
-  editDateApi = () => {
+  editMachineApi = () => {
     const api = ApiPutMachine + this.props.data.id;
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, {
@@ -192,7 +192,7 @@ class EditMachine extends React.Component {
       this.setState({
         loading: true,
       });
-      this.editDateApi();
+      this.editMachineApi();
     } else {
       // console.log('refresh')
       this.setState({

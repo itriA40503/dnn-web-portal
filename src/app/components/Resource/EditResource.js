@@ -109,7 +109,7 @@ class EditResource extends React.Component {
     };
   }
 
-  editDateApi = () => {
+  editResourceApi = () => {
     const api = ApiPutResource + this.props.data.id;
     fetch(api, {
       method: 'put',
@@ -198,7 +198,7 @@ class EditResource extends React.Component {
       this.setState({
         loading: true,
       });
-      this.editDateApi();
+      this.editResourceApi();
     } else {
       // console.log('refresh')
       this.setState({
