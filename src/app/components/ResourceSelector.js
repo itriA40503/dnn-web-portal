@@ -56,7 +56,6 @@ class ResourceSelector extends Component {
       <SelectField
         floatingLabelText={t('common:machine.resInfo')}
         floatingLabelStyle={{ top: '35px' }}
-        labelStyle={{ color: '#00' }}
         onChange={this.props.store}
         value={this.props.init}
       >
@@ -65,16 +64,29 @@ class ResourceSelector extends Component {
             key={res.id}
             value={res.id}
             primaryText={
-              <div>
-                <GpuHandler
-                  styles={{ padding: '0px 5px', float: 'left' }}
-                  gpu={res.gpuType}
-                />
-                <MachineHandler
-                  styles={{ padding: '0px 5px', float: 'left' }}
-                  machine={res.machineType}
-                />
-              </div>
+              res.id !== this.props.init ? (
+                <div  style={{ opacity: '0.5' }}>
+                  <GpuHandler
+                    styles={{ padding: '0px 5px', float: 'left' }}
+                    gpu={res.gpuType}
+                  />
+                  <MachineHandler
+                    styles={{ padding: '0px 5px', float: 'left' }}
+                    machine={res.machineType}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <GpuHandler
+                    styles={{ padding: '0px 5px', float: 'left' }}
+                    gpu={res.gpuType}
+                  />
+                  <MachineHandler
+                    styles={{ padding: '0px 5px', float: 'left' }}
+                    machine={res.machineType}
+                  />
+                </div>
+              )
             }
           />
         ))}
