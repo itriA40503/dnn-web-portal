@@ -13,6 +13,7 @@ import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ActionHistory from 'material-ui/svg-icons/action/history';
 import MachineIcon from 'material-ui/svg-icons/action/dns';
+import ResourceIcon from 'material-ui/svg-icons/action/picture-in-picture';
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 
@@ -50,6 +51,7 @@ import ReviewProject from './Project/ReviewProject';
 import { DnnLogoYellow, serval } from '../image/imageBase64';
 
 import { ApiGetInfo, adminList, serviceEmail } from '../resource';
+import ReviewResource from './Resource/ReviewResource';
 
 const styles = {
   container: {
@@ -215,7 +217,7 @@ class MainContainer extends Component {
         return (
           <div>
             <ReviewTable token={this.props.token} />
-            <HistoryTable token={this.props.token} />>
+            <HistoryTable token={this.props.token} />
           </div>
         );
       case 1:
@@ -246,6 +248,12 @@ class MainContainer extends Component {
           </div>
         );
       case 7:
+        return (
+          <div>
+            <ReviewResource token={this.props.token} />
+          </div>
+        );
+      case 8:
         return (
           <div>
             <ReviewProject />
@@ -360,7 +368,7 @@ class MainContainer extends Component {
             <MenuItem
               leftIcon={<ActionAssignment />}
               primaryText={t('common:menu.create')}
-              onTouchTap={() => this.handleMenuTap(7)}
+              onTouchTap={() => this.handleMenuTap(8)}
             />
             <MenuItem
               leftIcon={<AnalysisIcon />}
@@ -371,6 +379,11 @@ class MainContainer extends Component {
               leftIcon={<MachineIcon />}
               primaryText={t('common:menu.machine')}
               onTouchTap={() => this.handleMenuTap(6)}
+            />
+            <MenuItem
+              leftIcon={<ResourceIcon />}
+              primaryText={t('common:menu.resource')}
+              onTouchTap={() => this.handleMenuTap(7)}
             />
           </div>
         )}

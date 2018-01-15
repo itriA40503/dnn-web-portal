@@ -31,6 +31,12 @@ export const ApiRemoveMachine = ApiURL + '/admin/machine/';
 export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
 
+//
+export const ApiGetAllResource = ApiURL + '/admin/resource/';
+export const ApiRemoveResource = ApiURL + '/admin/resource/';
+export const ApiPutResource = ApiURL + '/admin/resource/';
+export const ApiCreateResource = ApiURL + '/admin/resource/';
+
 // FTP
 export const FTPHost = ftp.host;
 export const FTPPort = ftp.port;
@@ -42,8 +48,19 @@ export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 // GPU array
 export const gpuTypeList = ['v100', 'GTX1080Ti'];
 export const gpuAmountList = [1, 2, 3, 4, 5, 6, 7, 8];
+// Machine array
+export const machineTypeList = ['DGX', 'x86'];
+// Charge period
+export const valueUnitTypeList = [
+  { abbr: 'M', text: 'Month' },
+  { abbr: 'w', text: 'Week' },
+  { abbr: 'd', text: 'Day' },
+  { abbr: 'y', text: 'Year' },
+];
+
+
 // Admin list
-export const adminList = ['A40503', 'A60144', 'A30375', '533022'];
+export const adminList = ['A40503', 'A60144', 'A30375', '533022', 'A60283'];
 // email
 export const serviceEmail = 'dnnfarmservice@gmail.com';
 
@@ -276,11 +293,11 @@ function readFile(OrgProject) {
 }
 export const getInfo = async (token) => {
   const result = await axios
-  .get(ApiGetInfo, {
-    headers: { 'X-Access-Token': token, Accept: 'application/json' },
-  })
-  .then(res => res)
-  .catch(err => err);
+    .get(ApiGetInfo, {
+      headers: { 'X-Access-Token': token, Accept: 'application/json' },
+    })
+    .then(res => res)
+    .catch(err => err);
   return result;
 };
 
@@ -288,22 +305,22 @@ export const getImages = async (dispatch, token) => (
   axios.get(ApiGetImage, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
-  .then(res => dispatch(getMachineData(res.data.machines)))
-  .catch((err) => {
-    console.log(err);
-    dispatch(errorNotify('ERROR : MachineTable'));
-  })
+    .then(res => dispatch(getMachineData(res.data.machines)))
+    .catch((err) => {
+      console.log(err);
+      dispatch(errorNotify('ERROR : MachineTable'));
+    })
 );
 
 export const getMachines = async (dispatch, token) => (
   axios.get(ApiGetAllMachine, {
     headers: { 'X-Access-Token': token, Accept: 'application/json' },
   })
-  .then(res => dispatch(getMachineData(res.data)))
-  .catch((err) => {
-    console.log(err);
-    dispatch(errorNotify('ERROR : MachineTable'));
-  })
+    .then(res => dispatch(getMachineData(res.data)))
+    .catch((err) => {
+      console.log(err);
+      dispatch(errorNotify('ERROR : MachineTable'));
+    })
 );
 
 export const getHistory = async (dispatch, token) => (

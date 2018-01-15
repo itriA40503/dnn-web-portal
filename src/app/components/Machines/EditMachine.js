@@ -30,7 +30,9 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../../myTheme';
 
-import { gpuTypeList, gpuAmountList, ApiPutMachine } from '../../resource';
+import { gpuAmountList, ApiPutMachine } from '../../resource';
+
+import ResourceSelector from '../ResourceSelector';
 
 /**
   Edit endDate of the instance
@@ -97,13 +99,14 @@ class EditMachine extends React.Component {
       },
     },
   };
+
   constructor(props) {
     super(props);
     this.state = {
       open: false,
       loading: false,
       comfirm: false,
-      gpuType: null,
+      resId: null,
       gpuAmount: null,
     };
   }
@@ -119,8 +122,8 @@ class EditMachine extends React.Component {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        gpuType: (this.state.gpuType === null ? this.props.data.gpuType : this.state.gpuType),
-        gpuAmount: (this.state.gpuAmount === null ? this.props.data.gpuAmount : this.state.gpuAmount),
+        resId: this.state.resId,
+        gpuAmount: Number(this.state.gpuAmount),
       }),
       // body:data
     })
@@ -151,13 +154,18 @@ class EditMachine extends React.Component {
         this.props.someActions.errorNotify('ERROR : Edit machine');
       });
   };
+
   dummyAsync = (cb) => {
     this.setState({ loading: true }, () => {
       this.asyncTimer = setTimeout(cb, 800);
     });
   };
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      resId: this.props.data.resId,
+      gpuAmount: this.props.data.gpuAmount.toString(),
+    });
     // GA
     ReactGA.event({
       category: 'EditMachine',
@@ -166,7 +174,11 @@ class EditMachine extends React.Component {
     });
   };
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      resId: null,
+      gpuAmount: null,
+    });
     // GA
     ReactGA.event({
       category: 'EditMachine',
@@ -187,7 +199,7 @@ class EditMachine extends React.Component {
         open: false,
         loading: false,
         comfirm: false,
-        gpuType: null,
+        resId: null,
         gpuAmount: null,
       });
       this.props.refresh();
@@ -200,29 +212,9 @@ class EditMachine extends React.Component {
     }
   };
 
-  gpuTypeSelect = (event, index, value) => this.setState({ gpuType: value })
+  resourceSelect = (event, index, value) => this.setState({ resId: value })
 
   gpuAmountSelect = (event, index, value) => this.setState({ gpuAmount: value })
-
-  renderGpuType = () => {
-    const { t } = this.props;
-    return (
-      <SelectField
-        key={this.props.data.id}
-        floatingLabelText={t('common:machine.gpuType')}
-        onChange={this.gpuTypeSelect}
-        value={this.state.gpuType === null ? this.props.data.gpuType : this.state.gpuType}
-      >
-        {gpuTypeList.map(type => (
-          <MenuItem
-            key={type}
-            value={type}
-            primaryText={type}
-          />
-        ))}
-      </SelectField>
-    );
-  }
 
   renderGpuAmount = () => {
     const { t } = this.props;
@@ -231,12 +223,12 @@ class EditMachine extends React.Component {
         key={this.props.data.id}
         floatingLabelText={t('common:machine.gpuAmount')}
         onChange={this.gpuAmountSelect}
-        value={this.state.gpuAmount === null ? this.props.data.gpuAmount + '' : this.state.gpuAmount}
+        value={this.state.gpuAmount}
       >
         {gpuAmountList.map(type => (
           <MenuItem
             key={type}
-            value={type}
+            value={type.toString()}
             primaryText={type}
           />
         ))}
@@ -285,7 +277,7 @@ class EditMachine extends React.Component {
             title={
               <div>
                 <b>
-                  {this.props.data.label}
+                  {t('common:machine.label') + ': ' + this.props.data.label}
                 </b>
               </div>
             }
@@ -310,20 +302,11 @@ class EditMachine extends React.Component {
                 ) : (
                   <div>
                     <Divider />
-                    <div style={{ margin: '0px auto' }}>
-                      <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
-                        <Animated animationIn="rollIn" isVisible={true}>
-                          <ActionLabel color={muiStyle.palette.primary1Color} />
-                        </Animated>
-                      </div>
-                      <div style={{ display: 'inline-block' }}>
-                        {this.renderGpuType()}
-                      </div>
-                    </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
-                    <br />
+                    <ResourceSelector
+                      list={this.props.list}
+                      init={this.state.resId}
+                      store={this.resourceSelect}
+                    />
                     <div style={{ margin: '0px auto' }}>
                       <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
                         <Animated animationIn="rollIn" isVisible={true}>

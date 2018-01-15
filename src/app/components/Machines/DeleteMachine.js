@@ -28,7 +28,6 @@ import { muiStyle } from '../../myTheme';
 
 import { ApiRemoveMachine, getMachines } from '../../resource';
 
-
 /**
   Delete the instance
   Example:
@@ -230,18 +229,6 @@ class DeleteMachine extends React.Component {
                     <ListItem
                       primaryText={<b>{t('common:machine.label')}</b>}
                       secondaryText={this.props.data.label}
-                    />
-                    <ListItem
-                      primaryText={
-                        <span>
-                          <b>{t('common:machine.gpuType')} </b>
-                        </span>
-                      }
-                      secondaryText={
-                        <p>
-                          <b>{this.props.data.gpuType}</b>
-                        </p>
-                      }
                     />
                     <ListItem
                       primaryText={<b>{t('common:machine.gpuAmount')}</b>}

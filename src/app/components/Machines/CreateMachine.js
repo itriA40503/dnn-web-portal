@@ -31,7 +31,9 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../../myTheme';
 
-import { gpuTypeList, gpuAmountList, ApiCreateMachine } from '../../resource';
+import { gpuAmountList, ApiCreateMachine } from '../../resource';
+import ResourceSelector from '../ResourceSelector';
+
 
 /**
   Edit endDate of the instance
@@ -96,18 +98,15 @@ class CreateMachine extends React.Component {
       open: false,
       loading: false,
       comfirm: false,
-      gpuType: null,
+      resId: null,
       gpuAmount: null,
       name: null,
       label: null,
     };
   }
 
-  createDateApi = () => {
+  createMachineApi = () => {
     const api = ApiCreateMachine;
-    const { label, name, gpuType, gpuAmount } = this.state;
-    console.log(label, name, gpuType, gpuAmount);
-    // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, {
       method: 'post',
       headers: {
@@ -116,15 +115,13 @@ class CreateMachine extends React.Component {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        label,
-        name,
-        gpuType,
-        gpuAmount,
+        label: this.state.label,
+        name: this.state.name,
+        resId: this.state.resId,
+        gpuAmount: this.state.gpuAmount,
       }),
-      // body:data
     })
       .then((response) => {
-        // console.log(response)
         if (response.ok) {
           this.dummyAsync(() => this.setState({ comfirm: true }));
         } else {
@@ -132,7 +129,7 @@ class CreateMachine extends React.Component {
             open: false,
             loading: false,
             comfirm: false,
-            gpuType: null,
+            resId: null,
             gpuAmount: null,
             name: null,
             label: null,
@@ -144,7 +141,7 @@ class CreateMachine extends React.Component {
       .then((data) => {
         console.log('data:' + data);
         this.setState({
-          gpuType: null,
+          resId: null,
           gpuAmount: null,
           name: null,
           label: null,
@@ -163,7 +160,7 @@ class CreateMachine extends React.Component {
           open: false,
           loading: false,
           comfirm: false,
-          gpuType: null,
+          resId: null,
           gpuAmount: null,
           name: null,
           label: null,
@@ -185,7 +182,13 @@ class CreateMachine extends React.Component {
     });
   };
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      resId: null,
+      gpuAmount: null,
+      name: null,
+      label: null,
+    });
     // GA
     ReactGA.event({
       category: 'CreateMachine',
@@ -199,15 +202,17 @@ class CreateMachine extends React.Component {
       this.setState({
         loading: true,
       });
-      this.createDateApi();
+      this.createMachineApi();
     } else {
       // console.log('refresh')
       this.setState({
         open: false,
         loading: false,
         comfirm: false,
-        gpuType: null,
+        resId: null,
         gpuAmount: null,
+        name: null,
+        label: null,
       });
       this.props.refresh();
       // GA
@@ -221,24 +226,24 @@ class CreateMachine extends React.Component {
 
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
 
-  gpuTypeSelect = (event, index, value) => this.setState({ gpuType: value })
+  resourceSelect = (event, index, value) => this.setState({ resId: value })
 
   gpuAmountSelect = (event, index, value) => this.setState({ gpuAmount: value })
 
-  renderGpuType = () => {
+  renderResourceList = () => {
     const { t } = this.props;
     return (
       <SelectField
         key={this.props.data.id}
-        floatingLabelText={t('common:machine.gpuType')}
-        onChange={this.gpuTypeSelect}
-        value={this.state.gpuType === null ? this.props.data.gpuType : this.state.gpuType}
+        floatingLabelText={t('common:machine.resId')}
+        onChange={this.resourceSelect}
+        value={this.state.resId}
       >
-        {gpuTypeList.map(type => (
+        {this.props.list.map(id => (
           <MenuItem
-            key={type}
-            value={type}
-            primaryText={type}
+            key={id.id}
+            value={id.id}
+            primaryText={id.id}
           />
         ))}
       </SelectField>
@@ -252,12 +257,12 @@ class CreateMachine extends React.Component {
         key={this.props.data.id}
         floatingLabelText={t('common:machine.gpuAmount')}
         onChange={this.gpuAmountSelect}
-        value={this.state.gpuAmount === null ? this.props.data.gpuAmount + '' : this.state.gpuAmount}
+        value={this.state.gpuAmount}
       >
         {gpuAmountList.map(type => (
           <MenuItem
             key={type}
-            value={type}
+            value={String(type)}
             primaryText={type}
           />
         ))}
@@ -352,9 +357,7 @@ class CreateMachine extends React.Component {
                         />
                       </div>
                     </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
+
                     <br />
                     <div style={{ margin: '0px auto' }}>
                       <div style={{ display: 'inline-block', verticalAlign: 'text-top' }}>
@@ -375,23 +378,14 @@ class CreateMachine extends React.Component {
                         />
                       </div>
                     </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
+
                     <br />
-                    <div style={{ margin: '0px auto' }}>
-                      <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
-                        <Animated animationIn="rollIn" isVisible={true}>
-                          <ActionLabel color={muiStyle.palette.primary1Color} />
-                        </Animated>
-                      </div>
-                      <div style={{ display: 'inline-block' }}>
-                        {this.renderGpuType()}
-                      </div>
-                    </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
+                    <ResourceSelector
+                      list={this.props.list}
+                      init={this.state.resId}
+                      store={this.resourceSelect}
+                    />
+
                     <br />
                     <div style={{ margin: '0px auto' }}>
                       <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
@@ -403,9 +397,6 @@ class CreateMachine extends React.Component {
                         {this.renderGpuAmount()}
                       </div>
                     </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
                   </div>
                 )}
               </div>

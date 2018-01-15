@@ -7,15 +7,18 @@ import { getMachineData } from '../../redux/MachineData/actionMachineData';
 // Import React Table
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+// GA
+import ReactGA from 'react-ga';
 // i18n
 import { translate } from 'react-i18next';
 // API call
-import { getMachines } from '../../resource';
+import { getMachines, ApiGetAllResource } from '../../resource';
 // Animation
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
 import GpuHandler from '../GpuHandler';
+import MachineHandler from '../MachineHandler';
 import StatusHandler from '../StatusHandler';
 import Deletemachine from './DeleteMachine';
 import EditMachine from './EditMachine';
@@ -25,6 +28,8 @@ import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import { Row, Col } from 'react-flexbox-grid';
+
 // style
 import { muiStyle } from '../../myTheme';
 
@@ -71,11 +76,45 @@ class ReviewMachine extends Component {
       click: false,
       data: [],
       isVisible: true,
+      resourceList: [],
     };
   }
 
   componentDidMount() {
     getMachines(this.props.dispatch, this.props.token);
+    this.getResourceApi();
+  }
+
+  getResourceApi = () => {
+    const api = ApiGetAllResource;
+    fetch(api, {
+      method: 'get',
+      headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.code !== undefined) {
+          this.props.someActions.errorNotify('ERROR : Get Resource Failed');
+        } else {
+          this.setState({
+            resourceList: data.sort((a, b) => Number(a.id) - Number(b.id)),
+          });
+        }
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Get Resource',
+        });
+        this.props.someActions.errorNotify('ERROR : Review machine');
+      });
   }
 
   refresh = async () => {
@@ -83,6 +122,7 @@ class ReviewMachine extends Component {
     await getMachines(this.props.dispatch, this.props.token);
     this.asyncTimer = await setTimeout(() => this.setState({ isVisible: false }), 10);
     this.asyncTimer = await setTimeout(() => this.setState({ isVisible: true }), 700);
+    this.getResourceApi();
   }
 
   renderTable = () => {
@@ -119,11 +159,23 @@ class ReviewMachine extends Component {
                 ),
               },
               {
-                Header: t('common:machine.gpuType'),
-                accessor: 'gpuType',
-                id: 'machineGpuType',
+                Header: t('common:machine.resId'),
+                id: 'resId',
+                accessor: 'resInfo.id',
+              },
+              {
+                Header: t('common:machine.resInfo'),
+                accessor: 'resInfo',
+                id: 'resInfo',
                 Cell: data => (
-                  <GpuHandler gpu={data.original.gpuType} />
+                  <Row>
+                    <Col xs={6}>
+                      <GpuHandler gpu={data.original.resInfo.gpuType} />
+                    </Col>
+                    <Col xs={6}>
+                      <MachineHandler machine={data.original.resInfo.machineType} />
+                    </Col>
+                  </Row>
                 ),
               },
               {
@@ -135,7 +187,11 @@ class ReviewMachine extends Component {
                 id: 'editMachine',
                 width: 80,
                 Cell: data => (
-                  <EditMachine token={this.props.token} data={data.original} />
+                  <EditMachine
+                    token={this.props.token}
+                    data={data.original}
+                    list={this.state.resourceList}
+                  />
                 ),
               },
               {
@@ -143,7 +199,10 @@ class ReviewMachine extends Component {
                 id: 'removeMachine',
                 width: 80,
                 Cell: data => (
-                  <Deletemachine data={data.original} />
+                  <Deletemachine
+                    token={this.props.token}
+                    data={data.original}
+                  />
                 ),
               },
             ],
@@ -181,7 +240,11 @@ class ReviewMachine extends Component {
           <CardActions style={styles.actions}>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
-                <CreateMachine />
+                <CreateMachine
+                  token={this.props.token}
+                  list={this.state.resourceList}
+                  refresh={this.refresh}
+                />
               </div>
               <div style={{ display: 'inline-block' }}>
                 <FlatButton

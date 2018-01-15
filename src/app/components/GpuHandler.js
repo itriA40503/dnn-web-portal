@@ -19,10 +19,11 @@ class GpuHandler extends Component {
   };
   static defaultProps = {
     gpu: '5850',
+    styles: { '': '' },
   };
   render() {
     return (
-      <div>
+      <div style={this.props.styles}>
         <Label color={'brown'}>{this.props.gpu}</Label>
       </div>
     );

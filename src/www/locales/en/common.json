@@ -118,6 +118,7 @@
         "storage":"Open Storage",
         "charts":"Charts",
         "machine":"Machines",
+        "resource":"Resource",
         "signOut":"SignOut"
     },
     "alreadyCopy":"Copy to clipboard !",
@@ -139,17 +140,31 @@
     "pdfLang":"eng",
     "machine":{
         "review":"Machine Information",
-        "id":"Machine Id",
+        "id":"Machine ID",
         "label":"Machine Label",
         "statusId":"Machine Status",
-        "gpuType":"Gpu Type",
-        "gpuAmount":"Gpu Amount",
+        "gpuType":"GPU Type",
+        "gpuAmount":"GPU Amount",
         "edit":"Edit",
         "remove":"Remove",
         "enable":"Enable/Disable",
         "comfirm":"Do you want to",
         "create":"Create Machine",
-        "name":"Machine Name"
+        "name":"Machine Name",
+        "resInfo":"Resource Info",
+        "resId":"Resource ID"
+    },
+    "resource":{
+        "review":"Resource Information",
+        "id":"Resource ID",
+        "label":"Resource Label",
+        "gpu":"GPU Type",
+        "machine":"Machine Type",
+        "value":"Resource Fee",
+        "valueUnit":"Charge Period Unit",
+        "edit":"Edit",
+        "create":"Create Resource",
+        "remove":"Remove"
     },
     "enable": "ENABLE",
     "disable": "DISABLE",

@@ -117,7 +117,7 @@ class StatusHandler extends Component {
       case '4':
         obj = <Label color={'purple'}>{t('common:status.destoryed')}</Label>;
         // obj = <font color ={deepOrangeA400}><b>{t('common:status.deleting')}</b></font>
-        break;      
+        break;
       default:
         obj = <Label color={'red'}>{t('common:status.error')}</Label>;
     }
