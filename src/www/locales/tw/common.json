@@ -119,6 +119,7 @@
         "charts":"圖表分析",
         "machine":"機器",
         "resource":"資源",
+        "user":"使用者列表",
         "signOut":"登出"
     },
     "alreadyCopy":"已複製到剪貼簿 !",
@@ -175,5 +176,11 @@
         "month":"月",
         "week":"週",
         "day":"日"
+    },
+    "user":{
+        "review":"使用者資訊",
+        "typeId":"權限",
+        "id":"使用者 ID",
+        "itirID":"ITRI 工號"
     }
 }

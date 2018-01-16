@@ -119,6 +119,7 @@
         "charts":"Charts",
         "machine":"Machines",
         "resource":"Resource",
+        "user":"User List",
         "signOut":"SignOut"
     },
     "alreadyCopy":"Copy to clipboard !",
@@ -175,5 +176,11 @@
         "month":"Month",
         "week":"Week",
         "day":"Day"
+    },
+    "user":{
+        "review":"User Information",
+        "typeId":"Privilege",
+        "id":"User ID",
+        "itirID":"ITRI ID"
     }
 }

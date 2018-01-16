@@ -32,7 +32,7 @@ export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
 
 //
-export const ApiGetAllResource = ApiURL + '/admin/resource/';
+export const ApiGetAllResource = ApiURL + '/admin/resources/';
 export const ApiRemoveResource = ApiURL + '/admin/resource/';
 export const ApiPutResource = ApiURL + '/admin/resource/';
 export const ApiCreateResource = ApiURL + '/admin/resource/';

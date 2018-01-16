@@ -14,6 +14,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ActionHistory from 'material-ui/svg-icons/action/history';
 import MachineIcon from 'material-ui/svg-icons/action/dns';
 import ResourceIcon from 'material-ui/svg-icons/action/picture-in-picture';
+import UserIcon from 'material-ui/svg-icons/social/people';
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 
@@ -52,6 +53,7 @@ import { DnnLogoYellow, serval } from '../image/imageBase64';
 
 import { ApiGetInfo, adminList, serviceEmail } from '../resource';
 import ReviewResource from './Resource/ReviewResource';
+import ReviewUser from './User/ReviewUser';
 
 const styles = {
   container: {
@@ -256,6 +258,12 @@ class MainContainer extends Component {
       case 8:
         return (
           <div>
+            <ReviewUser token={this.props.token} />
+          </div>
+        );
+      case 9:
+        return (
+          <div>
             <ReviewProject />
           </div>
         );
@@ -368,7 +376,7 @@ class MainContainer extends Component {
             <MenuItem
               leftIcon={<ActionAssignment />}
               primaryText={t('common:menu.create')}
-              onTouchTap={() => this.handleMenuTap(8)}
+              onTouchTap={() => this.handleMenuTap(9)}
             />
             <MenuItem
               leftIcon={<AnalysisIcon />}
@@ -385,11 +393,16 @@ class MainContainer extends Component {
               primaryText={t('common:menu.resource')}
               onTouchTap={() => this.handleMenuTap(7)}
             />
+            <MenuItem
+              leftIcon={<UserIcon />}
+              primaryText={t('common:menu.user')}
+              onTouchTap={() => this.handleMenuTap(8)}
+            />
           </div>
         )}
         <MenuItem
           leftIcon={<ExitIcon />}
-          primaryText={'SignOut'}
+          primaryText={t('common:menu.signOut')}
           onTouchTap={() => this.props.SignOut()}
         />
       </Paper>
