@@ -52,10 +52,10 @@ export const gpuAmountList = [1, 2, 3, 4, 5, 6, 7, 8];
 export const machineTypeList = ['DGX', 'x86'];
 // Charge period
 export const valueUnitTypeList = [
-  { abbr: 'M', text: 'Month' },
-  { abbr: 'w', text: 'Week' },
-  { abbr: 'd', text: 'Day' },
-  { abbr: 'y', text: 'Year' },
+  { abbr: 'd', locale: 'common:datetime.day' },
+  { abbr: 'w', locale: 'common:datetime.week' },
+  { abbr: 'M', locale: 'common:datetime.month' },
+  { abbr: 'y', locale: 'common:datetime.year' },
 ];
 
 

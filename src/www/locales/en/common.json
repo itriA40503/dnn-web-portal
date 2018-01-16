@@ -162,11 +162,18 @@
         "machine":"Machine Type",
         "value":"Resource Fee",
         "valueUnit":"Charge Period Unit",
+        "count":"Resource Fee Rate",
         "edit":"Edit",
         "create":"Create Resource",
         "remove":"Remove"
     },
     "enable": "ENABLE",
     "disable": "DISABLE",
-    "success": "Success"
+    "success": "Success",
+    "datetime":{
+        "year":"Year",
+        "month":"Month",
+        "week":"Week",
+        "day":"Day"
+    }
 }

@@ -45,7 +45,7 @@ class ResourceSelector extends Component {
   getResourceValueUnit = (resId) => {
     if (this.props.list.length !== 0) {
       let unit = this.props.list.filter(res => res.id === resId)[0].valueUnit;
-      return valueUnitTypeList.filter(elem => elem.abbr === unit)[0].text;
+      return valueUnitTypeList.filter(elem => elem.abbr === unit)[0].locale;
     }
     return '';
   }
@@ -116,7 +116,8 @@ class ResourceSelector extends Component {
                 fontWeight: 'bold',
               }}
             >
-              {`${t('common:resource.value')}: ${this.getResourceValue(this.props.init)} / ${this.getResourceValueUnit(this.props.init)}`}
+              {`${t('common:resource.count')}: ${this.getResourceValue(this.props.init)} /
+                ${t(this.getResourceValueUnit(this.props.init))}`}
             </p>
           </div>
         ) : (

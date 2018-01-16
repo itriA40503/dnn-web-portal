@@ -128,7 +128,7 @@ class ReviewResource extends Component {
               {
                 Header: t('common:resource.valueUnit'),
                 accessor: 'valueUnit',
-                Cell: data => (valueUnitTypeList.find(x => x.abbr === data.original.valueUnit).text),
+                Cell: data => t(valueUnitTypeList.find(x => x.abbr === data.original.valueUnit).locale),
               },
               {
                 Header: t('common:resource.edit'),

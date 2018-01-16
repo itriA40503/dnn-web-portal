@@ -162,11 +162,18 @@
         "machine":"機器類型",
         "value":"資源費用",
         "valueUnit":"計費單位",
+        "count":"資源計費",
         "edit":"編輯",
         "create":"建立資源",
         "remove":"移除"
     },
     "enable": "啟動",
     "disable": "關閉",
-    "success": "成功!"
+    "success": "成功!",
+    "datetime":{
+        "year":"年",
+        "month":"月",
+        "week":"週",
+        "day":"日"
+    }
 }

@@ -278,7 +278,7 @@ class EditResource extends React.Component {
           <MenuItem
             key={type.abbr}
             value={type.abbr}
-            primaryText={type.text}
+            primaryText={t(type.locale)}
           />
         ))}
       </SelectField>
