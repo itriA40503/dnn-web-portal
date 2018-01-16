@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Label } from 'semantic-ui-react';
-import 'semantic-ui-css/components/label.min.css';
-
+import Label from './Handler/Label';
 
 /**
   Show User Type
@@ -45,9 +43,10 @@ class UserTypeHandler extends Component {
     let config = this.userConfig(this.props.user);
     return (
       <div style={this.props.styles}>
-        <Label color={config.color}>
-          {config.text}
-        </Label>
+        <Label
+          color={config.color}
+          text={config.text}
+        />
       </div>
     );
   }
