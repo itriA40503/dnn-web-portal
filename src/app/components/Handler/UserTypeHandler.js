@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// i18n
+import { translate } from 'react-i18next';
+
 import Label from './Label';
 
 import { cyan800, lightBlue800, deepPurple800 } from 'material-ui/styles/colors';
@@ -24,18 +27,21 @@ class UserTypeHandler extends Component {
   };
 
   userConfig = (id) => {
+    let { t } = this.props;
     let config = { text: '', color: '' };
     switch (id) {
       case 1:
-        config.text = 'Normal';
+      case '1':
+        config.text = t('common:user.type.regular');
         config.color = lightBlue800;
         break;
       case 2:
-        config.text = 'Admin';
+      case '2':
+        config.text = t('common:user.type.admin');
         config.color = cyan800;
         break;
       default:
-        config.text = 'Unknow';
+        config.text = t('common:user.type.unknown');
         config.color = deepPurple800;
     }
     return config;
@@ -53,4 +59,5 @@ class UserTypeHandler extends Component {
     );
   }
 }
-export default UserTypeHandler;
+
+export default translate('')(UserTypeHandler);

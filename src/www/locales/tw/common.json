@@ -181,6 +181,19 @@
         "review":"使用者資訊",
         "typeId":"權限",
         "id":"使用者 ID",
-        "itirID":"ITRI 工號"
-    }
+        "itirID":"ITRI 工號",
+        "type":{
+            "admin":"系統管理者",
+            "regular":"一般使用者",
+            "unknown":"未知使用者"
+        }
+    },
+    "transaction":{
+        "name":"交易",
+        "id":"交易 ID",
+        "addValue":"加值額",
+        "info":"訊息",
+        "createdAt":"建立時間"
+    },
+    "availableRes":"可用資源"
 }
