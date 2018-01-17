@@ -14,8 +14,8 @@ import { errorNotify } from '../../redux/Notify/actionNotify';
 // ICON
 import MdDelete from 'react-icons/lib/md/delete';
 import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import StatusHandler from '../Handler/StatusHandler';
 
-import StatusHandler from '../StatusHandler';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';

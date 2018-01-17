@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Label from './Handler/Label';
+import Label from './Label';
+
+import { cyan800, lightBlue800, deepPurple800 } from 'material-ui/styles/colors';
 
 /**
   Show User Type
@@ -26,15 +28,15 @@ class UserTypeHandler extends Component {
     switch (id) {
       case 1:
         config.text = 'Normal';
-        config.color = 'violet';
+        config.color = lightBlue800;
         break;
       case 2:
         config.text = 'Admin';
-        config.color = 'pink';
+        config.color = cyan800;
         break;
       default:
         config.text = 'Unknow';
-        config.color = 'teal';
+        config.color = deepPurple800;
     }
     return config;
   }

@@ -17,9 +17,9 @@ import { getMachines, ApiGetAllResource } from '../../resource';
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
-import GpuHandler from '../GpuHandler';
-import MachineHandler from '../MachineHandler';
-import StatusHandler from '../StatusHandler';
+import GpuHandler from '../Handler/GpuHandler';
+import MachineHandler from '../Handler/MachineHandler';
+import StatusHandler from '../Handler/StatusHandler';
 import Deletemachine from './DeleteMachine';
 import EditMachine from './EditMachine';
 import EnableMachine from './EnableMachine';

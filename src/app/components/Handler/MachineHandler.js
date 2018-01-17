@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Label } from 'semantic-ui-react';
-import 'semantic-ui-css/components/label.min.css';
+import Label from './Label';
+
+import { blue500 } from 'material-ui/styles/colors';
+
 // i18n
 import { translate } from 'react-i18next';
 /**
@@ -18,13 +20,16 @@ class MachineHandler extends Component {
     machine: React.PropTypes.string.isRequired,
   };
   static defaultProps = {
-    machine: 'Unknown',
-    styles: { '': '' },
+    machine: 'i686',
+    styles: {},
   };
   render() {
     return (
       <div style={this.props.styles}>
-        <Label color={'blue'}>{this.props.machine}</Label>
+        <Label
+          color={blue500}
+          text={this.props.machine}
+        />
       </div>
     );
   }

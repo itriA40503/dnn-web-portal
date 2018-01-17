@@ -18,7 +18,7 @@ import { Card, CardTitle, CardHeader, CardText, CardActions } from 'material-ui/
 import Toggle from 'material-ui/Toggle';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import { Row, Col } from 'react-flexbox-grid';
-import UserTypeHandler from '../UserTypeHandler';
+import UserTypeHandler from '../Handler/UserTypeHandler';
 
 // style
 import { muiStyle } from '../../myTheme';

@@ -27,8 +27,8 @@ import { green500, indigo900 } from 'material-ui/styles/colors';
 import { muiStyle, muiTheme, StripedStyle } from '../myTheme';
 
 import { copyNotify } from '../redux/Notify/actionNotify';
-import StatusHandler from './StatusHandler';
-import GpuHandler from './GpuHandler';
+import StatusHandler from './Handler/StatusHandler';
+import GpuHandler from './Handler/GpuHandler';
 import HoverDiv from './HoverDiv';
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar';
 import FtpInfoModal from './FtpInfoModal';

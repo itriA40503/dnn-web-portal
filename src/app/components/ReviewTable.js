@@ -24,8 +24,8 @@ import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import CreatePage from './CreatePage/CreatePage';
 import DetailModal from './DetailModal';
-import StatusHandler from './StatusHandler';
-import GpuHandler from './GpuHandler';
+import StatusHandler from './Handler/StatusHandler';
+import GpuHandler from './Handler/GpuHandler';
 import SshWebBtn from './SshWebBtn';
 // API call
 import { getInfo, serviceEmail } from '../resource';

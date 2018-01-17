@@ -13,8 +13,8 @@ import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../myTheme';
 
-import MachineHandler from './MachineHandler';
-import GpuHandler from './GpuHandler';
+import MachineHandler from './Handler/MachineHandler';
+import GpuHandler from './Handler/GpuHandler';
 import { valueUnitTypeList } from '../resource';
 /**
   Present the resource select field

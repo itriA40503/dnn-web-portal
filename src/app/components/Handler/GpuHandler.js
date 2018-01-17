@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Label } from 'semantic-ui-react';
-import 'semantic-ui-css/components/label.min.css';
+import Label from './Label';
+
+import { indigo500 } from 'material-ui/styles/colors';
+
 // i18n
 import { translate } from 'react-i18next';
 /**
@@ -18,13 +20,16 @@ class GpuHandler extends Component {
     gpu: React.PropTypes.string.isRequired,
   };
   static defaultProps = {
-    gpu: '5850',
-    styles: { '': '' },
+    gpu: 'AyyMD',
+    styles: {},
   };
   render() {
     return (
       <div style={this.props.styles}>
-        <Label color={'brown'}>{this.props.gpu}</Label>
+        <Label
+          color={indigo500}
+          text={this.props.gpu}
+        />
       </div>
     );
   }

@@ -11,8 +11,8 @@ import { translate } from 'react-i18next';
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
-import GpuHandler from '../GpuHandler';
-import MachineHandler from '../MachineHandler';
+import GpuHandler from '../Handler/GpuHandler';
+import MachineHandler from '../Handler/MachineHandler';
 import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
