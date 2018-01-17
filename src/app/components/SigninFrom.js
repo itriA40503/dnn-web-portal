@@ -80,7 +80,7 @@ class SigninFrom extends Component {
           submitting: false,
           data: result.data,
         });
-        this.props.SigninCheck(this.state.username, result.data.token);
+        this.props.SigninCheck(this.state.username, result.data.token, result.data.type);
         // GA
         ReactGA.event({
           category: 'SignIn',

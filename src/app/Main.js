@@ -77,6 +77,7 @@ class Main extends Component {
       SignInCheck: false,
       username: '',
       token: '',
+      type: null,
     };
   }
   componentDidMount() {
@@ -97,15 +98,18 @@ class Main extends Component {
     });
   }
   // handle signIn and get username,password
-  handleSigninCheck = (username, token) => {
+  handleSigninCheck = (username, token, type) => {
     localStorage.setItem('token', token);
     localStorage.setItem('itriUser', username);
+    localStorage.setItem('type', type);
     this.setState({
       SignInCheck: true,
       username,
       token,
+      type,
     });
-    console.log(localStorage.getItem('token'));
+    // console.log(localStorage.getItem('type'));
+    // console.log(localStorage.getItem('token'));
   };
 
   handleSignOut = () => {
@@ -118,13 +122,13 @@ class Main extends Component {
 
     localStorage.setItem('token', '');
     localStorage.setItem('itriUser', '');
+    localStorage.setItem('type', '');
     this.setState({
       SignInCheck: false,
       username: '',
       password: '',
       token: '',
     });
-    console.log(localStorage.getItem('token'));
   };
 
   render() {
@@ -133,6 +137,7 @@ class Main extends Component {
         <MainContainer
           user={localStorage.getItem('itriUser')}
           token={localStorage.getItem('token')}
+          type={localStorage.getItem('type')}
           SignOut={this.handleSignOut}
         />
       );
