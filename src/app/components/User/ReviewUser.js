@@ -67,41 +67,81 @@ let data = [
   },
 ];
 
+const styles = {
+  root: {
+    margin: '-2px',
+  },
+  gridList: {
+    width: '100%',
+    margin: 0,
+  },
+  refresh: {
+    display: 'inline-block',
+    position: 'relative',
+  },
+  actions: {
+    zIndex: 2,
+    display: 'inline-block',
+    float: 'right',
+    right: '10px',
+    margin: '0px auto',
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+};
+
 class ReviewUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-  
+
   render() {
     const { t } = this.props;
     return (
       <div>
         <Card>
-          <CardTitle title={t('common:user.review')} />
-          <div style={{ margin: 'auto' }}>
-            <div style={{ margin: '0px calc(12% + 66px) 0px calc(12% + 16px)' }}>
-              <Row center="xs">
-                <Col xs>
-                  {t('common:user.typeId')}
-                </Col>
-                <Col xs>
-                  {t('common:user.itirID')}
-                </Col>
-                <Col xs>
-                  {t('common:user.id')}
-                </Col>
-              </Row>
+          <CardActions style={styles.actions}>
+            <div style={{ margin: '0px auto' }}>
+              <div style={{ display: 'inline-block' }}>
+                <FlatButton
+                  label={t('common:refresh')}
+                  style={{ color: muiStyle.palette.primary1Color }}
+                  icon={<NavigationRefresh />}
+                  onTouchTap={() => {}}
+                />
+              </div>
             </div>
-            {data.map(user => (
-              <UserCard
-                styles={{ margin: '20px calc(12% + 50px) 20px 12%' }}
-                token={this.props.token}
-                data={user}
-              />
-            ))}
-          </div>
+          </CardActions>
+          <CardTitle title={t('common:user.review')} />
+          <ExpandTransition loading={false} open={true}>
+            <Animated animationIn="slideInDown" isVisible={this.state.isVisible}>
+              <div style={{ margin: 'auto' }}>
+                <div style={{ margin: '0px calc(12% + 66px) 0px calc(12% + 16px)' }}>
+                  <Row center="xs">
+                    <Col xs>
+                      {t('common:user.typeId')}
+                    </Col>
+                    <Col xs>
+                      {t('common:user.itirID')}
+                    </Col>
+                    <Col xs>
+                      {t('common:user.id')}
+                    </Col>
+                  </Row>
+                </div>
+                {data.map(user => (
+                  <UserCard
+                    styles={{ margin: '20px calc(12% + 50px) 20px 12%' }}
+                    token={this.props.token}
+                    data={user}
+                  />
+                ))}
+              </div>
+            </Animated>
+          </ExpandTransition>
           <br />
           <br />
         </Card>
