@@ -50,10 +50,10 @@ import TutorialVideoBtn from './TutorialVideoBtn';
 import ReviewProject from './Project/ReviewProject';
 
 import { DnnLogoYellow, serval } from '../image/imageBase64';
-
 import { ApiGetInfo, adminList, serviceEmail } from '../resource';
 import ReviewResource from './Resource/ReviewResource';
 import ReviewUser from './User/ReviewUser';
+
 
 const styles = {
   container: {
@@ -127,6 +127,7 @@ if (!prefixedStyles.main) {
   prefixedStyles.content = prefix(styles.content);
   prefixedStyles.contentSmall = prefix(styles.contentSmall);
 }
+const isAdmin = type => (type === '2');
 /**
   MainContainer
   Example:
@@ -156,29 +157,15 @@ class MainContainer extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      open:
-        (adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6,
+      open: isAdmin(this.props.type),
       content: '',
       notifyOpen: false,
       notifyMsg: '',
       notifyCopy: false,
       data: '',
     };
+    console.log(isAdmin(this.props.type));
   }
-  // handleNotify = (msg, notifyCopy = false) => {
-  //   this.setState({
-  //     notifyOpen: true,
-  //     notifyMsg: msg,
-  //     notifyCopy: notifyCopy
-  //   })
-  //   // setTimeout(console.log('handleNotify'), 5400)
-  // }
-  // closeNotify = () => {
-  //   console.log('closeNotify')
-  //   this.setState({
-  //     notifyOpen: false,
-  //   })
-  // }
   getData = () => {
     axios
       .get(ApiGetInfo, {
@@ -196,7 +183,7 @@ class MainContainer extends Component {
       });
   };
   handleToggle = () => {
-    if ((adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6) {
+    if (isAdmin(this.props.type)) {
       this.setState({
         open: !this.state.open,
       });
@@ -370,9 +357,9 @@ class MainContainer extends Component {
           onTouchTap={() =>
             displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
         />}
-        {(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) &&
-        this.props.admin > 6 && (
+        {isAdmin(this.props.type) && (
           <div>
+            {false && <div>
             <MenuItem
               leftIcon={<ActionAssignment />}
               primaryText={t('common:menu.create')}
@@ -383,6 +370,7 @@ class MainContainer extends Component {
               primaryText={t('common:menu.charts')}
               onTouchTap={() => this.handleMenuTap(5)}
             />
+            </div>}
             <MenuItem
               leftIcon={<MachineIcon />}
               primaryText={t('common:menu.machine')}
@@ -425,7 +413,7 @@ class MainContainer extends Component {
                   <b> DNN Web portal</b>
                 </span>
               }
-              iconElementLeft={(adminList.filter(admin => admin === localStorage.getItem('itriUser')).length === 1) && this.props.admin > 6 ? <img height={60} alt={'serval'} src={serval} /> : <div />}
+              iconElementLeft={isAdmin(this.props.type) ? <img height={60} alt={'serval'} src={serval} /> : <div />}
               style={{ backgroundColor: lightBlue900 }}
               onLeftIconButtonTouchTap={this.handleToggle}
               iconStyleRight={{ margin: 'auto' }}
