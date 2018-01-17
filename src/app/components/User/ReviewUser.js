@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-
-// Import React Table
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 // GA
 import ReactGA from 'react-ga';
 // i18n
@@ -13,8 +9,7 @@ import { Animated } from 'react-animated-css';
 
 import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import { Card, CardTitle, CardHeader, CardText, CardActions } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -68,13 +63,6 @@ let data = [
 ];
 
 const styles = {
-  root: {
-    margin: '-2px',
-  },
-  gridList: {
-    width: '100%',
-    margin: 0,
-  },
   refresh: {
     display: 'inline-block',
     position: 'relative',
@@ -85,9 +73,6 @@ const styles = {
     float: 'right',
     right: '10px',
     margin: '0px auto',
-  },
-  textCenter: {
-    textAlign: 'center',
   },
 };
 
@@ -117,9 +102,9 @@ class ReviewUser extends Component {
           </CardActions>
           <CardTitle title={t('common:user.review')} />
           <ExpandTransition loading={false} open={true}>
-            <Animated animationIn="slideInDown" isVisible={this.state.isVisible}>
+            <Animated animationIn="slideInDown" isVisible={true}>
               <div style={{ margin: 'auto' }}>
-                <div style={{ margin: '0px calc(12% + 66px) 0px calc(12% + 16px)' }}>
+                <div style={{ margin: '0px calc(8% + 66px) 0px calc(8% + 16px)' }}>
                   <Row center="xs">
                     <Col xs>
                       {t('common:user.typeId')}
@@ -134,7 +119,7 @@ class ReviewUser extends Component {
                 </div>
                 {data.map(user => (
                   <UserCard
-                    styles={{ margin: '20px calc(12% + 50px) 20px 12%' }}
+                    styles={{ margin: '20px 8% 20px 8%' }}
                     token={this.props.token}
                     data={user}
                   />

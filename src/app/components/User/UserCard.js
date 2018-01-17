@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-
-// Import React Table
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-
 // GA
 import ReactGA from 'react-ga';
 // i18n
@@ -12,16 +7,11 @@ import { translate } from 'react-i18next';
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
-import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import { Card, CardTitle, CardHeader, CardText, CardActions } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
-import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import { Card, CardTitle } from 'material-ui/Card';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
 import UserTypeHandler from '../Handler/UserTypeHandler';
-
-// style
-import { muiStyle } from '../../myTheme';
 
 class UserCard extends Component {
 
@@ -41,10 +31,13 @@ class UserCard extends Component {
     super(props);
     this.state = {
       expanded: false,
+      slideIndex: 0,
     };
   }
 
   handleExpandChange = value => this.setState({ expanded: value });
+
+  handleTabChange = value => this.setState({ slideIndex: value });
 
   render() {
     const { t, data } = this.props;
@@ -55,34 +48,62 @@ class UserCard extends Component {
             actAsExpander={true}
             showExpandableButton={this.props.button}
           >
-            <Row center="xs">
-              <Col xs>
-                <UserTypeHandler user={data.typeId} />
-              </Col>
-              <Col xs>
-                {
-                  <p style={{ margin: '5px' }}>
-                    {data.itriId}
-                  </p>
-                }
-              </Col>
-              <Col xs>
-                {
-                  <p style={{ margin: '5px' }}>
-                    {data.id}
-                  </p>
-                }
-              </Col>
-            </Row>
+            <div style={{ margin: '0px 50px 0px 0px' }}>
+              <Row center="xs">
+                <Col xs>
+                  <UserTypeHandler user={data.typeId} />
+                </Col>
+                <Col xs>
+                  {
+                    <p style={{ margin: '5px' }}>
+                      {data.itriId}
+                    </p>
+                  }
+                </Col>
+                <Col xs>
+                  {
+                    <p style={{ margin: '5px' }}>
+                      {data.id}
+                    </p>
+                  }
+                </Col>
+              </Row>
+            </div>
           </CardTitle>
-          <ExpandTransition loading={false} open={this.state.expanded}>
-            <CardText expandable={true}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-              Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-              Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-            </CardText>
-          </ExpandTransition>
+          <div style={{ margin: '5px 20px' }}>
+            <ExpandTransition loading={false} open={this.state.expanded}>
+              <br />
+              <div>
+                <Tabs
+                  onChang={this.handleTabChange}
+                  value={this.state.slideIndex}
+                  tabItemContainerStyle={{ backgroundColor: 'white' }}
+                >
+                  <Tab
+                    label="Transaction"
+                    value={0}
+                    style={{ color: '#000', fontWeight: 'bold' }}
+                  >
+                    <div>
+                      <h2>
+                        {'Tabs with slide effect'}
+                      </h2>
+                    </div>
+                  </Tab>
+                  <Tab
+                    label="Available Resource"
+                    value={1}
+                    style={{ color: '#000', fontWeight: 'bold' }}
+                  >
+                    <h2>
+                      {'Tabs with slide effect'}
+                    </h2>
+                  </Tab>
+                </Tabs>
+                <br />
+              </div>
+            </ExpandTransition>
+          </div>
         </Card>
       </div>
     );
