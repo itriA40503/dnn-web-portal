@@ -13,10 +13,13 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import { Row, Col } from 'react-flexbox-grid';
 import UserTypeHandler from '../Handler/UserTypeHandler';
 
-import * as Colors from 'material-ui/styles/colors';
+import { lightBlueA700, orange500 } from 'material-ui/styles/colors';
 
 // style
 import { muiStyle } from '../../myTheme';
+
+import ReviewTransaction from './ReviewTransaction';
+import ReviewAvailableResource from './ReviewAvailableResource';
 
 class UserCard extends Component {
 
@@ -81,25 +84,21 @@ class UserCard extends Component {
                 <Tabs
                   onChang={this.handleTabChange}
                   value={this.state.slideIndex}
-                  tabItemContainerStyle={{ backgroundColor: Colors.lightBlue800 }}
+                  tabItemContainerStyle={{ backgroundColor: 'white' }}
                 >
                   <Tab
                     label={t('common:transaction.name')}
                     value={0}
-                    style={{ color: 'white', fontWeight: 'bold' }}
+                    style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold' }}
                   >
-                    <div>
-                      {'Tabs with slide effect'}
-                    </div>
+                    <ReviewTransaction />
                   </Tab>
                   <Tab
                     label={t('common:availableRes')}
                     value={1}
-                    style={{ color: 'white', fontWeight: 'bold', opacity: '0.5' }}
+                    style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold'}}
                   >
-                    <h2>
-                      {'Tabs with slide effect'}
-                    </h2>
+                    <ReviewAvailableResource />
                   </Tab>
                 </Tabs>
                 <br />

@@ -153,7 +153,9 @@
         "create":"建立機器",
         "name":"機器名稱",
         "resInfo":"資源資訊",
-        "resId":"資源編號"
+        "resId":"資源編號",
+        "createAt":"建立時間",
+        "updateAt":"更新時間"
     },
     "resource":{
         "review":"資源資訊",
@@ -190,8 +192,9 @@
     },
     "transaction":{
         "name":"交易",
+        "create":"建立交易",
         "id":"交易 ID",
-        "addValue":"加值額",
+        "addValue":"加值額度",
         "info":"訊息",
         "createdAt":"建立時間"
     },
