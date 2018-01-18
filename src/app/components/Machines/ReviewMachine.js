@@ -11,8 +11,8 @@ import 'react-table/react-table.css';
 import ReactGA from 'react-ga';
 // i18n
 import { translate } from 'react-i18next';
-// API call
-import { getMachines, ApiGetAllResource } from '../../resource';
+
+import { valueUnitTypeList, getMachines, ApiGetAllResource } from '../../resource';
 // Animation
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
@@ -25,6 +25,7 @@ import EditMachine from './EditMachine';
 import EnableMachine from './EnableMachine';
 import CreateMachine from './CreateMachine';
 import FlatButton from 'material-ui/FlatButton';
+import ReactTooltip from 'react-tooltip';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
@@ -32,6 +33,7 @@ import { Row, Col } from 'react-flexbox-grid';
 
 // style
 import { muiStyle } from '../../myTheme';
+import ResourceDetail from '../ResourceDetail';
 
 const styles = {
   root: {
@@ -168,14 +170,32 @@ class ReviewMachine extends Component {
                 accessor: 'resInfo',
                 id: 'resInfo',
                 Cell: data => (
-                  <Row>
-                    <Col xs={6}>
-                      <GpuHandler gpu={data.original.resInfo.gpuType} />
-                    </Col>
-                    <Col xs={6}>
-                      <MachineHandler machine={data.original.resInfo.machineType} />
-                    </Col>
-                  </Row>
+                  <div>
+                    <div
+                      data-tip
+                      data-for={`resDetail${data.original.id}`}
+                    >
+                      <Row>
+                        <Col xs={6}>
+                          <GpuHandler gpu={data.original.resInfo.gpuType} />
+                        </Col>
+                        <Col xs={6}>
+                          <MachineHandler machine={data.original.resInfo.machineType} />
+                        </Col>
+                      </Row>
+                    </div>
+                    <ReactTooltip
+                      id={`resDetail${data.original.id}`}
+                      place="bottom"
+                      effect="solid"
+                      getContent={() => (
+                        <ResourceDetail
+                          value={data.original.resInfo.value}
+                          unit={data.original.resInfo.valueUnit}
+                        />
+                      )}
+                    />
+                  </div>
                 ),
               },
               {

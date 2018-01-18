@@ -16,6 +16,9 @@ import { muiStyle, muiTheme } from '../myTheme';
 import MachineHandler from './Handler/MachineHandler';
 import GpuHandler from './Handler/GpuHandler';
 import { valueUnitTypeList } from '../resource';
+
+import ResourceDetail from './ResourceDetail';
+
 /**
   Present the resource select field
   Example:
@@ -23,6 +26,14 @@ import { valueUnitTypeList } from '../resource';
   <ResourceSelector list={} init={} store={}/>
   ```
  */
+
+let styles = {
+  extend: {
+    padding: '0px 5px',
+    float: 'left',
+  },
+};
+
 class ResourceSelector extends Component {
   static propTypes = {
     /**
@@ -31,7 +42,7 @@ class ResourceSelector extends Component {
     list: React.PropTypes.string.isRequired,
   };
   static defaultProps = {
-    styles: { '': '' },
+    styles: {},
     init: null,
   };
 
@@ -44,8 +55,7 @@ class ResourceSelector extends Component {
 
   getResourceValueUnit = (resId) => {
     if (this.props.list.length !== 0) {
-      let unit = this.props.list.filter(res => res.id === resId)[0].valueUnit;
-      return valueUnitTypeList.filter(elem => elem.abbr === unit)[0].locale;
+      return this.props.list.filter(res => res.id === resId)[0].valueUnit;
     }
     return '';
   }
@@ -64,29 +74,16 @@ class ResourceSelector extends Component {
             key={res.id}
             value={res.id}
             primaryText={
-              res.id !== this.props.init ? (
-                <div  style={{ opacity: '0.5' }}>
-                  <GpuHandler
-                    styles={{ padding: '0px 5px', float: 'left' }}
-                    gpu={res.gpuType}
-                  />
-                  <MachineHandler
-                    styles={{ padding: '0px 5px', float: 'left' }}
-                    machine={res.machineType}
-                  />
-                </div>
-              ) : (
-                <div>
-                  <GpuHandler
-                    styles={{ padding: '0px 5px', float: 'left' }}
-                    gpu={res.gpuType}
-                  />
-                  <MachineHandler
-                    styles={{ padding: '0px 5px', float: 'left' }}
-                    machine={res.machineType}
-                  />
-                </div>
-              )
+              <div style={res.id !== this.props.init ? { opacity: '0.5' } : {}}>
+                <GpuHandler
+                  styles={styles.extend}
+                  gpu={res.gpuType}
+                />
+                <MachineHandler
+                  styles={styles.extend}
+                  machine={res.machineType}
+                />
+              </div>
             }
           />
         ))}
@@ -95,7 +92,6 @@ class ResourceSelector extends Component {
   }
 
   render() {
-    const { t } = this.props;
     return (
       <div style={this.props.styles}>
         <div style={{ margin: '0px auto' }}>
@@ -116,8 +112,10 @@ class ResourceSelector extends Component {
                 fontWeight: 'bold',
               }}
             >
-              {`${t('common:resource.count')}: ${this.getResourceValue(this.props.init)} /
-                ${t(this.getResourceValueUnit(this.props.init))}`}
+              <ResourceDetail
+                value={this.getResourceValue(this.props.init)}
+                unit={this.getResourceValueUnit(this.props.init)}
+              />
             </p>
           </div>
         ) : (

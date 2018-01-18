@@ -378,14 +378,12 @@ class CreateMachine extends React.Component {
                         />
                       </div>
                     </div>
-
                     <br />
                     <ResourceSelector
                       list={this.props.list}
                       init={this.state.resId}
                       store={this.resourceSelect}
                     />
-
                     <br />
                     <div style={{ margin: '0px auto' }}>
                       <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
