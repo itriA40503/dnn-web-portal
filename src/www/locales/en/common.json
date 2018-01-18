@@ -154,8 +154,8 @@
         "name":"Machine Name",
         "resInfo":"Resource Info",
         "resId":"Resource ID",
-        "createAt":"Created At",
-        "updateAt":"Updated At"
+        "createdAt":"Created At",
+        "updatedAt":"Updated At"
     },
     "resource":{
         "review":"Resource Information",
@@ -198,5 +198,8 @@
         "info":"Information",
         "createdAt":"Created At"
     },
-    "availableRes":"Available Resource"
+    "availableRes":{
+        "name":"Available Resource",
+        "create":"Create Available Resource"
+    }
 }

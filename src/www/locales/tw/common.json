@@ -154,8 +154,8 @@
         "name":"機器名稱",
         "resInfo":"資源資訊",
         "resId":"資源編號",
-        "createAt":"建立時間",
-        "updateAt":"更新時間"
+        "createdAt":"建立時間",
+        "updatedAt":"更新時間"
     },
     "resource":{
         "review":"資源資訊",
@@ -198,5 +198,8 @@
         "info":"訊息",
         "createdAt":"建立時間"
     },
-    "availableRes":"可用資源"
+    "availableRes":{
+        "name":"可用資源",
+        "create":"建立可用資源"
+    }
 }

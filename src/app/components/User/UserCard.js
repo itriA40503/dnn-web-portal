@@ -94,7 +94,7 @@ class UserCard extends Component {
                     <ReviewTransaction />
                   </Tab>
                   <Tab
-                    label={t('common:availableRes')}
+                    label={t('common:availableRes.name')}
                     value={1}
                     style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold'}}
                   >
