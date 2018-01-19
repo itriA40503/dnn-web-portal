@@ -235,6 +235,7 @@ class EditMachine extends React.Component {
       </SelectField>
     );
   }
+
   render() {
     const { t } = this.props;
     const actions = [

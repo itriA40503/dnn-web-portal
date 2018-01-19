@@ -9,15 +9,20 @@ import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
 import moment from 'moment';
+import GpuHandler from '../Handler/GpuHandler';
+import MachineHandler from '../Handler/MachineHandler';
+import ResourceDetail from '../ResourceDetail';
+import ReactTooltip from 'react-tooltip';
 import { Card, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+import { Row, Col } from 'react-flexbox-grid';
 
 // style
 import { muiStyle } from '../../myTheme';
 import { CardTitle } from 'material-ui';
 
 import CreateAvailableResource from './CreateAvailableResource';
+import EditAvailableResource from './EditAvailableResource';
+import DeleteAvailableResource from './DeleteAvailableResource';
 
 let availableResource = [
   {
@@ -159,12 +164,40 @@ class ReviewAvailableResource extends Component {
             Header: '',
             columns: [
               {
-                Header: t('common:resource.machine'),
-                accessor: 'resInfo.machineType',
-              },
-              {
-                Header: t('common:resource.gpu'),
-                accessor: 'resInfo.gpuType',
+                Header: t('common:machine.resInfo'),
+                accessor: 'resInfo',
+                id: 'resInfo',
+                Cell: data => (
+                  <div>
+                    <div
+                      data-tip
+                      data-for={`resDetail${data.original.id}`}
+                    >
+                      <Row>
+                        <Col xs={1} />
+                        <Col xs={4}>
+                          <GpuHandler gpu={data.original.resInfo.gpuType} />
+                        </Col>
+                        <Col xs={1} />
+                        <Col xs={4}>
+                          <MachineHandler machine={data.original.resInfo.machineType} />
+                        </Col>
+                        <Col xs={1} />
+                      </Row>
+                    </div>
+                    <ReactTooltip
+                      id={`resDetail${data.original.id}`}
+                      place="bottom"
+                      effect="solid"
+                      getContent={() => (
+                        <ResourceDetail
+                          value={data.original.resInfo.value}
+                          unit={data.original.resInfo.valueUnit}
+                        />
+                      )}
+                    />
+                  </div>
+                ),
               },
               {
                 Header: t('common:machine.gpuAmount'),
@@ -179,6 +212,22 @@ class ReviewAvailableResource extends Component {
                 Header: t('common:machine.updatedAt'),
                 accessor: 'updatedAt',
                 Cell: data => moment(data.original.updatedAt).format('YYYY-MM-DD hh:mm'),
+              },
+              {
+                Header: t('common:availableRes.edit'),
+                id: 'editAvailableResource',
+                width: 100,
+                Cell: data => (
+                  <EditAvailableResource data={data.original} />
+                ),
+              },
+              {
+                Header: t('common:availableRes.remove'),
+                id: 'deleteAvailableResource',
+                width: 100,
+                Cell: data => (
+                  <DeleteAvailableResource data={data.original} />
+                ),
               },
             ],
           },
@@ -212,7 +261,9 @@ class ReviewAvailableResource extends Component {
           <CardActions style={styles.actions}>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
-                <CreateAvailableResource />
+                <CreateAvailableResource
+                  list={this.props.list}
+                />
               </div>
             </div>
           </CardActions>

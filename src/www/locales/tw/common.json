@@ -200,6 +200,9 @@
     },
     "availableRes":{
         "name":"可用資源",
-        "create":"建立可用資源"
+        "create":"建立可用資源",
+        "update":"編輯可用資源",
+        "edit":"編輯",
+        "remove":"移除"
     }
 }

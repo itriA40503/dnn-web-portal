@@ -17,9 +17,10 @@ import { Row, Col } from 'react-flexbox-grid';
 import { muiStyle } from '../../myTheme';
 
 import UserCard from './UserCard';
+import { ApiGetAllResource } from '../../resource';
 
 // fake data
-let data = [
+let fakeData = [
   {
     id: '4',
     itriId: 'A30375',
@@ -80,7 +81,44 @@ class ReviewUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      resourceList: [],
     };
+  }
+
+  componentDidMount() {
+    this.getResourceApi();
+  }
+
+  getResourceApi = () => {
+    const api = ApiGetAllResource;
+    fetch(api, {
+      method: 'get',
+      headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.code !== undefined) {
+          // this.props.someActions.errorNotify('ERROR : Get Resource Failed');
+        } else {
+          this.setState({
+            resourceList: data.sort((a, b) => Number(a.id) - Number(b.id)),
+          });
+        }
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Get Resource',
+        });
+        // this.props.someActions.errorNotify('ERROR : Review machine');
+      });
   }
 
   render() {
@@ -117,11 +155,12 @@ class ReviewUser extends Component {
                     </Col>
                   </Row>
                 </div>
-                {data.map(user => (
+                {fakeData.map(user => (
                   <UserCard
                     styles={{ margin: '20px 8% 20px 8%' }}
                     token={this.props.token}
                     data={user}
+                    list={this.state.resourceList}
                   />
                 ))}
               </div>

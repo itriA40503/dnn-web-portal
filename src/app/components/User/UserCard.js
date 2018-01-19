@@ -98,7 +98,9 @@ class UserCard extends Component {
                     value={1}
                     style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold'}}
                   >
-                    <ReviewAvailableResource />
+                    <ReviewAvailableResource
+                      list={this.props.list}
+                    />
                   </Tab>
                 </Tabs>
                 <br />

@@ -200,6 +200,9 @@
     },
     "availableRes":{
         "name":"Available Resource",
-        "create":"Create Available Resource"
+        "create":"Create Available Resource",
+        "update":"Edit Available Resource",
+        "edit":"Edit",
+        "remove":"Remove"
     }
 }

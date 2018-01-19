@@ -1,73 +1,181 @@
 import React from 'react';
-// i18n
-import { translate } from 'react-i18next';
+// GA
+import ReactGA from 'react-ga';
 // Animation
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
-// GA
-import ReactGA from 'react-ga';
+// i18n
+import { translate } from 'react-i18next';
+// API call
+import axios from 'axios';
+// redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import ReactTooltip from 'react-tooltip';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
 import CircularProgress from 'material-ui/CircularProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import ResourceSelector from '../ResourceSelector';
-
-import { gpuAmountList } from '../../resource';
+import TextField from 'material-ui/TextField';
+import { errorNotify } from '../../redux/Notify/actionNotify';
 
 // ICON
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import ActionLabel from 'material-ui/svg-icons/action/label';
 
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../../myTheme';
 
+import { gpuAmountList } from '../../resource';
 
-class CreateAvailableResource extends React.Component {
+/**
+  Edit endDate of the instance
+  Example:
+  ```
+  <EditModal
+    token={this.props.token}
+    data = {data}
+    refresh={this.getData}
+    {...this.props}
+  />
+  ```
+ */
+class EditAvailableResource extends React.Component {
+
+  static propTypes = {
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,
+    /**
+      Will refresh ReviewUser after edit
+    */
+    refresh: React.PropTypes.func.isRequired,
+    /**
+      the resource information
+    */
+    data: React.PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      confirm: false,
-      loading: false,
       open: false,
-      resId: null,
+      loading: false,
+      confirm: false,
       gpuAmount: null,
+      resId: null,
     };
   }
 
+  editAvailableResourceApi = () => {
+    const api = '';//ApiPutResource + this.props.data.id;
+    fetch(api, {
+      method: 'put',
+      headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        gpuType: this.state.gpuType,
+        machinType: this.state.gpuAmount,
+        value: this.state.value.toString(),
+        valueUnit: this.state.valueUnit,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          this.dummyAsync(() => this.setState({ confirm: true }));
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.code !== undefined) {
+          this.setState({ open: false, loading: false, confirm: false });
+          this.props.someActions.errorNotify('ERROR : ' + data.message);
+        }
+        // this.setState({
+        //   loading: false,
+        // })
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Edit Date',
+        });
+        this.props.someActions.errorNotify('ERROR : Edit machine');
+      });
+  };
+
+  dummyAsync = (cb) => {
+    this.setState({ loading: true }, () => {
+      this.asyncTimer = setTimeout(cb, 800);
+    });
+  };
+
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      gpuAmount: this.props.data.amount.toString(),
+      resId: this.props.data.resId,
+    });
     // GA
     ReactGA.event({
-      category: 'CreateAvailableResource',
+      category: 'EditResource',
       action: 'open',
+      label: this.props.data.label,
     });
   };
 
   handleClose = () => {
     this.setState({
       open: false,
-      resId: null,
       gpuAmount: null,
+      resId: null,
     });
     // GA
     ReactGA.event({
-      category: 'CreateAvailableResource',
+      category: 'EditResource',
       action: 'close',
+      label: this.props.data.label,
     });
   };
 
   handleSubmit = () => {
-
-  }
+    // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
+    if (!this.state.confirm) {
+      this.setState({
+        loading: true,
+      });
+      // this.editResourceApi();
+    } else {
+      // console.log('refresh')
+      this.setState({
+        open: false,
+        loading: false,
+        confirm: false,
+        gpuAmount: null,
+        resId: null,
+      });
+      // this.props.refresh();
+      // GA
+      ReactGA.event({
+        category: 'EditModal',
+        action: 'edited',
+      });
+    }
+  };
 
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
-
-  resourceSelect = (event, index, value) => this.setState({ resId: value })
 
   gpuAmountSelect = (event, index, value) => this.setState({ gpuAmount: value })
 
@@ -112,25 +220,24 @@ class CreateAvailableResource extends React.Component {
         onTouchTap={this.handleSubmit}
       />,
     ];
+    const optionsStyle = {
+      marginRight: 'auto',
+    };
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <FlatButton
             style={{ color: muiStyle.palette.primary1Color }}
-            label={t('common:create')}
             data-tip
-            data-for="availableResCreate"
-            icon={<ContentAdd />}
+            data-for="availableResEdit"
+            icon={<EditorModeEdit />}
             onTouchTap={this.handleOpen}
           />
-          <ReactTooltip id="availableResCreate" place="bottom" effect="solid">
-            <span>{t('common:availableRes.create')}</span>
-          </ReactTooltip>
           <Dialog
             title={
               <div>
                 <b>
-                  {t('common:availableRes.create')}
+                  {t('common:availableRes.update')}
                 </b>
               </div>
             }
@@ -143,7 +250,7 @@ class CreateAvailableResource extends React.Component {
                 <b>{t('common:updatedSuccess')}</b>
               </div>
             ) : (
-              <div style={{ marginRight: 'auto' }}>
+              <div style={optionsStyle}>
                 {this.state.loading ? (
                   <div style={{ textAlign: 'center' }}>
                     <CircularProgress
@@ -155,11 +262,6 @@ class CreateAvailableResource extends React.Component {
                 ) : (
                   <div>
                     <Divider />
-                    <ResourceSelector
-                      list={this.props.list}
-                      init={this.state.resId}
-                      store={this.resourceSelect}
-                    />
                     <div style={{ margin: '0px auto' }}>
                       <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
                         <Animated animationIn="rollIn" isVisible={true}>
@@ -170,9 +272,6 @@ class CreateAvailableResource extends React.Component {
                         {this.renderGpuAmount()}
                       </div>
                     </div>
-                    <ReactTooltip id="click" place="right" effect="solid">
-                      <span>{t('common:clickEdit')}</span>
-                    </ReactTooltip>
                   </div>
                 )}
               </div>
@@ -184,4 +283,8 @@ class CreateAvailableResource extends React.Component {
   }
 }
 
-export default translate('')(CreateAvailableResource);
+function matchDispatchToProps(dispatch) {
+  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
+}
+
+export default connect(null, matchDispatchToProps)(translate('')(EditAvailableResource));
