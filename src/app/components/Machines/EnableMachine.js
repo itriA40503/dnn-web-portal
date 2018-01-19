@@ -70,7 +70,7 @@ class EnableMachine extends React.Component {
     this.state = {
       open: false,
       loading: false,
-      comfirm: false,
+      confirm: false,
       action: (this.props.data.statusId === 1 ? 'disable' : 'enable'),
     };
   }
@@ -98,7 +98,7 @@ class EnableMachine extends React.Component {
     });
   };
   handleSubmit = () => {
-    if (!this.state.comfirm) {
+    if (!this.state.confirm) {
       this.setState({
         loading: true,
       });
@@ -116,9 +116,9 @@ class EnableMachine extends React.Component {
         .then((response) => {
           console.log(response);
           if (response.ok) {
-            this.dummyAsync(() => this.setState({ loading: false, comfirm: true }));
+            this.dummyAsync(() => this.setState({ loading: false, confirm: true }));
           } else {
-            this.setState({ open: false, loading: false, comfirm: false });
+            this.setState({ open: false, loading: false, confirm: false });
             this.props.someActions.errorNotify(`ERROR : ${this.state.action} machine`);
           }
           return response.json();
@@ -129,7 +129,7 @@ class EnableMachine extends React.Component {
         .catch((err) => {
           console.log('err:' + err);
           this.props.someActions.errorNotify(`ERROR : ${this.state.action} machine`);
-          this.setState({ open: false, comfirm: false });
+          this.setState({ open: false, confirm: false });
           getMachines(this.props.dispatch, this.props.token);
           // GA
           ReactGA.event({
@@ -140,7 +140,7 @@ class EnableMachine extends React.Component {
         });
     } else {
       console.log('refresh');
-      this.setState({ open: false, comfirm: false });
+      this.setState({ open: false, confirm: false });
       getMachines(this.props.dispatch, this.props.token);
       // GA
       ReactGA.event({
@@ -157,13 +157,13 @@ class EnableMachine extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
@@ -191,7 +191,7 @@ class EnableMachine extends React.Component {
         <Dialog
           title={
             <div>
-              <b>{t('common:machine.comfirm')}</b>
+              <b>{t('common:machine.confirm')}</b>
               <font color={this.props.data.statusId === 1 ? redA700 : greenA700}><b>{' ' + t(`common:${action}`)}</b></font>
               <font color={muiStyle.palette.primary1Color}><b>{` ${this.props.data.label} ?`}</b></font>
             </div>
@@ -200,7 +200,7 @@ class EnableMachine extends React.Component {
           modal={true}
           open={this.state.open}
         >
-          {this.state.comfirm ? (
+          {this.state.confirm ? (
             <div>
               <b>{t(`common:${action}`)}{t('common:success')}</b>
             </div>

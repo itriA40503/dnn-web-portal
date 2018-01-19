@@ -67,7 +67,7 @@ class DeleteMachine extends React.Component {
     this.state = {
       open: false,
       loading: false,
-      comfirm: false,
+      confirm: false,
     };
     // console.log(this.props.data)
     // console.log(this.props.id)
@@ -96,7 +96,7 @@ class DeleteMachine extends React.Component {
     });
   };
   handleSubmit = () => {
-    if (!this.state.comfirm) {
+    if (!this.state.confirm) {
       this.setState({
         loading: true,
       });
@@ -113,9 +113,9 @@ class DeleteMachine extends React.Component {
         .then((response) => {
           console.log(response);
           if (response.ok) {
-            this.dummyAsync(() => this.setState({ loading: false, comfirm: true }));
+            this.dummyAsync(() => this.setState({ loading: false, confirm: true }));
           } else {
-            this.setState({ open: false, loading: false, comfirm: false });
+            this.setState({ open: false, loading: false, confirm: false });
             this.props.someActions.errorNotify('ERROR : Delete machine');
           }
           return response.json();
@@ -126,7 +126,7 @@ class DeleteMachine extends React.Component {
         .catch((err) => {
           console.log('err:' + err);
           this.props.someActions.errorNotify('ERROR : Delete machine');
-          this.setState({ open: false, comfirm: false });
+          this.setState({ open: false, confirm: false });
           getMachines(this.props.dispatch, this.props.token);
           // GA
           ReactGA.event({
@@ -137,7 +137,7 @@ class DeleteMachine extends React.Component {
         });
     } else {
       console.log('refresh');
-      this.setState({ open: false, comfirm: false });
+      this.setState({ open: false, confirm: false });
       getMachines(this.props.dispatch, this.props.token);
       // GA
       ReactGA.event({
@@ -154,13 +154,13 @@ class DeleteMachine extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
@@ -188,14 +188,14 @@ class DeleteMachine extends React.Component {
         <Dialog
           title={
             <div>
-              <b>{t('common:remove.comfirmRemove')}</b>
+              <b>{t('common:remove.confirmRemove')}</b>
             </div>
           }
           actions={actions}
           modal={true}
           open={this.state.open}
         >
-          {this.state.comfirm ? (
+          {this.state.confirm ? (
             <div>
               <b>{t('common:deletedSuccess')}</b>
             </div>

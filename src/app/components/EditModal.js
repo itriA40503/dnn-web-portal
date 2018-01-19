@@ -102,7 +102,7 @@ class EditModal extends React.Component {
       open: false,
       increaseDay: 0,
       loading: false,
-      comfirm: false,
+      confirm: false,
       latestDate: '',
     };
   }
@@ -150,7 +150,7 @@ class EditModal extends React.Component {
       .then((response) => {
         // console.log(response)
         if (response.ok) {
-          this.dummyAsync(() => this.setState({ comfirm: true }));
+          this.dummyAsync(() => this.setState({ confirm: true }));
         }
         return response.json();
       })
@@ -196,7 +196,7 @@ class EditModal extends React.Component {
   };
   handleSubmit = () => {
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
-    if (!this.state.comfirm) {
+    if (!this.state.confirm) {
       this.setState({
         loading: true,
       });
@@ -207,7 +207,7 @@ class EditModal extends React.Component {
         open: false,
         increaseDay: 0,
         loading: false,
-        comfirm: false,
+        confirm: false,
       });
       this.props.refresh();
       // GA
@@ -244,21 +244,21 @@ class EditModal extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={this.state.confirm ? 'OK' : t('common:submit')}
         secondary={true}
         disabled={
           this.state.increaseDay <= 0 ||
-          (!this.state.comfirm && this.state.loading)
+          (!this.state.confirm && this.state.loading)
         }
         onTouchTap={this.handleSubmit}
       />,
@@ -293,7 +293,7 @@ class EditModal extends React.Component {
             modal={true}
             open={this.state.open}
           >
-            {this.state.comfirm ? (
+            {this.state.confirm ? (
               <div>
                 <b>{t('common:updatedSuccess')}</b>
               </div>

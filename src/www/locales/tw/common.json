@@ -82,7 +82,7 @@
     "clickEdit": "點此編輯日期",
     "remove": {
         "remove": "移除",
-        "comfirmRemove": "確認移除",
+        "confirmRemove": "確認移除",
         "warning": "確定移除?"
     },
     "signOut": "退出",
@@ -149,7 +149,7 @@
         "edit":"編輯",
         "remove":"移除",
         "enable":"啟動/關閉",
-        "comfirm":"您確定要",
+        "confirm":"您確定要",
         "create":"建立機器",
         "name":"機器名稱",
         "resInfo":"資源資訊",

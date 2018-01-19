@@ -35,7 +35,7 @@ class CreateTransaction extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comfirm: false,
+      confirm: false,
       loading: false,
       open: false,
       addValue: null,
@@ -79,19 +79,19 @@ class CreateTransaction extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={this.state.confirm ? 'OK' : t('common:submit')}
         secondary={true}
-        disabled={!this.state.comfirm && this.state.loading}
+        disabled={!this.state.confirm && this.state.loading}
         onTouchTap={this.handleSubmit}
       />,
     ];
@@ -122,7 +122,7 @@ class CreateTransaction extends React.Component {
             modal={true}
             open={this.state.open}
           >
-            {this.state.comfirm ? (
+            {this.state.confirm ? (
               <div>
                 <b>{t('common:updatedSuccess')}</b>
               </div>

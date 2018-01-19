@@ -140,6 +140,10 @@ const styles = {
   textCenter: {
     textAlign: 'center',
   },
+  extend: {
+    lineHeight: '36px',
+    margin: '0px',
+  },
 };
 
 class ReviewAvailableResource extends Component {
@@ -168,7 +172,7 @@ class ReviewAvailableResource extends Component {
                 accessor: 'resInfo',
                 id: 'resInfo',
                 Cell: data => (
-                  <div>
+                  <div style={{ padding: '3px 0px' }}>
                     <div
                       data-tip
                       data-for={`resDetail${data.original.id}`}
@@ -202,16 +206,35 @@ class ReviewAvailableResource extends Component {
               {
                 Header: t('common:machine.gpuAmount'),
                 accessor: 'amount',
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {data.original.amount}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:machine.createdAt'),
                 accessor: 'createdAt',
-                Cell: data => moment(data.original.createdAt).format('YYYY-MM-DD hh:mm'),
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {moment(data.original.createdAt).format('YYYY-MM-DD hh:mm')}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:machine.updatedAt'),
                 accessor: 'updatedAt',
-                Cell: data => moment(data.original.updatedAt).format('YYYY-MM-DD hh:mm'),
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {moment(data.original.updatedAt).format('YYYY-MM-DD hh:mm')}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:availableRes.edit'),

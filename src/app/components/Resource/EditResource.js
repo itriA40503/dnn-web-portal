@@ -101,7 +101,7 @@ class EditResource extends React.Component {
     this.state = {
       open: false,
       loading: false,
-      comfirm: false,
+      confirm: false,
       gpuType: null,
       machineType: null,
       value: null,
@@ -128,14 +128,14 @@ class EditResource extends React.Component {
       .then((response) => {
         console.log(response);
         if (response.ok) {
-          this.dummyAsync(() => this.setState({ comfirm: true }));
+          this.dummyAsync(() => this.setState({ confirm: true }));
         }
         return response.json();
       })
       .then((data) => {
         console.log(data);
         if (data.code !== undefined) {
-          this.setState({ open: false, loading: false, comfirm: false });
+          this.setState({ open: false, loading: false, confirm: false });
           this.props.someActions.errorNotify('ERROR : ' + data.message);
         }
         // this.setState({
@@ -194,7 +194,7 @@ class EditResource extends React.Component {
 
   handleSubmit = () => {
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
-    if (!this.state.comfirm) {
+    if (!this.state.confirm) {
       this.setState({
         loading: true,
       });
@@ -204,7 +204,7 @@ class EditResource extends React.Component {
       this.setState({
         open: false,
         loading: false,
-        comfirm: false,
+        confirm: false,
         gpuType: null,
         gpuAmount: null,
         value: null,
@@ -291,19 +291,19 @@ class EditResource extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={this.state.confirm ? 'OK' : t('common:submit')}
         secondary={true}
-        disabled={!this.state.comfirm && this.state.loading}
+        disabled={!this.state.confirm && this.state.loading}
         onTouchTap={this.handleSubmit}
       />,
     ];
@@ -332,7 +332,7 @@ class EditResource extends React.Component {
             modal={true}
             open={this.state.open}
           >
-            {this.state.comfirm ? (
+            {this.state.confirm ? (
               <div>
                 <b>{t('common:updatedSuccess')}</b>
               </div>

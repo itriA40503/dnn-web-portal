@@ -97,7 +97,7 @@ class CreateMachine extends React.Component {
     this.state = {
       open: false,
       loading: false,
-      comfirm: false,
+      confirm: false,
       resId: null,
       gpuAmount: null,
       name: null,
@@ -123,12 +123,12 @@ class CreateMachine extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          this.dummyAsync(() => this.setState({ comfirm: true }));
+          this.dummyAsync(() => this.setState({ confirm: true }));
         } else {
           this.setState({
             open: false,
             loading: false,
-            comfirm: false,
+            confirm: false,
             resId: null,
             gpuAmount: null,
             name: null,
@@ -159,7 +159,7 @@ class CreateMachine extends React.Component {
         this.setState({
           open: false,
           loading: false,
-          comfirm: false,
+          confirm: false,
           resId: null,
           gpuAmount: null,
           name: null,
@@ -198,7 +198,7 @@ class CreateMachine extends React.Component {
   };
   handleSubmit = () => {
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
-    if (!this.state.comfirm) {
+    if (!this.state.confirm) {
       this.setState({
         loading: true,
       });
@@ -208,7 +208,7 @@ class CreateMachine extends React.Component {
       this.setState({
         open: false,
         loading: false,
-        comfirm: false,
+        confirm: false,
         resId: null,
         gpuAmount: null,
         name: null,
@@ -276,19 +276,19 @@ class CreateMachine extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         style={
-          this.state.comfirm ? (
+          this.state.confirm ? (
             { color: 'white' }
           ) : (
             { color: muiStyle.palette.primary1Color }
           )
         }
-        disabled={this.state.comfirm || this.state.loading}
+        disabled={this.state.confirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={this.state.confirm ? 'OK' : t('common:submit')}
         secondary={true}
-        disabled={!this.state.comfirm && this.state.loading}
+        disabled={!this.state.confirm && this.state.loading}
         onTouchTap={this.handleSubmit}
       />,
     ];
@@ -321,7 +321,7 @@ class CreateMachine extends React.Component {
             modal={true}
             open={this.state.open}
           >
-            {this.state.comfirm ? (
+            {this.state.confirm ? (
               <div>
                 <b>{t('common:updatedSuccess')}</b>
               </div>

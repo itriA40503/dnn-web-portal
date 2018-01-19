@@ -82,7 +82,7 @@
     "clickEdit": "Click to edit",
     "remove": {
         "remove": "Remove",
-        "comfirmRemove": "Comfirm Remove",
+        "confirmRemove": "Confirm Remove",
         "warning": "Are you sure you want to remove this ?"
     },
     "signOut": "SignOut",
@@ -149,7 +149,7 @@
         "edit":"Edit",
         "remove":"Remove",
         "enable":"Enable/Disable",
-        "comfirm":"Do you want to",
+        "confirm":"Do you want to",
         "create":"Create Machine",
         "name":"Machine Name",
         "resInfo":"Resource Info",

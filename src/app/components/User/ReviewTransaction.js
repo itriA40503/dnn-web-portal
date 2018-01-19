@@ -68,6 +68,10 @@ const styles = {
   textCenter: {
     textAlign: 'center',
   },
+  extend: {
+    lineHeight: '36px',
+    margin: '0px',
+  },
 };
 
 class ReviewTransaction extends Component {
@@ -95,19 +99,46 @@ class ReviewTransaction extends Component {
               {
                 Header: t('common:transaction.id'),
                 accessor: 'id',
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {data.original.id}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:transaction.addValue'),
                 accessor: 'addValue',
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {data.original.addValue}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:transaction.info'),
                 accessor: 'info',
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {data.original.info}
+                    </p>
+                  </div>
+                ),
               },
               {
                 Header: t('common:transaction.createdAt'),
                 accessor: 'createdAt',
-                Cell: data => moment(data.original.createdAt).format('YYYY-MM-DD hh:mm'),
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {moment(data.original.createdAt).format('YYYY-MM-DD hh:mm')}
+                    </p>
+                  </div>
+                ),
               },
             ],
           },

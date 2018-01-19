@@ -74,7 +74,7 @@ class ReviewProject extends Component {
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={this.state.comfirm ? 'OK' : t('common:submit')}
+        label={this.state.confirm ? 'OK' : t('common:submit')}
         secondary={true}
         onTouchTap={this.handleSubmit}
       />,

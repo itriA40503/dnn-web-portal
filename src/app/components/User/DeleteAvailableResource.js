@@ -160,7 +160,6 @@ class DeleteAvailableResource extends React.Component {
     return (
       <div>
         <FlatButton
-          label=""
           style={{ color: redA700 }}
           fullWidth={true}
           data-tip
@@ -171,7 +170,7 @@ class DeleteAvailableResource extends React.Component {
         <Dialog
           title={
             <div>
-              <b>{t('common:remove.comfirmRemove')}</b>
+              <b>{t('common:remove.confirmRemove')}</b>
             </div>
           }
           actions={actions}

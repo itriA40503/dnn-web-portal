@@ -227,7 +227,9 @@ class EditAvailableResource extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <FlatButton
-            style={{ color: muiStyle.palette.primary1Color }}
+            style={{
+              color: muiStyle.palette.primary1Color,
+            }}
             data-tip
             data-for="availableResEdit"
             icon={<EditorModeEdit />}
