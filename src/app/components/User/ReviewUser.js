@@ -17,7 +17,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { muiStyle } from '../../myTheme';
 
 import UserCard from './UserCard';
-import { ApiGetAllResource } from '../../resource';
+import { ApiGetAllResources, ApiGetAllUsersDetail } from '../../resource';
 
 // fake data
 let fakeData = [
@@ -82,15 +82,17 @@ class ReviewUser extends Component {
     super(props);
     this.state = {
       resourceList: [],
+      userList: [],
     };
   }
 
   componentDidMount() {
-    this.getResourceApi();
+    this.getResourcesApi();
+    this.getUsersListApi();
   }
 
-  getResourceApi = () => {
-    const api = ApiGetAllResource;
+  getResourcesApi = () => {
+    const api = ApiGetAllResources;
     fetch(api, {
       method: 'get',
       headers: {
@@ -115,10 +117,46 @@ class ReviewUser extends Component {
         ReactGA.event({
           category: 'Notify',
           action: 'ERROR',
-          label: 'ERROR : Get Resource',
+          label: 'ERROR : Get Resources',
         });
         // this.props.someActions.errorNotify('ERROR : Review machine');
       });
+  }
+
+  getUsersListApi = () => {
+    const api = ApiGetAllUsersDetail;
+    fetch(api, {
+      method: 'get',
+      headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.code !== undefined) {
+          // this.props.someActions.errorNotify('ERROR : Get Resource Failed');
+        } else {
+          this.setState({
+            userList: data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Get Users',
+        });
+        // this.props.someActions.errorNotify('ERROR : Review machine');
+      });
+  }
+
+  refresh = () => {
+
   }
 
   render() {
@@ -140,7 +178,7 @@ class ReviewUser extends Component {
           </CardActions>
           <CardTitle title={t('common:user.review')} />
           <ExpandTransition loading={false} open={true}>
-            <Animated animationIn="slideInDown" isVisible={true}>
+            <Animated animationIn="fadeIn" isVisible={true}>
               <div style={{ margin: 'auto' }}>
                 <div style={{ margin: '0px calc(8% + 66px) 0px calc(8% + 16px)' }}>
                   <Row center="xs">
@@ -155,12 +193,13 @@ class ReviewUser extends Component {
                     </Col>
                   </Row>
                 </div>
-                {fakeData.map(user => (
+                {this.state.userList.map(user => (
                   <UserCard
                     styles={{ margin: '20px 8% 20px 8%' }}
                     token={this.props.token}
                     data={user}
                     list={this.state.resourceList}
+                    refresh={this.refresh}
                   />
                 ))}
               </div>

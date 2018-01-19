@@ -83,15 +83,24 @@ class ReviewTransaction extends Component {
       pageSize: 5,
       tableExpanded: [],
       resized: [],
-      filtered: [],
     };
   }
 
   renderTable = () => {
     const { t } = this.props;
-    return (
+    return this.props.data.length === 0 ? (
+      <div style={{ width: '100%', height: '250px' }}>
+        <h3 style={{
+            position: 'relative',
+            top: '30%',
+          }}
+        >
+          {t('noData')}
+        </h3>
+      </div>
+    ) : (
       <ReactTable
-        data={transactionData}
+        data={this.props.data}
         columns={[
           {
             Header: '',
@@ -165,14 +174,15 @@ class ReviewTransaction extends Component {
   }
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <Card zDepth={1}>
           <CardActions style={styles.actions}>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
-                <CreateTransaction />
+                <CreateTransaction
+                  token={this.props.token}
+                />
               </div>
             </div>
           </CardActions>

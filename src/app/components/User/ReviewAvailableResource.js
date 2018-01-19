@@ -160,9 +160,19 @@ class ReviewAvailableResource extends Component {
 
   renderTable = () => {
     const { t } = this.props;
-    return (
+    return this.props.data.length === 0 ? (
+      <div style={{ width: '100%', height: '250px' }}>
+        <h3 style={{
+            position: 'relative',
+            top: '30%',
+          }}
+        >
+          {t('noData')}
+        </h3>
+      </div>
+    ) : (
       <ReactTable
-        data={availableResource}
+        data={this.props.data}
         columns={[
           {
             Header: '',
@@ -241,7 +251,10 @@ class ReviewAvailableResource extends Component {
                 id: 'editAvailableResource',
                 width: 100,
                 Cell: data => (
-                  <EditAvailableResource data={data.original} />
+                  <EditAvailableResource
+                    data={data.original}
+                    token={this.props.token}
+                  />
                 ),
               },
               {
@@ -249,7 +262,10 @@ class ReviewAvailableResource extends Component {
                 id: 'deleteAvailableResource',
                 width: 100,
                 Cell: data => (
-                  <DeleteAvailableResource data={data.original} />
+                  <DeleteAvailableResource
+                    data={data.original}
+                    token={this.props.token}
+                  />
                 ),
               },
             ],
@@ -277,7 +293,6 @@ class ReviewAvailableResource extends Component {
   }
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         <Card zDepth={1}>

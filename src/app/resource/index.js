@@ -25,14 +25,18 @@ export const ApiGetHistory = ApiURL + '/user/schedules/history';
 export const ApiGetImage = ApiURL + '/images/';
 export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machines/';
-// for admin api
+
+// User
+export const ApiGetAllUsersDetail = ApiURL + '/admin/users/detail/';
+
+// Machine
 export const ApiGetAllMachine = ApiURL + '/admin/machines/';
 export const ApiRemoveMachine = ApiURL + '/admin/machine/';
 export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
 
-//
-export const ApiGetAllResource = ApiURL + '/admin/resources/';
+// Resource
+export const ApiGetAllResources = ApiURL + '/admin/resources/';
 export const ApiRemoveResource = ApiURL + '/admin/resource/';
 export const ApiPutResource = ApiURL + '/admin/resource/';
 export const ApiCreateResource = ApiURL + '/admin/resource/';

@@ -21,7 +21,7 @@ import CreateResource from './CreateResource';
 import EditResource from './EditResource';
 import DeleteResource from './DeleteResource';
 
-import { ApiGetAllResource, valueUnitTypeList } from '../../resource';
+import { ApiGetAllResources, valueUnitTypeList } from '../../resource';
 
 // style
 import { muiStyle } from '../../myTheme';
@@ -79,7 +79,7 @@ class ReviewResource extends Component {
 
   getData = async () => {
     // this.setState({ loading: true });
-    let resData = await fetch(ApiGetAllResource, {
+    let resData = await fetch(ApiGetAllResources, {
       method: 'get',
       headers: {
         'x-access-token': this.props.token,

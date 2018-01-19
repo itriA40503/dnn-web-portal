@@ -188,7 +188,8 @@
             "admin":"Admin",
             "regular":"Regular",
             "unknown":"Unknown"
-        }
+        },
+        "noData":"Data Not Yet Available"
     },
     "transaction":{
         "name":"Transaction",

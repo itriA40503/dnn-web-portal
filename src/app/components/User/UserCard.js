@@ -91,7 +91,11 @@ class UserCard extends Component {
                     value={0}
                     style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold' }}
                   >
-                    <ReviewTransaction />
+                    <ReviewTransaction
+                      token={this.props.token}
+                      data={this.props.data.transactions}
+                      refresh={this.props.refresh}
+                    />
                   </Tab>
                   <Tab
                     label={t('common:availableRes.name')}
@@ -99,7 +103,10 @@ class UserCard extends Component {
                     style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold'}}
                   >
                     <ReviewAvailableResource
+                      token={this.props.token}
                       list={this.props.list}
+                      data={this.props.data.availableRes}
+                      refresh={this.props.refresh}
                     />
                   </Tab>
                 </Tabs>

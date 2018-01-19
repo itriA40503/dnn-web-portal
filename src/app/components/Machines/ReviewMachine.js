@@ -12,7 +12,7 @@ import ReactGA from 'react-ga';
 // i18n
 import { translate } from 'react-i18next';
 
-import { valueUnitTypeList, getMachines, ApiGetAllResource } from '../../resource';
+import { valueUnitTypeList, getMachines, ApiGetAllResources } from '../../resource';
 // Animation
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
@@ -88,7 +88,7 @@ class ReviewMachine extends Component {
   }
 
   getResourceApi = () => {
-    const api = ApiGetAllResource;
+    const api = ApiGetAllResources;
     fetch(api, {
       method: 'get',
       headers: {

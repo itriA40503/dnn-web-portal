@@ -188,7 +188,8 @@
             "admin":"系統管理者",
             "regular":"一般使用者",
             "unknown":"未知使用者"
-        }
+        },
+        "noData":"目前還沒有資料"
     },
     "transaction":{
         "name":"交易",
