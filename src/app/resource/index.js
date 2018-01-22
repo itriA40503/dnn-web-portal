@@ -28,6 +28,7 @@ export const ApiGetMachine = ApiURL + '/machines/';
 
 // User
 export const ApiGetAllUsersDetail = ApiURL + '/admin/users/detail/';
+export const ApiCreateTransaction = id => `${ApiURL}/admin/user/${id}/transaction`;
 
 // Machine
 export const ApiGetAllMachine = ApiURL + '/admin/machines/';

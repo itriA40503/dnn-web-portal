@@ -331,6 +331,7 @@ class EditMachine extends React.Component {
     );
   }
 }
+
 function matchDispatchToProps(dispatch) {
   return { dispatch, someActions: bindActionCreators({ errorNotify, getMachineData }, dispatch) };
 }

@@ -94,6 +94,7 @@ class UserCard extends Component {
                     <ReviewTransaction
                       token={this.props.token}
                       data={this.props.data.transactions}
+                      who={this.props.data.id}
                       refresh={this.props.refresh}
                     />
                   </Tab>

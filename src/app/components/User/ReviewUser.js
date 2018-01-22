@@ -83,6 +83,7 @@ class ReviewUser extends Component {
     this.state = {
       resourceList: [],
       userList: [],
+      isVisible: true,
     };
   }
 
@@ -155,8 +156,13 @@ class ReviewUser extends Component {
       });
   }
 
-  refresh = () => {
-
+  refresh = async () => {
+    this.asyncTimer = await setTimeout(() => this.setState({ isVisible: false }), 10);
+    this.asyncTimer = await setTimeout(() => {
+      this.setState({ isVisible: true });
+      this.getResourcesApi();
+      this.getUsersListApi();
+    }, 700);
   }
 
   render() {
@@ -171,14 +177,14 @@ class ReviewUser extends Component {
                   label={t('common:refresh')}
                   style={{ color: muiStyle.palette.primary1Color }}
                   icon={<NavigationRefresh />}
-                  onTouchTap={() => {}}
+                  onTouchTap={this.refresh}
                 />
               </div>
             </div>
           </CardActions>
           <CardTitle title={t('common:user.review')} />
           <ExpandTransition loading={false} open={true}>
-            <Animated animationIn="fadeIn" isVisible={true}>
+            <Animated animationIn="fadeIn" isVisible={this.state.isVisible}>
               <div style={{ margin: 'auto' }}>
                 <div style={{ margin: '0px calc(8% + 66px) 0px calc(8% + 16px)' }}>
                   <Row center="xs">

@@ -182,6 +182,8 @@ class ReviewTransaction extends Component {
               <div style={{ display: 'inline-block' }}>
                 <CreateTransaction
                   token={this.props.token}
+                  who={this.props.who}
+                  refresh={this.props.refresh}
                 />
               </div>
             </div>

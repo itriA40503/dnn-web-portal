@@ -12,6 +12,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { errorNotify } from '../../redux/Notify/actionNotify';
 import ReactTooltip from 'react-tooltip';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -29,7 +30,7 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../../myTheme';
 
-import { ApiCreateResource } from '../../resource';
+import { ApiCreateTransaction } from '../../resource';
 
 class CreateTransaction extends React.Component {
   constructor(props) {
@@ -44,12 +45,15 @@ class CreateTransaction extends React.Component {
   }
 
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      info: 'add value',
+    });
     // GA
     ReactGA.event({
       category: 'CreateMachine',
       action: 'open',
-      label: this.props.data.label,
+      // label: this.props.data.label,
     });
   };
 
@@ -63,12 +67,103 @@ class CreateTransaction extends React.Component {
     ReactGA.event({
       category: 'CreateMachine',
       action: 'close',
-      label: this.props.data.label,
+      // label: this.props.data.label,
+    });
+  };
+
+  createTransactionApi = () => {
+    const api = ApiCreateTransaction(this.props.who);
+    const { addValue, info } = this.state;
+    fetch(api, {
+      method: 'post',
+      headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        userId: this.props.who.toString(),
+        addValue: addValue,
+        info: info, 
+      }),
+      // body:data
+    })
+      .then((response) => {
+        // console.log(response)
+        if (response.ok) {
+          this.dummyAsync(() => this.setState({ confirm: true }));
+        } else {
+          this.setState({
+            open: false,
+            loading: false,
+            confirm: false,
+            addValue: null,
+            info: null,
+          });
+          this.props.someActions.errorNotify('ERROR : Create Transaction');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data:' + data);
+        if (data.code !== undefined) {
+          this.setState({ open: false, loading: false, confirm: false });
+          this.props.someActions.errorNotify(`ERROR : ${data.message}`);
+        }
+        this.setState({
+          addValue: null,
+          info: null,
+        });
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Create Transaction',
+        });
+        this.props.someActions.errorNotify('ERROR : Create Transaction');
+        this.setState({
+          open: false,
+          loading: false,
+          confirm: false,
+          addValue: null,
+          info: null,
+        });
+      });
+  }
+
+  dummyAsync = (cb) => {
+    this.setState({ loading: true }, () => {
+      this.asyncTimer = setTimeout(cb, 800);
     });
   };
 
   handleSubmit = () => {
-
+    if (!this.state.confirm) {
+      this.setState({
+        loading: true,
+      });
+      this.createTransactionApi();
+    } else {
+      // console.log('refresh')
+      this.setState({
+        open: false,
+        loading: false,
+        confirm: false,
+        addValue: null,
+        info: null,
+      });
+      // refresh
+      this.props.refresh();
+      // GA
+      ReactGA.event({
+        category: 'CreateModal',
+        action: 'created',
+        // label: this.props.data.id,
+      });
+    }
   }
 
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
@@ -147,7 +242,7 @@ class CreateTransaction extends React.Component {
                       </div>
                       <div style={{ display: 'inline-block' }}>
                         <TextField
-                          name="value"
+                          name="addValue"
                           floatingLabelText={t('common:transaction.addValue')}
                           onChange={this.handleChange}
                           value={this.state.addValue}
@@ -166,10 +261,11 @@ class CreateTransaction extends React.Component {
                       </div>
                       <div style={{ display: 'inline-block' }}>
                         <TextField
-                          name="value"
+                          name="info"
                           floatingLabelText={t('common:transaction.info')}
                           onChange={this.handleChange}
                           value={this.state.info}
+                          defaultValue={'add value'}
                           underlineFocusStyle={{
                             borderColor: muiStyle.palette.primary1Color,
                           }}
@@ -187,4 +283,8 @@ class CreateTransaction extends React.Component {
   }
 }
 
-export default translate('')(CreateTransaction);
+function matchDispatchToProps(dispatch) {
+  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
+}
+
+export default connect(null, matchDispatchToProps)(translate('')(CreateTransaction));

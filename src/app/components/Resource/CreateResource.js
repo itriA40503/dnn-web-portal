@@ -91,7 +91,7 @@ class CreateResource extends React.Component {
     };
   }
 
-  createDateApi = () => {
+  createResourceApi = () => {
     const api = ApiCreateResource;
     const { gpuType, machineType, value, valueUnit } = this.state;
     console.log(gpuType, machineType, value, valueUnit);
@@ -197,7 +197,7 @@ class CreateResource extends React.Component {
       this.setState({
         loading: true,
       });
-      this.createDateApi();
+      this.createResourceApi();
     } else {
       // console.log('refresh')
       this.setState({
@@ -212,9 +212,9 @@ class CreateResource extends React.Component {
       this.props.refresh();
       // GA
       ReactGA.event({
-        category: 'EditModal',
-        action: 'edited',
-        label: this.props.data.id,
+        category: 'CreateModal',
+        action: 'created',
+        // label: this.props.data.id,
       });
     }
   };

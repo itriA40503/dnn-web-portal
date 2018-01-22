@@ -5,12 +5,15 @@ import { connect } from 'react-redux';
 // Import React Table
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+// GA
+import ReactGA from 'react-ga';
 // i18n
 import { translate } from 'react-i18next';
 // Animation
 import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 
+import { errorNotify } from '../../redux/Notify/actionNotify';
 import GpuHandler from '../Handler/GpuHandler';
 import MachineHandler from '../Handler/MachineHandler';
 import FlatButton from 'material-ui/FlatButton';
@@ -74,27 +77,56 @@ class ReviewResource extends Component {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getResourcesApi();
   }
 
-  getData = async () => {
+  getResourcesApi = async () => {
     // this.setState({ loading: true });
-    let resData = await fetch(ApiGetAllResources, {
+    // let resData = await fetch(ApiGetAllResources, {
+    //   method: 'get',
+    //   headers: {
+    //     'x-access-token': this.props.token,
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //   },
+    // }).then(res => res.json());
+
+    // this.setState({ data: resData });
+
+    const api = ApiGetAllResources;
+    fetch(api, {
       method: 'get',
       headers: {
         'x-access-token': this.props.token,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-    }).then(res => res.json());
-    this.setState({ data: resData });
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.code !== undefined) {
+          this.props.someActions.errorNotify(`ERROR : ${data.message}`);
+        } else {
+          this.setState({ data: data });
+        }
+      })
+      .catch((err) => {
+        console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Get Resource',
+        });
+        this.props.someActions.errorNotify('ERROR : Review Resources');
+      });
   }
 
   refresh = async () => {
     this.asyncTimer = await setTimeout(() => this.setState({ isVisible: false }), 10);
     this.asyncTimer = await setTimeout(() => {
       this.setState({ isVisible: true });
-      this.getData();
+      this.getResourcesApi();
     }, 700);
   }
 
@@ -138,7 +170,7 @@ class ReviewResource extends Component {
                   <EditResource
                     token={this.props.token}
                     data={data.original}
-                    refresh={this.getData}
+                    refresh={this.getResourcesApi}
                   />),
               },
               {
@@ -216,5 +248,8 @@ class ReviewResource extends Component {
   }
 }
 
+function matchDispatchToProps(dispatch) {
+  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
+}
 
-export default translate('')(ReviewResource);
+export default connect(null, matchDispatchToProps)(translate('')(ReviewResource));

@@ -136,7 +136,7 @@ class EditResource extends React.Component {
         console.log(data);
         if (data.code !== undefined) {
           this.setState({ open: false, loading: false, confirm: false });
-          this.props.someActions.errorNotify('ERROR : ' + data.message);
+          this.props.someActions.errorNotify(`ERROR : ${data.message}`);
         }
         // this.setState({
         //   loading: false,

@@ -121,10 +121,12 @@ class ReviewMachine extends Component {
 
   refresh = async () => {
     // const { machineData } = this.props;
-    await getMachines(this.props.dispatch, this.props.token);
     this.asyncTimer = await setTimeout(() => this.setState({ isVisible: false }), 10);
-    this.asyncTimer = await setTimeout(() => this.setState({ isVisible: true }), 700);
-    this.getResourceApi();
+    this.asyncTimer = await setTimeout(() => {
+      this.setState({ isVisible: true });
+      getMachines(this.props.dispatch, this.props.token);
+      this.getResourceApi();
+    }, 700);
   }
 
   renderTable = () => {
@@ -211,6 +213,7 @@ class ReviewMachine extends Component {
                     token={this.props.token}
                     data={data.original}
                     list={this.state.resourceList}
+                    refresh={this.refresh}
                   />
                 ),
               },
