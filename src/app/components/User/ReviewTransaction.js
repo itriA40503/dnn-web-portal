@@ -95,7 +95,7 @@ class ReviewTransaction extends Component {
             top: '30%',
           }}
         >
-          {t('noData')}
+          {t('common:user.noData')}
         </h3>
       </div>
     ) : (
