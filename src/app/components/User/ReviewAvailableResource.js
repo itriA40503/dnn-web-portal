@@ -24,110 +24,7 @@ import CreateAvailableResource from './CreateAvailableResource';
 import EditAvailableResource from './EditAvailableResource';
 import DeleteAvailableResource from './DeleteAvailableResource';
 
-let availableResource = [
-  {
-    id: '3',
-    resId: '1',
-    amount: 2,
-    createdAt: '2017-12-25T06:52:55.634Z',
-    updatedAt: '2017-12-25T06:52:55.632Z',
-    deletedAt: '2017-12-25T07:20:45.000Z',
-    resInfo: {
-      id: '1',
-      gpuType: '780',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:32:43.884Z',
-      updatedAt: '2017-12-22T08:18:20.429Z',
-    },
-  },
-  {
-    id: '4',
-    resId: '1',
-    amount: 2,
-    createdAt: '2017-12-25T07:06:17.940Z',
-    updatedAt: '2017-12-25T07:06:17.926Z',
-    deletedAt: '2017-12-25T07:20:48.000Z',
-    resInfo: {
-      id: 1,
-      gpuType: '780',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:32:43.884Z',
-      updatedAt: '2017-12-22T08:18:20.429Z',
-    },
-  },
-  {
-    id: '5',
-    resId: '1',
-    amount: 2,
-    createdAt: '2017-12-25T07:07:52.219Z',
-    updatedAt: '2017-12-25T07:07:52.199Z',
-    deletedAt: '2017-12-25T07:20:50.000Z',
-    resInfo: {
-      id: '1',
-      gpuType: '780',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:32:43.884Z',
-      updatedAt: '2017-12-22T08:18:20.429Z',
-    },
-  },
-  {
-    id: '2',
-    resId: '1',
-    amount: 2,
-    createdAt: '2017-12-25T06:52:43.400Z',
-    updatedAt: '2017-12-25T06:52:43.397Z',
-    deletedAt: '2017-12-25T07:20:58.000Z',
-    resInfo: {
-      id: '1',
-      gpuType: '780',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:32:43.884Z',
-      updatedAt: '2017-12-22T08:18:20.429Z',
-    },
-  },
-  {
-    id: '6',
-    resId: '3',
-    amount: 6,
-    createdAt: '2017-12-25T07:22:43.469Z',
-    updatedAt: '2017-12-25T08:17:31.556Z',
-    deletedAt: '2017-12-25T08:17:31.000Z',
-    resInfo: {
-      id: '3',
-      gpuType: '1080',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:33:10.413Z',
-      updatedAt: '2017-12-22T03:37:11.982Z',
-    },
-  },
-  {
-    id: '7',
-    resId: '3',
-    amount: 6,
-    createdAt: '2017-12-25T08:18:02.825Z',
-    updatedAt: '2017-12-25T08:18:02.822Z',
-    deletedAt: null,
-    resInfo: {
-      id: '3',
-      gpuType: '1080',
-      machineType: 'x86',
-      valueUnit: 'd',
-      value: 10,
-      createdAt: '2017-12-22T03:33:10.413Z',
-      updatedAt: '2017-12-22T03:37:11.982Z',
-    },
-  },
-];
+import { valueUnitTypeList } from '../../resource';
 
 const styles = {
   actions: {
@@ -220,6 +117,18 @@ class ReviewAvailableResource extends Component {
                   <div>
                     <p style={styles.extend}>
                       {data.original.amount}
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                Header: t('common:availableRes.total'),
+                Cell: data => (
+                  <div>
+                    <p style={styles.extend}>
+                      {
+                        `${data.original.amount * data.original.resInfo.value} / ${t(valueUnitTypeList.filter(v => v.abbr === data.original.resInfo.valueUnit)[0].locale)}`
+                      }
                     </p>
                   </div>
                 ),

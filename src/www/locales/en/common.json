@@ -205,6 +205,7 @@
         "create":"Create Available Resource",
         "update":"Edit Available Resource",
         "edit":"Edit",
-        "remove":"Remove"
+        "remove":"Remove",
+        "total":"Total Fee"
     }
 }
