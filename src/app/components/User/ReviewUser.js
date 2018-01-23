@@ -18,6 +18,7 @@ import { muiStyle } from '../../myTheme';
 
 import UserCard from './UserCard';
 import { ApiGetAllResources, ApiGetAllUsersDetail } from '../../resource';
+import CreateUser from './CreateUser';
 
 // fake data
 let fakeData = [
@@ -173,6 +174,12 @@ class ReviewUser extends Component {
           <CardActions style={styles.actions}>
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
+                <CreateUser
+                  token={this.props.token}
+                  refresh={this.refresh}
+                />
+              </div>
+              <div style={{ display: 'inline-block' }}>
                 <FlatButton
                   label={t('common:refresh')}
                   style={{ color: muiStyle.palette.primary1Color }}
@@ -183,6 +190,8 @@ class ReviewUser extends Component {
             </div>
           </CardActions>
           <CardTitle title={t('common:user.review')} />
+          <br />
+          <br />
           <ExpandTransition loading={false} open={true}>
             <Animated animationIn="fadeIn" isVisible={this.state.isVisible}>
               <div style={{ margin: 'auto' }}>
@@ -192,7 +201,7 @@ class ReviewUser extends Component {
                       {t('common:user.typeId')}
                     </Col>
                     <Col xs>
-                      {t('common:user.itirID')}
+                      {t('common:user.itriID')}
                     </Col>
                     <Col xs>
                       {t('common:user.id')}

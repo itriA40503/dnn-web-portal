@@ -183,7 +183,8 @@
         "review":"User Information",
         "typeId":"Privilege",
         "id":"User ID",
-        "itirID":"ITRI ID",
+        "itriID":"ITRI ID",
+        "create":"Create User",
         "type":{
             "admin":"Admin",
             "regular":"Regular",
