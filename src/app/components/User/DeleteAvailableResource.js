@@ -16,9 +16,10 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
 import CircularProgress from 'material-ui/CircularProgress';
+import { errorNotify } from '../../redux/Notify/actionNotify';
 import { List, ListItem } from 'material-ui/List';
 
-import { ApiRemoveResource } from '../../resource';
+import { ApiRemoveAvailableResource } from '../../resource';
 
 // style
 import { muiStyle } from '../../myTheme';
@@ -58,21 +59,21 @@ class DeleteAvailableResource extends React.Component {
   handleOpen = () => {
     this.setState({ open: true });
     // GA
-    // ReactGA.event({
-    //   category: 'DeleteResource',
-    //   action: 'open',
-    //   label: this.props.data.id,
-    // });
+    ReactGA.event({
+      category: 'DeleteAvailableResource',
+      action: 'open',
+      // label: this.props.data.id,
+    });
   };
 
   handleClose = () => {
     this.setState({ open: false });
     // GA
-    // ReactGA.event({
-    //   category: 'DeleteResource',
-    //   action: 'close',
-    //   label: this.props.data.id,
-    // });
+    ReactGA.event({
+      category: 'DeleteAvailableResource',
+      action: 'close',
+      // label: this.props.data.id,
+    });
   };
 
   dummyAsync = (cb) => {
@@ -86,7 +87,9 @@ class DeleteAvailableResource extends React.Component {
       this.setState({
         loading: true,
       });
-      const api = ApiRemoveResource + this.props.data.id;
+      const userId = this.props.who;
+      const availResId = this.props.data.id;
+      const api = ApiRemoveAvailableResource(userId, availResId);
       fetch(api, {
         method: 'delete',
         headers: {
@@ -127,7 +130,7 @@ class DeleteAvailableResource extends React.Component {
       // getMachines(this.props.dispatch, this.props.token);
       // GA
       ReactGA.event({
-        category: 'DeleteResource',
+        category: 'DeleteAvailableResource',
         action: 'deleted',
         label: this.props.data.label,
       });
@@ -153,7 +156,7 @@ class DeleteAvailableResource extends React.Component {
         label={t('common:submit')}
         secondary={true}
         disabled={this.state.loading}
-        onTouchTap={() => {}}
+        onTouchTap={this.handleSubmit}
       />,
     ];
     // console.log(this.props.data);
@@ -204,7 +207,7 @@ class DeleteAvailableResource extends React.Component {
                       secondaryText={data.resId}
                     />
                     <ListItem
-                      primaryText={<b>{t('common:resource.gpu')} </b>}
+                      primaryText={<b>{t('common:machine.gpuAmount')} </b>}
                       secondaryText={data.amount}
                     />
                     <Divider />
@@ -219,4 +222,9 @@ class DeleteAvailableResource extends React.Component {
   }
 }
 
-export default translate('')(DeleteAvailableResource);
+
+function matchDispatchToProps(dispatch) {
+  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
+}
+
+export default connect(null, matchDispatchToProps)(translate('')(DeleteAvailableResource));

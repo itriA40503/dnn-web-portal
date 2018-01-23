@@ -18,7 +18,6 @@ import Divider from 'material-ui/Divider';
 import CircularProgress from 'material-ui/CircularProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
 import { errorNotify } from '../../redux/Notify/actionNotify';
 
 // ICON
@@ -67,7 +66,6 @@ class EditAvailableResource extends React.Component {
       loading: false,
       confirm: false,
       amount: null,
-      resId: null,
     };
   }
 
@@ -83,8 +81,6 @@ class EditAvailableResource extends React.Component {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        availResId: availResId,
-        userId: userId,
         resId: this.props.data.resId,
         amount: this.state.amount,
       }),
@@ -142,7 +138,6 @@ class EditAvailableResource extends React.Component {
     this.setState({
       open: false,
       amount: null,
-      resId: null,
     });
     // GA
     ReactGA.event({
@@ -166,7 +161,6 @@ class EditAvailableResource extends React.Component {
         loading: false,
         confirm: false,
         amount: null,
-        resId: null,
       });
       this.props.refresh();
       // GA

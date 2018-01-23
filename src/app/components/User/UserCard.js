@@ -49,6 +49,8 @@ class UserCard extends Component {
 
   handleActive = tab => this.setState({ slideIndex: tab.props.index });
 
+  eliminateDelete = data => data.filter(elem => elem.deletedAt === null);
+
   render() {
     const { t, data } = this.props;
     return (
@@ -111,7 +113,7 @@ class UserCard extends Component {
                     <ReviewAvailableResource
                       token={this.props.token}
                       list={this.props.list}
-                      data={this.props.data.availableRes}
+                      data={this.eliminateDelete(this.props.data.availableRes)}
                       who={this.props.data.id}
                       refresh={this.props.refresh}
                     />
