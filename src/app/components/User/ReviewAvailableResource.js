@@ -254,6 +254,8 @@ class ReviewAvailableResource extends Component {
                   <EditAvailableResource
                     data={data.original}
                     token={this.props.token}
+                    who={this.props.who}
+                    refresh={this.props.refresh}
                   />
                 ),
               },
@@ -265,6 +267,8 @@ class ReviewAvailableResource extends Component {
                   <DeleteAvailableResource
                     data={data.original}
                     token={this.props.token}
+                    who={this.props.who}
+                    refresh={this.props.refresh}
                   />
                 ),
               },
@@ -300,7 +304,10 @@ class ReviewAvailableResource extends Component {
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
                 <CreateAvailableResource
+                  token={this.props.token}
                   list={this.props.list}
+                  refresh={this.props.refresh}
+                  who={this.props.who}
                 />
               </div>
             </div>

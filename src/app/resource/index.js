@@ -27,8 +27,12 @@ export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machines/';
 
 // User
+export const ApiCreateUser = `${ApiURL}/admin/user/`;
 export const ApiGetAllUsersDetail = ApiURL + '/admin/users/detail/';
 export const ApiCreateTransaction = id => `${ApiURL}/admin/user/${id}/transaction`;
+export const ApiCreateAvailableResource = id => `${ApiURL}/admin/user/${id}/resource`;
+export const ApiPutAvailableResource = (userId, availResId) => `${ApiURL}/admin/user/${userId}/resource/${availResId}`;
+export const ApiDeleteAvailableResource = (userId, availResId) => `${ApiURL}/admin/user/${userId}/resource/${availResId}`;
 
 // Machine
 export const ApiGetAllMachine = ApiURL + '/admin/machines/';

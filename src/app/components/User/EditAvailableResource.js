@@ -29,7 +29,7 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../../myTheme';
 
-import { gpuAmountList } from '../../resource';
+import { gpuAmountList, ApiPutAvailableResource } from '../../resource';
 
 /**
   Edit endDate of the instance
@@ -66,13 +66,15 @@ class EditAvailableResource extends React.Component {
       open: false,
       loading: false,
       confirm: false,
-      gpuAmount: null,
+      amount: null,
       resId: null,
     };
   }
 
   editAvailableResourceApi = () => {
-    const api = '';//ApiPutResource + this.props.data.id;
+    const userId = this.props.who;
+    const availResId = this.props.data.id;
+    const api = ApiPutAvailableResource(userId, availResId);
     fetch(api, {
       method: 'put',
       headers: {
@@ -81,10 +83,10 @@ class EditAvailableResource extends React.Component {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        gpuType: this.state.gpuType,
-        machinType: this.state.gpuAmount,
-        value: this.state.value.toString(),
-        valueUnit: this.state.valueUnit,
+        availResId: availResId,
+        userId: userId,
+        resId: this.props.data.resId,
+        amount: this.state.amount,
       }),
     })
       .then((response) => {
@@ -125,7 +127,7 @@ class EditAvailableResource extends React.Component {
   handleOpen = () => {
     this.setState({
       open: true,
-      gpuAmount: this.props.data.amount.toString(),
+      amount: this.props.data.amount.toString(),
       resId: this.props.data.resId,
     });
     // GA
@@ -139,7 +141,7 @@ class EditAvailableResource extends React.Component {
   handleClose = () => {
     this.setState({
       open: false,
-      gpuAmount: null,
+      amount: null,
       resId: null,
     });
     // GA
@@ -156,17 +158,17 @@ class EditAvailableResource extends React.Component {
       this.setState({
         loading: true,
       });
-      // this.editResourceApi();
+      this.editAvailableResourceApi();
     } else {
       // console.log('refresh')
       this.setState({
         open: false,
         loading: false,
         confirm: false,
-        gpuAmount: null,
+        amount: null,
         resId: null,
       });
-      // this.props.refresh();
+      this.props.refresh();
       // GA
       ReactGA.event({
         category: 'EditModal',
@@ -177,7 +179,7 @@ class EditAvailableResource extends React.Component {
 
   handleChange = (event, value) => this.setState({ [event.target.name]: value });
 
-  gpuAmountSelect = (event, index, value) => this.setState({ gpuAmount: value })
+  gpuAmountSelect = (event, index, value) => this.setState({ amount: value })
 
   renderGpuAmount = () => {
     const { t } = this.props;
@@ -185,7 +187,7 @@ class EditAvailableResource extends React.Component {
       <SelectField
         floatingLabelText={t('common:machine.gpuAmount')}
         onChange={this.gpuAmountSelect}
-        value={this.state.gpuAmount}
+        value={this.state.amount}
       >
         {gpuAmountList.map(type => (
           <MenuItem

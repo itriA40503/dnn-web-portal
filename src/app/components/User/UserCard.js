@@ -47,6 +47,8 @@ class UserCard extends Component {
 
   handleTabChange = value => this.setState({ slideIndex: value });
 
+  handleActive = tab => this.setState({ slideIndex: tab.props.index });
+
   render() {
     const { t, data } = this.props;
     return (
@@ -85,11 +87,13 @@ class UserCard extends Component {
                   onChang={this.handleTabChange}
                   value={this.state.slideIndex}
                   tabItemContainerStyle={{ backgroundColor: 'white' }}
+                  initialSelectedIndex={this.state.slideIndex}
                 >
                   <Tab
                     label={t('common:transaction.name')}
                     value={0}
                     style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold' }}
+                    onActive={this.handleActive}
                   >
                     <ReviewTransaction
                       token={this.props.token}
@@ -101,12 +105,14 @@ class UserCard extends Component {
                   <Tab
                     label={t('common:availableRes.name')}
                     value={1}
-                    style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold'}}
+                    style={{ color: muiStyle.palette.primary1Color, fontWeight: 'bold' }}
+                    onActive={this.handleActive}
                   >
                     <ReviewAvailableResource
                       token={this.props.token}
                       list={this.props.list}
                       data={this.props.data.availableRes}
+                      who={this.props.data.id}
                       refresh={this.props.refresh}
                     />
                   </Tab>
