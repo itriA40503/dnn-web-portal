@@ -196,6 +196,7 @@
         "name":"Transaction",
         "create":"Create Transaction",
         "id":"Transaction ID",
+        "remain":"The Remaining Value",
         "addValue":"Add Value",
         "info":"Information",
         "createdAt":"Created At"

@@ -19,44 +19,6 @@ import { CardTitle } from 'material-ui';
 
 import CreateTransaction from './CreateTransaction';
 
-let transactionData = [
-  {
-    id: '5',
-    userId: '2',
-    addValue: -110,
-    info: 'add value',
-    createdAt: '2017-12-27T02:25:41.478Z',
-  },
-  {
-    id: '4',
-    userId: '2',
-    addValue: 10,
-    info: 'add value',
-    createdAt: '2017-12-27T02:25:23.063Z',
-  },
-  {
-    id: '3',
-    userId: '2',
-    addValue: 10,
-    info: 'add value',
-    createdAt: '2017-12-27T00:56:29.810Z',
-  },
-  {
-    id: '2',
-    userId: '2',
-    addValue: -9,
-    info: 'add value',
-    createdAt: '2017-12-26T03:47:10.516Z',
-  },
-  {
-    id: '1',
-    userId: '2',
-    addValue: 999,
-    info: 'add value',
-    createdAt: '2017-12-26T03:45:53.791Z',
-  },
-];
-
 const styles = {
   actions: {
     zIndex: 2,
@@ -174,6 +136,7 @@ class ReviewTransaction extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div>
         <Card zDepth={1}>

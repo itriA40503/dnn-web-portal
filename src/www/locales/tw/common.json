@@ -196,6 +196,7 @@
         "name":"交易",
         "create":"建立交易",
         "id":"交易 ID",
+        "remain":"目前剩餘額度",
         "addValue":"加值額度",
         "info":"訊息",
         "createdAt":"建立時間"

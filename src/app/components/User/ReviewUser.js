@@ -201,6 +201,9 @@ class ReviewUser extends Component {
                       {t('common:user.typeId')}
                     </Col>
                     <Col xs>
+                      {t('common:transaction.remain')}
+                    </Col>
+                    <Col xs>
                       {t('common:user.itriID')}
                     </Col>
                     <Col xs>

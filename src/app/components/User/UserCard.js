@@ -43,6 +43,8 @@ class UserCard extends Component {
     };
   }
 
+  valueCount = data => data.map(e => e.addValue).reduce((a, b) => a + b, 0);
+
   handleExpandChange = value => this.setState({ expanded: value });
 
   handleTabChange = value => this.setState({ slideIndex: value });
@@ -64,6 +66,13 @@ class UserCard extends Component {
               <Row center="xs">
                 <Col xs>
                   <UserTypeHandler user={data.typeId} />
+                </Col>
+                <Col xs>
+                  {
+                    <p style={{ margin: '5px' }}>
+                      {this.valueCount(data.transactions)}
+                    </p>
+                  }
                 </Col>
                 <Col xs>
                   {
