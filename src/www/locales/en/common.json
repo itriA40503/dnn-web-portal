@@ -38,6 +38,20 @@
     "machineDesc": "Machine description",
     "account": "Account",
     "project": "Project Number",
+    "createProc": {
+        "proc1": "Select Resource Type",
+        "proc2": "Select Date Range",
+        "proc3": "Setup an Image",
+        "proc4": "confirm All Setting",
+        "back": "Back",
+        "next": "Next",
+        "confirm": "Confirm your scheduled setting !",
+        "finish": "Finish",
+        "create": "Create Schedule",
+        "availAmnt": "Available GPU Amount",
+        "availRsrc": "Available GPU Type",
+        "availDays": "This Resources Totally Available Days"
+    },
     "createStep": {
         "step1": "Select Date Range",
         "step2": "Setting Machine & Image",

@@ -27,6 +27,11 @@ export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machines/';
 
 // User
+export const ApiGetUserResources = `${ApiURL}/user/resources/`;
+export const ApiGetUserResourceRemind = `${ApiURL}/user/resource/remind`;
+export const ApiGetUserResourceCalendar = `${ApiURL}/user/resource/calendar`;
+
+// Admin User
 export const ApiCreateUser = `${ApiURL}/admin/user/`;
 export const ApiGetAllUsersDetail = ApiURL + '/admin/users/detail/';
 export const ApiCreateTransaction = id => `${ApiURL}/admin/user/${id}/transaction`;
@@ -34,13 +39,13 @@ export const ApiCreateAvailableResource = id => `${ApiURL}/admin/user/${id}/reso
 export const ApiPutAvailableResource = (userId, availResId) => `${ApiURL}/admin/user/${userId}/resource/${availResId}`;
 export const ApiRemoveAvailableResource = (userId, availResId) => `${ApiURL}/admin/user/${userId}/resource/${availResId}`;
 
-// Machine
+// Admin Machine
 export const ApiGetAllMachine = ApiURL + '/admin/machines/';
 export const ApiRemoveMachine = ApiURL + '/admin/machine/';
 export const ApiPutMachine = ApiURL + '/admin/machine/';
 export const ApiCreateMachine = ApiURL + '/admin/machine/';
 
-// Resource
+// Admin Resource
 export const ApiGetAllResources = ApiURL + '/admin/resources/';
 export const ApiRemoveResource = ApiURL + '/admin/resource/';
 export const ApiPutResource = ApiURL + '/admin/resource/';

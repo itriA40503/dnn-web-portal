@@ -44,6 +44,9 @@ class ResourceSelector extends Component {
   static defaultProps = {
     styles: {},
     init: null,
+    detail: true,
+    showMachine: true,
+    showGPU: true,
   };
 
   getResourceValue = (resId) => {
@@ -75,14 +78,18 @@ class ResourceSelector extends Component {
             value={res.id}
             primaryText={
               <div style={res.id !== this.props.init ? { opacity: '0.5' } : {}}>
-                <GpuHandler
-                  styles={styles.extend}
-                  gpu={res.gpuType}
-                />
-                <MachineHandler
-                  styles={styles.extend}
-                  machine={res.machineType}
-                />
+                { this.props.showGPU &&
+                  <GpuHandler
+                    styles={styles.extend}
+                    gpu={res.gpuType}
+                  />
+                }
+                { this.props.showMachine &&
+                  <MachineHandler
+                    styles={styles.extend}
+                    machine={res.machineType}
+                  />
+                }
               </div>
             }
           />
@@ -92,6 +99,7 @@ class ResourceSelector extends Component {
   }
 
   render() {
+    let showDetail = this.props.showMachine && this.props.showGPU;
     return (
       <div style={this.props.styles}>
         <div style={{ margin: '0px auto' }}>
@@ -104,7 +112,7 @@ class ResourceSelector extends Component {
             {this.renderResourceList()}
           </div>
         </div>
-        {this.props.init !== null ? (
+        {this.props.init !== null && showDetail ? (
           <div>
             <p style={{
                 padding: '0px 0px 0px 30px',

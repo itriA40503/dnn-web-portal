@@ -22,7 +22,7 @@ import { errorNotify, copyNotify } from '../redux/Notify/actionNotify';
 
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
-import CreatePage from './CreatePage/CreatePage';
+import CreatePage from './Create/CreatePage';
 import DetailModal from './DetailModal';
 import StatusHandler from './Handler/StatusHandler';
 import GpuHandler from './Handler/GpuHandler';

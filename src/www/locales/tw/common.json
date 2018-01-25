@@ -38,6 +38,20 @@
     "machineDesc": "Machine 內容描述",
     "account": "帳號",
     "project": "計畫代號",
+    "createProc": {
+        "proc1": "選擇資源類型",
+        "proc2": "選擇日期範圍",
+        "proc3": "設定Image",
+        "proc4": "確認所有設定",
+        "back": "上一步",
+        "next": "下一步",
+        "confirm": "請確認您的schedule設定 !",
+        "finish": "完成",
+        "create": "建立Schedule",
+        "availAmnt": "可用的資源數量",
+        "availRsrc": "可用的資源類型",
+        "availDays": "該資源總共可用的天數"
+    },
     "createStep": {
         "step1": "選擇日期範圍",
         "step2": "設定Instance & Image",
