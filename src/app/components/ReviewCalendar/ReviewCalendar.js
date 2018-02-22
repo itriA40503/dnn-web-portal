@@ -4,13 +4,18 @@ import CalendarHint from './CalendarHint';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import '../../style/cal-day.css';
+// redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { errorNotify } from '../../redux/Notify/actionNotify';
+import { getCreateCalendarData } from '../../redux/CreateData/actionCreateData';
 // COLOR
 import { redA700 } from 'material-ui/styles/colors';
 // i18n
 import { translate } from 'react-i18next';
 // API call
 import axios from 'axios';
-import { ApiGetCalendar } from '../../resource';
+import { ApiGetCalendar, ApiGetUserCalendar } from '../../resource';
 
 class ReviewCalendar extends React.Component {
   static propTypes = {
@@ -105,12 +110,17 @@ class ReviewCalendar extends React.Component {
   }
   getData = () => {
     console.log('ReviewCalendar');
+    let params = new URLSearchParams();
+    params.append('amount', this.props.createData.amount);
+    params.append('resId', this.props.createData.resId);
+    const api = `${ApiGetUserCalendar}?${params.toString()}`;
     axios
       .get(
-        ApiGetCalendar, {
-          // body: {
-          //   gpuType: this.props.gpuType,
-          // },
+        api, {
+          headers: {
+            Accept: 'application/json',
+            'x-access-token': localStorage.getItem('token'),
+          },
         },
       )
       .then((result) => {
@@ -146,8 +156,10 @@ class ReviewCalendar extends React.Component {
           avil2,
           avil1,
         });
+        this.props.someActions.getCreateCalendarData(result.data.availableCalendar);
       })
       .catch((err) => {
+        this.props.someActions.errorNotify('Try another!');
         console.log(err);
       });
   };
@@ -301,4 +313,18 @@ class ReviewCalendar extends React.Component {
     );
   }
 }
-export default translate('')(ReviewCalendar);
+function matchDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    someActions: bindActionCreators({
+      errorNotify,
+      getCreateCalendarData,
+    }, dispatch) };
+}
+function mapStateToProps(state) {
+  return {
+    createData: state.createData,
+  };
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(ReviewCalendar));
