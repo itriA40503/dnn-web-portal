@@ -33,6 +33,9 @@ class SelectDate extends React.Component {
     this.props.someActions.getCreateStartDateData(new Date(moment().format('YYYY-MM-DD')));
   }
   disableStartDate = date => moment(date).isBefore(moment().add(-1, 'days'));
+  disableEndDate = date =>
+    moment(date).isBefore(moment(this.state.startDate)) ||
+    moment(date).isAfter(moment(this.state.startDate).add(1, 'month'));
   handleChangeStartDate = (event, date) => {
     this.setState({
       startDate: date,
