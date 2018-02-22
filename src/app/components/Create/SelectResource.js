@@ -55,7 +55,9 @@ class SelectResource extends React.Component {
     const { amountList, amountIdx, resId } = this.state;
     if (amountList === null || resId === null) { return; }
 
-    const params = new URLSearchParams({ amount: amountList[amountIdx], resId });
+    let params = new URLSearchParams();
+    params.append('amount', amountList[amountIdx]);
+    params.append('resId', resId);
     const api = `${ApiGetUserResourceRemind}?${params.toString()}`;
     fetch(api, {
       method: 'get',
