@@ -29,6 +29,7 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { errorNotify } from '../../redux/Notify/actionNotify';
+import { getCreateResData, getCreateAmountData } from '../../redux/CreateData/actionCreateData';
 
 // API
 import { ApiGetUserResources, ApiGetUserResourceRemind } from '../../resource';
@@ -58,6 +59,8 @@ class SelectResource extends React.Component {
     let params = new URLSearchParams();
     params.append('amount', amountList[amountIdx]);
     params.append('resId', resId);
+    this.props.someActions.getCreateAmountData(amountList[amountIdx]);
+    this.props.someActions.getCreateResData(resId);
     const api = `${ApiGetUserResourceRemind}?${params.toString()}`;
     fetch(api, {
       method: 'get',
@@ -131,8 +134,7 @@ class SelectResource extends React.Component {
   }
 
   gpuAmountSelect = (event, index, value) =>
-    this.setState({ amountIdx: value }, () => this.getUserResourceRemind())
-
+    this.setState({ amountIdx: value }, () => this.getUserResourceRemind());
   // Utility Functions
   resourceMapAvailableAmount = () =>
     this.state.availRes.filter(ar => this.state.resId === ar.resId)
@@ -152,6 +154,7 @@ class SelectResource extends React.Component {
       { amountList: this.resourceMapAvailableAmount() },
       () => this.getUserResourceRemind(),
     ));
+
   }
 
   renderGpuAmount = () => {
@@ -226,7 +229,13 @@ class SelectResource extends React.Component {
 }
 
 function matchDispatchToProps(dispatch) {
-  return { dispatch, someActions: bindActionCreators({ errorNotify }, dispatch) };
+  return {
+    dispatch,
+    someActions: bindActionCreators({
+      errorNotify,
+      getCreateResData,
+      getCreateAmountData,
+    }, dispatch) };
 }
 
 export default connect(null, matchDispatchToProps)(translate('')(SelectResource));
