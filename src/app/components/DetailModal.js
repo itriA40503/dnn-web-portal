@@ -136,8 +136,16 @@ class DetailModal extends React.Component {
 
   renderTabOne = () => {
     const { t } = this.props;
-    // console.log(this.props.data)
-    const sshCMD = 'ssh ' + this.props.data.username + '@' + this.props.data.container.podIp + ' -p ' + this.props.data.container.sshPort;
+    let podIp;
+    let sshPort;
+    if (this.props.data.container === null) {
+      podIp = '';
+      sshPort = '';
+    } else {
+      podIp = this.props.data.container.podIp;
+      sshPort = this.props.data.container.sshPort;
+    }
+    const sshCMD = 'ssh ' + this.props.data.username + '@' + podIp + ' -p ' + sshPort;
     return (
       <div>
         <List>
@@ -146,21 +154,21 @@ class DetailModal extends React.Component {
             <div style={{ display: 'inline-block' }}><span>{ (this.props.data.statusId === 2 || this.props.data.statusId === 3) && <SshWebBtn {...this.props} />}</span></div>
           </div>
           <CopyToClipboard
-            text={this.props.data.container.podIp}
+            text={podIp}
             onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'ip')}
           >
             <ListItem
               primaryText={<span><b>{t('common:ip')}</b></span>}
-              secondaryText={this.props.data.container.podIp}
+              secondaryText={podIp}
             />
           </CopyToClipboard>
           <CopyToClipboard
-            text={this.props.data.container.sshPort}
+            text={sshPort}
             onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'port')}
           >
             <ListItem
               primaryText={<span><b>{t('common:port')}</b></span>}
-              secondaryText={this.props.data.container.sshPort}
+              secondaryText={sshPort}
             />
           </CopyToClipboard>
           <CopyToClipboard
@@ -377,7 +385,7 @@ class DetailModal extends React.Component {
                   {this.renderTabTwo()}
                 </Tab>
                 <Tab label={<b>{t('common:portForwarding')}</b>} value="b">
-                  {this.renderTabThree()}
+                  {this.props.data.container !== null && this.renderTabThree()}
                 </Tab>
               </Tabs>
             </MuiThemeProvider>
