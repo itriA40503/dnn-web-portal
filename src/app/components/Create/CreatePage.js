@@ -48,6 +48,7 @@ import { serviceEmail } from '../../resource';
 
 // Other Components
 import SelectResource from './SelectResource';
+import SelectDate from './SelectDate';
 
 // Never be Changed
 const prevBoundary = 0;
@@ -60,8 +61,7 @@ class CreatePage extends React.Component {
       stepIndex: 0,
       loadingCreate: false,
       loading: false,
-      nextBlocking: false,
-      //
+      nextBlocking: false,  // next button
       startDate: null,
       endDate: null,
       imageId: null,
@@ -83,17 +83,7 @@ class CreatePage extends React.Component {
       case 1:
         return (
           <div>
-            <br />
-            <br />
-            {'HEY'}
-            <br />
-            <br />
-            {'HEY HEy Hey hey'}
-            <br />
-            <br />
-            {'HEY'}
-            <br />
-            <br />
+            <SelectDate />
           </div>
         );
       case 2:
