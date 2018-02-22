@@ -25,7 +25,7 @@ export const ApiGetHistory = ApiURL + '/user/schedules/history';
 export const ApiGetImage = ApiURL + '/images/';
 export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machines/';
-
+export const ApiGetUserCalendar = ApiURL + '/user/resource/calendar';
 // User
 export const ApiGetUserResources = `${ApiURL}/user/resources/`;
 export const ApiGetUserResourceRemind = `${ApiURL}/user/resource/remind`;
