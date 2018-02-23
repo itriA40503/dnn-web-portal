@@ -20,36 +20,31 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Tooltip
 import ReactTooltip from 'react-tooltip';
-
 // Redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { errorNotify, copyNotify } from '../../redux/Notify/actionNotify';
-
 // Material UI
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardHeader, CardTitle, CardText, CardActions } from 'material-ui/Card';
-
 // Material UI Color
 import { white } from 'material-ui/styles/colors';
-
 // Material UI Internal
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-
 // Material UI ICON
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy';
 import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail';
-
 // Resource & API
 import { serviceEmail } from '../../resource';
-
 // Other Components
 import SelectResource from './SelectResource';
 import SelectDate from './SelectDate';
 import SelectImage from './SelectImage';
+import ConfirmPage from './ConfirmPage';
+
 // Never be Changed
 const prevBoundary = 0;
 
@@ -95,7 +90,7 @@ class CreatePage extends React.Component {
       case 3:
         return (
           <div>
-            {'UNDERTALE'}
+            <ConfirmPage />
           </div>
         );
       default:
