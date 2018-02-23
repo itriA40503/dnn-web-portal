@@ -5,6 +5,10 @@ import api from './api.json';
 import ftp from './ftp.json';
 import sshweb from './sshweb.json';
 
+import moment from 'moment';
+// GA
+import ReactGA from 'react-ga';
+
 import { getMachineData } from '../redux/MachineData/actionMachineData';
 import { getHistoryData } from '../redux/HistoryData/actionHistoryData';
 import { errorNotify } from '../redux/Notify/actionNotify';
@@ -316,6 +320,51 @@ export const getInfo = async (token) => {
     .then(res => res)
     .catch(err => err);
   return result;
+};
+
+export const createSchedule = async (dispatch, token, createDate) => {
+  fetch(ApiCreateSchedule, {
+    method: 'post',
+    headers: {
+      'x-access-token': token,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      start: moment(createDate.start).format('YYYY-MM-DD'),
+      end: moment(createDate.end).format('YYYY-MM-DD'),
+      imageId: createDate.imageId,
+      machineId: createDate.machineId,
+    }),
+  })
+  .then(response => response.json)
+  .then((data) => {
+    if (data.code === '401' || data.code === 401) {
+      dispatch(errorNotify('ERROR : ' + data.message));
+      dispatch(errorNotify('Please, pick another date.'));
+      // GA
+      ReactGA.event({
+        category: 'CreatePage',
+        action: 'createSchedule',
+        label: 'Failed 401',
+      });
+    } else if (data.code === '500' || data.code === 500) {
+      dispatch(errorNotify('ERROR : ' + data.message));
+      // GA
+      ReactGA.event({
+        category: 'CreatePage',
+        action: 'createSchedule',
+        label: 'Failed 500',
+      });
+    } else {
+      // GA
+      ReactGA.event({
+        category: 'CreatePage',
+        action: 'createSchedule',
+        label: 'Success',
+      });
+    }
+  });
 };
 
 export const getImages = async (dispatch, token) => (
