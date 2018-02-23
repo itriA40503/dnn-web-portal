@@ -30,6 +30,7 @@ import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardHeader, CardTitle, CardText, CardActions } from 'material-ui/Card';
+import { List } from 'material-ui/List';
 // Material UI Color
 import { white } from 'material-ui/styles/colors';
 // Material UI Internal
@@ -38,13 +39,13 @@ import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy';
 import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail';
 // Resource & API
-import { serviceEmail } from '../../resource';
+import { serviceEmail, createSchedule } from '../../resource';
 // Other Components
 import SelectResource from './SelectResource';
 import SelectDate from './SelectDate';
 import SelectImage from './SelectImage';
 import ConfirmPage from './ConfirmPage';
-
+import FinishAutoPage from '../CreatePage/FinishAutoPage';
 // Never be Changed
 const prevBoundary = 0;
 
@@ -62,7 +63,7 @@ class CreatePage extends React.Component {
       imageId: null,
       machineId: null,
     };
-  }
+  }  
 
   getStepContent = (stepIndex) => {
     switch (stepIndex) {
@@ -78,7 +79,7 @@ class CreatePage extends React.Component {
       case 1:
         return (
           <div>
-            <SelectDate />
+            <SelectDate blocking={flag => this.setState({ nextBlocking: flag })} />
           </div>
         );
       case 2:
@@ -102,6 +103,11 @@ class CreatePage extends React.Component {
     }
   }
 
+  CreateDone = () => {
+    this.props.refresh();
+    this.props.switchReview();
+  };
+
   dummyAsync = (cb) => {
     this.setState({ loading: true }, () => {
       this.asyncTimer = setTimeout(cb, 450);
@@ -122,24 +128,43 @@ class CreatePage extends React.Component {
   handleNext = () => {
     const { stepIndex } = this.state;
     if (!this.state.loading) {
+      console.log(stepIndex);
       if (stepIndex === 3) {
         this.setState({ loadingCreate: true });
-      } else {
-        this.dummyAsync(() =>
-          this.setState({
-            loading: false,
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 3,
-          }));
+        createSchedule(this.props.dispatch, this.props.token, this.props.createData);
       }
+      this.dummyAsync(() =>
+        this.setState({
+          loading: false,
+          stepIndex: stepIndex + 1,
+          finished: stepIndex >= 3,
+          nextBlocking: (stepIndex === 0),
+        }));
     }
   }
 
   renderContent = () => {
-    const { stepIndex } = this.state;
+    const { finished, stepIndex } = this.state;
     const contentStyle = { margin: '0 16px', overflow: 'hidden' };
     const { t } = this.props;
-
+    if (finished) {
+      return (
+        <div style={contentStyle}>
+          <List>
+            <Divider />
+            <FinishAutoPage CreateDone={this.CreateDone} />
+            <Divider />
+            <RaisedButton
+              label={t('common:backReview')}
+              backgroundColor={muiStyle.palette.primary1Color}
+              icon={<ImageViewComfy color="white" />}
+              labelColor={white}
+              onTouchTap={this.CreateDone}
+            />
+          </List>
+        </div>
+      );
+    }
     return (
       <div style={contentStyle}>
         <div>
@@ -248,5 +273,11 @@ function matchDispatchToProps(dispatch) {
   return bindActionCreators({ errorNotify, copyNotify }, dispatch);
 }
 
-export default connect(null, matchDispatchToProps)(translate('')(CreatePage));
+function mapStateToProps(state) {
+  return {
+    createData: state.createData,
+  };
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(CreatePage));
 
