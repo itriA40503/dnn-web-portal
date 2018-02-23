@@ -8,6 +8,11 @@ export const getCreateAmountData = amount => ({
   amount,
 });
 
+export const getCreateAvailResData = availRes => ({
+  type: 'GET_CREATE_AVAILRES_DATA',
+  availRes,
+});
+
 export const getCreateImageData = image => ({
   type: 'GET_CREATE_IMAGE_DATA',
   image,

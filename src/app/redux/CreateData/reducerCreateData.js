@@ -9,6 +9,7 @@ const initData = {
   machineId: null,
   images: null,
   imageId: null,
+  availRes: null,
 };
 export default function (state = initData, action) {
   switch (action.type) {
@@ -19,6 +20,10 @@ export default function (state = initData, action) {
     case 'GET_CREATE_AMOUNT_DATA':
       return Object.assign({}, state, {
         amount: action.amount,
+      });
+    case 'GET_CREATE_AVAILRES_DATA':
+      return Object.assign({}, state, {
+        availRes: action.availRes,
       });
     case 'GET_CREATE_IMAGE_DATA':
       return Object.assign({}, state, {

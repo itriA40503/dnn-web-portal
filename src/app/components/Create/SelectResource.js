@@ -29,7 +29,7 @@ import ActionLabel from 'material-ui/svg-icons/action/label';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { errorNotify } from '../../redux/Notify/actionNotify';
-import { getCreateResData, getCreateAmountData } from '../../redux/CreateData/actionCreateData';
+import { getCreateResData, getCreateAmountData, getCreateAvailResData } from '../../redux/CreateData/actionCreateData';
 
 // API
 import { ApiGetUserResources, ApiGetUserResourceRemind } from '../../resource';
@@ -119,6 +119,7 @@ class SelectResource extends React.Component {
               () => this.getUserResourceRemind(),
             );
           });
+          this.props.someActions.getCreateAvailResData(data);
         }
       })
       .catch((err) => {
@@ -235,6 +236,7 @@ function matchDispatchToProps(dispatch) {
       errorNotify,
       getCreateResData,
       getCreateAmountData,
+      getCreateAvailResData,
     }, dispatch) };
 }
 
