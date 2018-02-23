@@ -63,6 +63,8 @@ class SelectDate extends React.Component {
       action: 'selectEndDate',
       label: endDate,
     });
+
+    if (this.props.createData.machineId) this.props.blocking(false);
   };
   render() {
     const { t } = this.props;
@@ -139,4 +141,10 @@ function matchDispatchToProps(dispatch) {
     }, dispatch) };
 }
 
-export default connect(null, matchDispatchToProps)(translate('')(SelectDate));
+function mapStateToProps(state) {
+  return {
+    createData: state.createData,
+  };
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(SelectDate));
