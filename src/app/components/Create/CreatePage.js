@@ -49,7 +49,7 @@ import { serviceEmail } from '../../resource';
 // Other Components
 import SelectResource from './SelectResource';
 import SelectDate from './SelectDate';
-
+import SelectImage from './SelectImage';
 // Never be Changed
 const prevBoundary = 0;
 
@@ -88,9 +88,15 @@ class CreatePage extends React.Component {
         );
       case 2:
         return (
-          <span>
-            { 'This is the bit I really care about!'}
-          </span>
+          <div>
+            <SelectImage />
+          </div>
+        );
+      case 3:
+        return (
+          <div>
+            {'UNDERTALE'}
+          </div>
         );
       default:
         return (
@@ -121,14 +127,14 @@ class CreatePage extends React.Component {
   handleNext = () => {
     const { stepIndex } = this.state;
     if (!this.state.loading) {
-      if (stepIndex === 2) {
+      if (stepIndex === 3) {
         this.setState({ loadingCreate: true });
       } else {
         this.dummyAsync(() =>
           this.setState({
             loading: false,
             stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2,
+            finished: stepIndex >= 3,
           }));
       }
     }
@@ -152,7 +158,7 @@ class CreatePage extends React.Component {
             style={{ marginRight: 12 }}
           />
           <RaisedButton
-            label={stepIndex === 2 ? (t('common:createProc.create')) : (t('common:createProc.next'))}
+            label={stepIndex === 3 ? (t('common:createProc.create')) : (t('common:createProc.next'))}
             backgroundColor={muiStyle.palette.primary1Color}
             labelColor={white}
             disabled={this.state.nextBlocking || this.state.loadingCreate}
@@ -227,6 +233,9 @@ class CreatePage extends React.Component {
                 </Step>
                 <Step>
                   <StepLabel>{t('common:createProc.proc3')}</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>{t('common:createProc.proc4')}</StepLabel>
                 </Step>
               </Stepper>
               <ExpandTransition loading={loading} open={true}>
