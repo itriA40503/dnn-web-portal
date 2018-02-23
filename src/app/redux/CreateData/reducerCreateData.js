@@ -7,6 +7,8 @@ const initData = {
   end: null,
   cal: null,
   machineId: null,
+  images: null,
+  imageId: null,
 };
 export default function (state = initData, action) {
   switch (action.type) {
@@ -35,6 +37,14 @@ export default function (state = initData, action) {
     case 'GET_CREATE_CALENDAR_DATA':
       return Object.assign({}, state, {
         cal: action.cal,
+      });
+    case 'GET_CREATE_IMAGES_DATA':
+      return Object.assign({}, state, {
+        images: action.images,
+      });
+    case 'GET_CREATE_IMAGE_ID_DATA':
+      return Object.assign({}, state, {
+        imageId: action.imageId,
       });
     case 'GET_CREATE_MACHINE_DATA':
       return Object.assign({}, state, {

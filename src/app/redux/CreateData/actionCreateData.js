@@ -28,6 +28,16 @@ export const getCreateCalendarData = cal => ({
   cal,
 });
 
+export const getCreateImagesData = images => ({
+  type: 'GET_CREATE_IMAGES_DATA',
+  images,
+});
+
+export const getCreateImageIdData = imageId => ({
+  type: 'GET_CREATE_IMAGE_ID_DATA',
+  imageId,
+});
+
 export const getCreateMachineData = machineId => ({
   type: 'GET_CREATE_MACHINE_DATA',
   machineId,
