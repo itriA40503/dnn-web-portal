@@ -68,7 +68,7 @@ export const SshWebURL = SshWebHost + '/?ssh=ssh://';
 export const gpuTypeList = ['v100', 'GTX1080Ti'];
 export const gpuAmountList = [1, 2, 3, 4, 5, 6, 7, 8];
 // Machine array
-export const machineTypeList = ['DGX', 'x86'];
+export const machineTypeList = ['dgx', 'x86'];
 // Charge period
 export const valueUnitTypeList = [
   { abbr: 'd', locale: 'common:datetime.day' },
