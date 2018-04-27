@@ -3,24 +3,25 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 const HappyPack = require('happypack');
 const os = require('os');
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 const config = {
   // context: path.join(__dirname, '/src/app/app.js'),
   // Entry points to the project
-  entry:{
-    //'webpack/hot/dev-server',
-    //'webpack/hot/only-dev-server',
-    'app':[
-        'react-hot-loader/patch',
-        'babel-polyfill',
-         path.join(__dirname, '/src/app/app.js'),
-	      'webpack/hot/only-dev-server',    
-    ]
+  entry: {
+    // 'webpack/hot/dev-server',
+    // 'webpack/hot/only-dev-server',
+    app: [
+      'react-hot-loader/patch',
+      'babel-polyfill',
+      path.join(__dirname, '/src/app/app.js'),
+      'webpack/hot/only-dev-server',
+    ],
   },
   // Server Configuration options
   devServer: {
@@ -38,10 +39,9 @@ const config = {
   output: {
     path: buildPath, // Path of output file
     filename: 'app.js',
-    library: 'bundle_dll'
+    library: 'bundle_dll',
   },
   plugins: [
-
     new webpack.DllReferencePlugin({
       // An absolute path of your application source code
       context: buildPath,
@@ -68,20 +68,20 @@ const config = {
     }),
     new NyanProgressPlugin({
       debounceInterval: 60,
-      nyanCatSays (progress, messages) {
-        if (progress === 1){
+      nyanCatSays(progress, messages) {
+        if (progress === 1) {
           const msg = [
             'Programmer make bug and bug make Programmer work.',
             'Programmer - A machine that turns coffee into code.',
             "What is a programmer's favourite hangout place? Ans: Foo bar",
             'Real programmers count from 0',
             'There’s no place like 127.0.0.1',
-            'There are only 10 kinds of people: those who know binary and those who don’t.'
-          ]
-          const x = Math.floor((Math.random() * (msg.length - 1)) + 1);
+            'There are only 10 kinds of people: those who know binary and those who don’t.',
+          ];
+          const x = Math.floor(Math.random() * ((msg.length - 1) + 1));
           return msg[x];
         }
-      }
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
@@ -91,10 +91,10 @@ const config = {
         drop_console: true,
         collapse_vars: true,
         reduce_vars: true,
-      }
+      },
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
+      minimize: true,
     }),
     // Enables Hot Modules Replacement
     // new webpack.HotModuleReplacementPlugin(),
@@ -103,40 +103,39 @@ const config = {
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
     // Moves files
-    new TransferWebpackPlugin([
-      {from: 'www'},
-    ], path.resolve(__dirname, 'src')),
+    new TransferWebpackPlugin(
+      [{ from: 'www' }],
+      path.resolve(__dirname, 'src'),
+    ),
     // Ingnore /moment/locale
     new webpack.IgnorePlugin(/\.\/locale$/),
     // using gzip
     new CompressionPlugin({
-        asset: "[path].gz[query]",
-        algorithm: "gzip",
-        test: /\.(js|html)$/,
-        threshold: 10240,
-        minRatio: 0.8
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|html)$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
     // transform multiple files in parallel
     new HappyPack({
       id: 'jsHappy',
       threadPool: happyThreadPool,
-      loaders: [{
-        path: 'babel-loader',
-        query: {
-          cacheDirectory: '.webpack_cache',
-          presets: [
-            'es2015',
-            'react',
-            'stage-0'
-          ],
-          plugins: ["transform-async-to-generator"]
-        }
-      }]
+      loaders: [
+        {
+          path: 'babel-loader',
+          query: {
+            cacheDirectory: '.webpack_cache',
+            presets: ['es2015', 'react', 'stage-0'],
+            plugins: ['transform-async-to-generator'],
+          },
+        },
+      ],
     }),
     new HappyPack({
       id: 'styleHappy',
       threadPool: happyThreadPool,
-      loaders: ["style-loader","css-loader","less-loader","url-loader"]
+      loaders: ['style-loader', 'css-loader', 'less-loader', 'url-loader'],
     }),
     new BundleAnalyzerPlugin({
       // Can be `server`, `static` or `disabled`.
@@ -167,52 +166,41 @@ const config = {
       // See more options here: https://github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
       statsOptions: null,
       // Log level. Can be 'info', 'warn', 'error' or 'silent'.
-      logLevel: 'info'
-    })
-    
+      logLevel: 'info',
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.js$/, // All .js files
-        use: [
-       
-          'babel-loader'
-      
-        ], // react-hot is like browser sync and babel loads jsx and es6-7
+        use: ['babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
         exclude: /(node_modules)/,
       },
-      { 
+      {
         test: /\.less/,
-        use: [
-          
-            "style-loader",
-            "css-loader",
-            "less-loader"
-          
-        ],
-        exclude: /node_modules/ 
+        use: ['style-loader', 'css-loader', 'less-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: { url: false }
-            },
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: { url: false },
+          },
         ],
       },
-      //image package
+      // image package
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         use: [
           {
             loader: 'url-loader',
-            options: { limit: 40000 }
+            options: { limit: 40000 },
           },
-          'image-webpack-loader'
-        ]
+          'image-webpack-loader',
+        ],
       },
       // { test: /\.ttf$/i,
       //   loader: 'null-loader',
