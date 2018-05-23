@@ -33,8 +33,8 @@ export default function (state = initData, action) {
       return Object.assign({}, state, {
         start: action.start,
       });
-    case 'GET_CREATE_END_DATE_DATA':
-      const availableMachines = state.cal.filter(o => (moment(o.date).isBetween(state.start, action.end) && o.availableNum > 0));
+    case 'GET_CREATE_END_DATE_DATA':      
+      const availableMachines = state.cal.filter(o => (moment(o.date).isBetween(state.start, moment(action.end).endOf('day')) && o.availableNum > 0));
       return Object.assign({}, state, {
         end: action.end,
         machineId: (availableMachines.length > 0 ? availableMachines[0].available[0] : null),
