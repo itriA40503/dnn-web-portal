@@ -28,7 +28,7 @@ class SelectDate extends React.Component {
     super(props);
     this.state = {
       startDate: new Date(moment().format('YYYY-MM-DD')),
-      endDate: null,
+      endDate: (this.props.createData.end && new Date(moment(this.props.createData.end).format('YYYY-MM-DD'))),
     };
     this.props.someActions.getCreateStartDateData(new Date(moment().format('YYYY-MM-DD')));
   }
